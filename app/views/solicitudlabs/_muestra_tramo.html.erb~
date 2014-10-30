@@ -1,0 +1,16 @@
+<% if muestra_tramo.id == @actual %>
+   <tr id="actual" valign=top><!-- para el efecto highlight de scriptaculous -->
+<% else %>
+   <tr valign=top>
+<% end %>
+     <td style="width:80px"><%= muestra_tramo.diasemana %></td>  
+     <td style="width:30px;text-align:right"><%= muestra_tramo.horaini %></td>
+     <td style="width:5px"><%="-" %></td>
+     <td style="width:30px;text-align:right"><%= muestra_tramo.horafin %></td>
+     <td style="width:15px"><%= link_to_remote image_tag("menos.png", :border=>0), 
+                                     :url => { :controller=>:solicitar, 
+                                     :action => 'eliminar', 
+                                     :num=> muestra_tramo.id },
+                                     :success=>'mostrardiv("solicitudlab_submit")' %></td>
+       
+   </tr>

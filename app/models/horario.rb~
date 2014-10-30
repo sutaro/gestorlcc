@@ -1,0 +1,12 @@
+class Horario < ActiveRecord::Base
+
+
+#HORARIO_EXAMEN=["9:00","10:00","11:00","12:00","13:00","14:00","15:00","15:30","16:30","17:30","18:30","19:30","20:30","21:30"]
+
+# restricciones sobre los datos
+validates_presence_of :num, :comienzo, :fin,
+                        :message => ': No puede estar en blanco'
+validates_format_of :comienzo, :fin,
+                     :with => %r{[1-9]?[0-9]\:[0-9][0-9]},
+                     :message => ': El formato debe ser hh:mm'
+end

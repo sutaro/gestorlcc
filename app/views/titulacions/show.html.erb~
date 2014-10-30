@@ -1,0 +1,18 @@
+<p>
+  <b>Codigo:</b>
+  <%=h @titulacion.codigo %>
+</p>
+
+<p>
+  <b>Nombre:</b>
+  <%=h @titulacion.nombre %>
+</p>
+
+<p>
+  <b>Abrevia:</b>
+  <%=h @titulacion.abrevia %>
+</p>
+
+
+<%= link_to 'Edit', edit_titulacion_path(@titulacion) %> |
+<%= link_to 'Back', titulacions_path %>

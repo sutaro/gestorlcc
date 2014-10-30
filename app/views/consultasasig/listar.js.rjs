@@ -1,0 +1,2 @@
+page.replace_html(:'cuadrante2', :partial=>"/consultasasig/cuadrante2", :object=>@asignacionexas)
+#cambie cuadrante2 por cuadrante3

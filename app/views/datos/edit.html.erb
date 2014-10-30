@@ -1,0 +1,38 @@
+<div id="central" >
+  <p>GESTOR DE RECURSOS<br>
+      <%= image_tag ("pointer.gif") %>Edici&oacute;n de datos personales
+  </p>
+  <div id="recuadro">
+    <p><%= image_tag ("bg_separ.gif") %></p>
+
+    <div id="recuadro-azul" style="height:250px">
+     <% form_for @usuario, :url => dato_path, :action=>"update" do |f|  %>
+  
+       <dl>
+          <dt>Identificador </dt>
+          <dd><%= h @usuario.identificador %></dd>
+          <dt>Nombre *</dt>
+          <dd><%= f.text_field :nombre,:size=>20 %></dd>
+          <dt>Apellidos *</dt>
+          <dd><%= f.text_field :apellidos,:size=>24 %></dd>
+          <dt>email *</dt>
+          <dd><%= f.text_field :email,:size=>24 %></dd>
+          <dt>Despacho</dt>
+          <dd><%= f.text_field :despacho,:size=>8 %></dd>
+          <dt>Tel&eacute;fono</dt>
+          <dd><%= f.text_field :telefono,:size=>8 %></dd>       
+          </dd>
+          <p><%= f.submit 'Guardar cambios', :class=>"boton"%></p>
+        </dl>
+
+     </div><!-- recuadro azul -->
+   <div id="errores">
+      <%= f.error_messages :header_message => 'Se produjeron errores en la captura de datos', 
+         :message => 'Imposible modificar datos del usuario debido a:'%>
+   </div>
+
+  <% end %><!-- del form_for -->
+
+ </div><!-- del recuadro -->
+</div><!-- de central -->
+

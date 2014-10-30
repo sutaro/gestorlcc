@@ -1,0 +1,66 @@
+<% nsol=Solicitudlab.all.size %>
+<% nsolexa=Solicitudlabexa.all.size %>
+<% nasig=Asignacion.all.size %>
+<% nasigdef=Asignaciondef.all.size %>
+<% nasignacionexa=Asignacionlabexa.all.size %>
+<% nasignacionexadef=Asignacionlabexadef.all.size %>
+<% total=nsol+nsolexa+nasig+nasigdef+nasignacionexa+nasignacionexadef %>
+
+
+
+
+<div id="central" >
+   <p>GESTOR DE RECURSOS<br/>
+      <%= image_tag ("pointer.gif") %>Par&aacute;metros del sistema: Periodos <%= "activo="+session[:cambia_activo].to_s %><%= "admision="+session[:cambia_admision].to_s %>
+   </p>
+   <div id="recuadro">
+<p><%= image_tag ("bg_separ.gif") %></p>
+    <div id="lista-gestion">
+     <table>
+      <tr>
+       <th> </th>
+       <th class="doscientos">Nombre</th>
+       <th class="cien">Tipo</th>
+       <th class="cien">Inicio</th>
+       <th class="cien">Fin</th>
+       <th class="cien">Ini. Solicitudes</th>
+       <th class="cien">Fin. Solicitudes</th>
+       <th class="cien">Admisi&oacute;n?</th>
+       <th class="cien">Asignado?</th>
+      </tr>
+      <% for periodo in @periodos %>
+      <tr valign="top" class="<%=cycle('linea-impar','linea-par') %>">
+       <td class="icono"><%= link_to image_tag("Editar.png", :border=>0), edit_periodo_path(periodo) %></td> 
+       <td><%=h periodo.nombre %></td>
+       <td><%=h periodo.tipo %>
+       <td style="text-align:right"><%=h fecha_europea(periodo.inicio) %></td>
+       <td style="text-align:right"><%=h fecha_europea(periodo.fin) %></td>
+       <td style="text-align:right"><% if periodo.iniciosol.nil? %>
+                                        <%= "- -" %>
+                                    <% else %>
+                                        <%= fecha_europea(periodo.iniciosol) %>
+                                    <% end %></td>
+       <td style="text-align:right"><% if periodo.finsol.nil? %>
+                                        <%= "- -" %>
+                                    <% else %>
+                                        <%= fecha_europea(periodo.finsol) %>
+                                    <% end %></td>
+       <td style="text-align:center"><%="SI" unless !periodo.admision? %></td>
+       <td style="text-align:center"><%="SI" unless !periodo.activo? %></td>
+       <td class="icono">
+        <% if total==0 %>
+         <%= link_to image_tag("borrar.png", :border=>0), periodo, 
+          :confirm => 'Seguro que desea eliminar el Periodo '+periodo.nombre+'? ', :method => :delete %>
+         <% end %></td> 
+      </tr>
+      <% end %><!-- de for periodo in periodos -->
+     </table>
+     </div><!-- de lista-gestion -->
+
+     <br/>
+     <% form_tag new_periodo_path, :method=>:get do -%>
+       <%= submit_tag "Agregar periodo", :class=>"botonindex" %>
+     <% end -%>
+  </div><!-- de recuadro -->
+</div><!-- de central -->
+

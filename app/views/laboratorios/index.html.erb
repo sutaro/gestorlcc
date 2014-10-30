@@ -1,0 +1,63 @@
+<% nsol=Solicitudlab.all.size %>
+<% nsolexa=Solicitudlabexa.all.size %>
+<% nasig=Asignacion.all.size %>
+<% nasigdef=Asignaciondef.all.size %>
+<% nasignacionexa=Asignacionlabexa.all.size %>
+<% nasignacionexadef=Asignacionlabexadef.all.size %>
+<% total=nsol+nsolexa+nasig+nasigdef+nasignacionexa+nasignacionexadef %>
+
+
+
+
+
+
+<div id="central" >
+    <p>GESTOR DE RECURSOS<br/>
+       <%= image_tag ("pointer.gif") %>Gesti&oacute;n de archivos: Laboratorios
+    </p>
+ <div id="recuadro">
+
+  <div id="lista-gestion">
+    <p><%= image_tag ("bg_separ.gif") %></p>
+
+    <table>
+    <tr>
+     <th> </th>
+     <th class="cincuenta">N&uacute;m </th>
+     <th class="cincuenta">Espec.</th>
+     <th class="cincuenta">Puestos </th>
+     <th class="cientocincuenta">Denominaci&oacute;n</th>
+     <th class="doscientos">Hardware </th>
+     <th class="doscientos">Software </th>
+     <th class="cientocincuenta">Comentarios </th>
+     <th class="cientocincuenta">Aviso usuarios</th>
+    </tr>
+
+    <% for laboratorio in @laboratorios %>
+    <tr valign="top" class="<%=cycle('linea-impar','linea-par') %>">
+     <td class="icono"><%= link_to image_tag("Editar.png", :border=>0), edit_laboratorio_path(laboratorio) %></td>
+     <td><%=h laboratorio.nombre_lab %></td>
+     <td><%= "SI" unless !laboratorio.especial?  %></td>
+     <td style="text-align:right"><%=h laboratorio.puestos %></td>
+     <td><%=h laboratorio.ssoo %></td>
+     <td><%=h laboratorio.descr_HW %></td>
+     <td><%=h laboratorio.descr_SW %></td>
+     <td><%=h laboratorio.comentarios %></td>
+     <td><%=h laboratorio.aviso %></td>  
+     <td class="icono">
+      <% if total==0 %>
+       <%= link_to image_tag("borrar.png", :border=>0), laboratorio, 
+       :confirm => 'Seguro que desea eliminar el Lab.'+laboratorio.nombre_lab+'?', :method => :delete %>
+      <% end %></td> 
+    </tr>
+    <% end %><!-- del for laboratorio in @laboratorios -->
+
+    </table>
+   </div><!-- de lista-gestion -->
+  <br/>
+  <% form_tag new_laboratorio_path, :method=>:get do -%>
+    <%= submit_tag "Nuevo laboratorio", :class=>"botonindex" %>
+  <% end -%>
+
+ </div><!-- de recuadro -->
+</div><!-- de central -->

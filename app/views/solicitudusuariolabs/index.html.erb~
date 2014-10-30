@@ -1,0 +1,25 @@
+<div id="central" >
+    <p id=titulo>GESTOR DE RECURSOS<br/>
+       &gt;Solicitudes de laboratorios para periodo lectivo
+    </p>
+    <div id="recuadro">
+        <div id="lista-gestion">
+             <p><%= image_tag ("bg_separ.gif") %></p>
+             <div id="busqueda">
+               <table>
+                <tr>
+                  <td><%= image_tag("search.png") %></td>
+                  <td>Buscar  : 
+                  <td><%= text_field_tag "query" %>   
+                      <%= observe_field 'query',  
+                             :frequency => 1,         
+                             :with => 'query',
+                             :url => {:controller => 'solicitudusuariolabs',:action => 'listar'} %>          
+                </tr>
+               </table>
+             </div>
+             <div id="tabla"><%= render :partial => "items_lista" %></div> 
+         </div><!-- de lista-gestion -->
+     </div><!-- de recuadro -->
+</div><!-- de central -->
+

@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  nombre_lab: MyString
+  puestos: 1
+  ssoo: MyString
+  descr_HW: MyString
+  descr_SW: MyString
+  comentarios: MyString
+
+two:
+  nombre_lab: MyString
+  puestos: 1
+  ssoo: MyString
+  descr_HW: MyString
+  descr_SW: MyString
+  comentarios: MyString

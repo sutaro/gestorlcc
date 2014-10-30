@@ -1,0 +1,46 @@
+body {
+          font-size: 12px;
+          background-color:#a4a3f7;
+        }
+
+#lista-gestion table {
+        border-collapse: collapse;
+ 
+
+        
+}
+
+ table tr th {
+        color: #010080;
+        padding: 5px;
+        vertical-align: top;
+        min-width: 150px;
+        overflow: auto;
+}
+
+#lista-gestion table tr td {
+        padding: 5px;
+        vertical-align: top;
+        min-width: 150px;
+        overflow: auto;
+}
+
+#lista-gestion .list-actions {
+  font-size:    x-small;
+  text-align:   right;
+  padding-left: 1em;
+}
+
+#lista-gestion .linea-par {
+  background:   #e0f8f8;
+}
+
+#lista-gestion .linea-impar {
+  background:   #F9CAA9;
+}
+
+.boton {
+        background:#f9caa9;
+        color:#010080;
+       }
+

@@ -1,0 +1,17 @@
+class NuevosUsuarios < ActiveRecord::Migration
+  def self.up
+Usuario.create(:id=>6, :identificador=>"pilarga", :password=> "", 
+                    :nombre=> "Pilar", :apellidos=> "Gonz\xC3\xA1lez", :email=> "pilarbbdd@yahoo.es", 
+                    :admin=> false, :despacho=> "1.2.3", :telefono=> 111111)
+     Usuario.create(:id=> 7,:identificador=> "juanfc", :password=> "", 
+                    :nombre=>"Juan Antonio", :apellidos=> "Falgueras Cano ", :email=>"jafc@uma.es ", 
+                    :admin=> false, :despacho=> "2.3.13", :telefono=> 222222)
+     Usuario.create(:id=> 15, :identificador=> "admin", :password=> "", 
+                    :nombre=> "Merche", :apellidos=>"Tosina", :email=> "merche@lcc.uma.es", 
+                    :admin=> true, :despacho=> "4.4.4", :telefono=> 444444)
+
+  end
+
+  def self.down
+  end
+end

@@ -1,0 +1,2 @@
+module SolicitudlabsHelper
+end

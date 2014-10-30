@@ -1,0 +1,47 @@
+<div id="central" >
+   <p>GESTOR DE RECURSOS<br/>
+      &gt;Par&aacute;metros del sistema: Agregando Per&iacute;odo
+   </p>
+   <div id="recuadro">
+     <p><%= image_tag ("bg_separ.gif") %></p>
+     <div id="recuadro-azul" style="height:275px">
+
+     <% form_for(@periodo) do |f| %>
+        <dl>
+          <dt>Nombre *</dt>
+          <dd><%= f.text_field :nombre, :size =>25 %></dd>
+              <% @dia=fecha_europea(Date.today) %>
+          <dt>Inicio *</dt>
+          <dd><%= f.text_field :inicio, :size=>12, :name=>"inicio",  
+               :id=>"DPC_inicio_DD-MM-YYYY",:value=>@dia %></dd>
+	  <dt>Fin *</dt>
+          <dd><%= f.text_field :fin, :size=>12, :name=>"fin",  
+               :id=>"DPC_fin_DD-MM-YYYY",:value=>@dia  %></dd>
+          <dt>Tipo *</dt>
+          <dd><%= select_tag "tipo", options_for_select(["Lectivo","Examenes","Festivo"]) %></dd>
+              <%= observe_field "tipo",
+                   :frecuency => 1,
+                   :function =>"if (value!='Festivo') document.getElementById('opcional').style.visibility='visible'
+                               else if (value=='Festivo') document.getElementById('opcional').style.visibility='hidden'" %> 
+              <div id="opcional" style="visibility:visible">
+                <dt>F.Inic. Solicitudes</dt>
+                <dd><%= f.text_field :iniciosol, :size=>12, :name=>"iniciosol",  
+                        :id=>"DPC_iniciosol_DD-MM-YYYY" %></dd>
+                <dt>F.Final. Solicitudes</dt>
+                <dd><%= f.text_field :finsol, :size=>12, :name=>"finsol",  
+                       :id=>"DPC_finsol_DD-MM-YYYY" %></dd>
+              </div>
+              <%= f.hidden_field :activo,:value=>:false %>
+              <%= f.hidden_field :activo,:value=>:false %>
+          <p><%= f.submit 'Crear', :class=>"boton" %></p>
+        </dl>
+     </div><!-- de recuadro-azul -->
+
+     <div id="errores">
+         <%= f.error_messages :header_message => 'Se produjeron errores en la captura de datos', 
+             :message => 'Imposible crear nuevo periodo debido a:'%>
+     </div>
+    <% end %><!-- de form_for -->
+
+   </div><!-- de recuadro -->
+</div><!-- de central -->

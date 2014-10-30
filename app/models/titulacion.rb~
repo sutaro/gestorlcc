@@ -1,0 +1,8 @@
+class Titulacion < ActiveRecord::Base
+# restricciones sobre los datos
+
+
+  validates_presence_of :codigo, :nombre, :abrevia,
+                        :message => ': No puede estar en blanco'
+  
+end

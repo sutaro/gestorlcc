@@ -1,0 +1,20 @@
+Mensaje generado automáticamente por el servicio de gestión de recursos del Depto. de Lenguajes y Ciencias de la Computación
+
+<%= @tipo %>solicitud de laboratorio para periodo lectivo:
+
+Usuario: <%= Iconv.conv('ascii//translit', 'utf-8',@usuario) %>
+Asignatura: <%= Iconv.conv('ascii//translit', 'utf-8',@asignatura) %>
+Titulación: <%= Iconv.conv('ascii//translit', 'utf-8',@titulacion) %>
+Curso: <%= @curso %>
+Número de puestos: <%= @npuestos %>
+Fecha inicio: <%= @fechaini %>
+Fecha fin: <%= @fechafin %>
+Tramos:
+<%= @tramos %>
+
+Preferencias: <%= Iconv.conv('ascii//translit', 'utf-8',@preferencias) %>
+
+Comentarios: <%= Iconv.conv('ascii//translit', 'utf-8',@comentarios) %>
+
+           <%= @emisor %>
+

@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  solicitudlab_id: 1
+  peticion_id: 1
+  laboratorio_id: 1
+
+two:
+  solicitudlab_id: 1
+  peticion_id: 1
+  laboratorio_id: 1

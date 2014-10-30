@@ -1,0 +1,25 @@
+<div id="titulo" >
+GESTION DE RECURSOS<br><br>
+&gt;Gestion de archivos: Mostrando recurso
+</div>
+<div id="recuadro">
+
+<table>
+  <tr>
+    <th>Identificador</th>
+    <th>Tipo</th>
+    <th>Características</th>
+  </tr>
+
+
+ <tr valign="top" >
+    <td><%=h @recurso.identificador %></td>
+    <td><%=h @recurso.descripcion %></td>
+    <td><%=h @recurso.caracteristicas %></td>
+</tr>
+
+</table>
+</div>
+
+
+

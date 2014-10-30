@@ -1,0 +1,78 @@
+# encoding: UTF-8
+class InsertarUsuarios10 < ActiveRecord::Migration
+  def self.up
+    usuario=Usuario.new(:identificador=>"pastrana",
+                      :password=>  "e0ee9613cd2dbef99b488ad5c9d0cf31",
+                      :password_confirmation=>  "e0ee9613cd2dbef99b488ad5c9d0cf31",
+                      :nombre=>"José Luis",
+                      :apellidos=>"Pastrana Brincones",
+                      :email=>"pastrana@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.51",
+                      :telefono=>"3316" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"pedre",
+                      :password=>   "c5dadfa504f7b671eaf0ca55910b6e22",
+                      :password_confirmation=>  "c5dadfa504f7b671eaf0ca55910b6e22",
+                      :nombre=>"Juan Antonio",
+                      :apellidos=>"Pedreira Lorenzo",
+                      :email=>"pedre@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.3.12",
+                      :telefono=>"2714" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"jignacio",
+                      :password=>  "0a48cebd4f5fbeeee62c87c5a18762a8",
+                      :password_confirmation=>  "0a48cebd4f5fbeeee62c87c5a18762a8",
+                      :nombre=>"José Ignacio",
+                      :apellidos=>"Peláez Sánchez",
+                      :email=>"jignacio@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.31",
+                      :telefono=>"2751" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"eloy",
+                      :password=>"e2fefce7c800dc06e21b9546c9f89b84",
+                      :password_confirmation=>"e2fefce7c800dc06e21b9546c9f89b84",
+                      :nombre=>"Eloy",
+                      :apellidos=>"Peña Ramos",
+                      :email=>"eloy@ctima.uma.es",
+                      :admin=>"false",
+                      :despacho=>"I-306-D",
+                      :telefono=>"7146" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"perez",
+                      :password=> "765ba753b609d84b3813991fe23f81b3",
+                      :password_confirmation=> "765ba753b609d84b3813991fe23f81b3",
+                      :nombre=>"José Luis",
+                      :apellidos=>"Pérez de La Cruz",
+                      :email=>"perez@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.24",
+                      :telefono=>"2801" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"ernesto",
+                      :password=> "8f91bdb4de0142710ac1718345b96308",
+                      :password_confirmation=>"8f91bdb4de0142710ac1718345b96308",
+                      :nombre=>"Ernesto",
+                      :apellidos=>"Pimentel Sánchez",
+                      :email=>"ernesto@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.10",
+                      :telefono=>"1396" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"pinto",
+                      :password=>  "d2f9dbffa7b9a979f9bc4d81e769497e",
+                      :password_confirmation=> "d2f9dbffa7b9a979f9bc4d81e769497e",
+                      :nombre=>"Mónica",
+                      :apellidos=>"Pinto Alarcón",
+                      :email=>"ernesto@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.7",
+                      :telefono=>"2796" )
+    usuario.save!
+  end
+
+  def self.down
+  end
+end

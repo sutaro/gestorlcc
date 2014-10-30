@@ -1,0 +1,23 @@
+
+<div id="central" >
+  <p>GESTOR DE RECURSOS<br>
+     <%= image_tag ("pointer.gif") %>Asignaci&oacute;n general de laboratorios en periodo lectivo
+  </p>
+  <div id="recuadro">  
+    <p><%= image_tag ("bg_separ.gif") %></p>
+       <% activo=Periodo.find(:first,:conditions=>['activo = ? and tipo= ?',"t","Lectivo"]) %>
+       <% if activo.nil? %>
+          <% activo=Periodo.find(:first,:conditions=>['tipo= ?',"Lectivo"],:order=>"inicio") %>
+          <% inactivo=true %>
+       <% end %>
+       <% nasig=Asignaciondef.all.size %>
+       <% if nasig>0 %>
+           <div id="cuadrante2"><%= render :partial => "cuadrante2" %></div> 
+        <% else %>
+            <div class="aviso">
+               <p>No hay ningun periodo lectivo o asignaci&oacute;n vigente </p>
+            </div>  
+        <% end %>  
+  </div>
+</div>
+

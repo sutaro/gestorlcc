@@ -1,0 +1,224 @@
+/* Estilo global */
+
+body .simple {
+          font-size: 12px;
+          background-color:#010080;
+        }
+
+th { font-size: larger;
+     
+   }
+
+
+body {              
+        font-size: 12px;
+        background-image:url(../images/fondo6sin.jpg) ;
+        background-repeat: no-repeat;
+        
+              
+      }
+
+a { 
+    color:#010080;
+    text-decoration: none;
+}
+
+
+a:visited {
+        
+        color:#010080;
+        }
+a:hover {
+        background:#f6ecd5;
+        color:#010080;
+        }
+          
+/* Estilo para todos los index */
+
+.boton {
+        background:#f6ecd5;
+        color:#010080;
+       }
+
+#login_logout {
+         color:#010080;
+         font-size: 12px;
+         font-weight: bold;
+         width:100px;
+         height: 50px;
+         margin:15px 0px 0px 35px;
+}
+
+#menu {
+        color:#010080;
+        font-size: 12px;
+        font-weight: bold;
+        width:130px;
+        height: 200px;
+        margin: 80px 55px -350px 15px;
+}
+
+#titulo-portada {
+        
+        color:#010080;
+        font-size: 24px;
+        font-weight: bold;
+        width:800px;
+        height: 50px;
+        padding: 15px 0px 0px 220px;
+        
+}
+
+#titulo {
+        
+        color:#010080;
+        font-size: 18px;
+        font-weight: bold;
+        min-width: 600px;
+        margin: 15px 150px 10px 200px;
+}
+
+#recuadro-portada {
+        background:#dee1e9;
+        color:#010080;       
+	width: 800px; 
+	height: 400px; 
+	margin: 75px 50px 220px 180px ; 
+        padding: 30px;
+      
+}
+
+
+
+#recuadro-portada p {
+        font-size: 14px;
+        
+}
+
+.lcc-portada {
+        color:#010080;
+        font-size: 20px;
+        font-weight: bold;
+        margin: -200px 50px 175px 300px ;
+}
+
+#img-centrada {
+        float: center;
+        padding: 20px
+}
+
+#recuadro {
+	min-width: 100px; 
+	min-height: 500px; 
+	margin: 65px 50px 250px 175px ; 
+        padding: 5px;
+      
+}
+
+#recuadro-azul {
+        background:#dee1e9;
+	width: 650px; 
+ 
+	//margin: 65px 50px 250px 175px ; 
+        padding: 5px;
+      
+}
+
+#lista-gestion table {
+        border-collapse: collapse;
+ 
+
+        
+}
+
+ table tr th {
+        color: #010080;
+        padding: 5px;
+        vertical-align: top;
+        //min-width: 150px;
+        overflow: auto;
+}
+
+#lista-gestion table tr td {
+        padding: 5px;
+        vertical-align: top;
+        //min-width: 150px;
+        overflow: auto;
+}
+
+#lista-gestion .list-actions {
+  font-size:    x-small;
+  text-align:   right;
+  padding-left: 1em;
+}
+
+#lista-gestion .linea-par {
+  background:   #dee1e9;
+}
+
+#lista-gestion .linea-impar {
+  background:   #f6ecd5;
+}
+
+#tramos {
+  width: 220px;
+  background: white;
+        }
+
+#subformulario {
+  width: 300px;
+  background: #f6ecd5;
+        }
+
+/// de la web de la uma
+
+
+dl.asignatura {
+	width: 570px;
+}
+
+dl.asignatura dt {
+        color: #010080;
+	font-size: 1.1em;
+	font-weight: bold;
+	background: url(../images/px_dl.gif) repeat-x left bottom;
+	width: 192px;
+	float: left;
+	clear: both;
+	padding: 2px 4px;
+	margin: 2px 0 0
+}
+
+dl.asignatura dd {
+	font-size: 1.1em;
+	font-weight: normal;
+	width: 362px;
+	float: left;
+	padding: 2px 4px;
+	margin: 2px 0 0
+}
+
+dl.asignatura dt.nobg {
+	background: none
+}
+
+dl.asignatura dd p {
+	font-size: 1.0em;
+	text-transform: uppercase;
+	margin: 2px 0
+}
+
+dl.asignatura dd ul {
+	float: none !important;
+	clear: right !important;
+	padding: 0;
+	margin: 0
+}
+
+dl.asignatura dd ul li,dl.asignatura dd ol li {
+	margin: 2px 0
+}
+
+dl.asignatura dd ol li {
+	list-style-position: inside
+}

@@ -1,0 +1,102 @@
+<div id="central" >
+  <p>GESTOR DE RECURSOS<br>
+  <%= image_tag ("pointer.gif") %>Asignaciones de laboratorios
+  <div id="recuadro">
+
+  <div id="lista-gestion">
+   <p><%= image_tag ("bg_separ.gif") %></p>
+   <% periodos=Periodo.find(:all,:conditions=>['activo = ? and tipo = ?',"t","Lectivo"]) %>
+
+   <% if periodos.size!=0 %><!-- si se esta en un periodo de asignaciones activadas -->
+    
+
+    <% if @asignacions.size!=0 %>
+       <div id="nom_periodo"><%= periodos.first.nombre %><span style="margin-left:400px;color:blue;font-weight:normal;font-size:0.7em">
+         Para imprimir 
+         <%= link_to image_tag("print.png",:alt=>"Para imprimir"), '../listado/asignacion_lectivo_usuario_impresa',{:target => "_blank" } %></span></div>
+    <table style="margin-top:10px">
+    <tr>
+     
+     <th class="cientocincuenta">Asignatura</th>
+     <th class="cien">Grupo</th>
+     <th class="cien">D&iacute;a</th>
+     <th class="cientocincuenta">Tramo horario</th>
+     <th class="cien">Laboratorio</th>
+     <th class="doscientos">Aviso usuarios</th>
+     <th class="doscientoscincuenta">Cambios de dia/hora</th>
+    </tr>
+    <% asignacion_ant=Asignacion.new %>
+    <% for asignacion in @asignacions %>
+      
+     <% if !(asignacion.solicitudlab_id==asignacion_ant.solicitudlab_id) %> 
+            <% clase=cycle('linea-impar','linea-par') %>
+            <tr valign="top" class="<%=clase %>">        
+             <td><% id=asignacion.solicitudlab.asignatura_id %><% asig=Asignatura.find(id) %>
+             <%= "<a onmouseover=ShowContent('asignatura"+id.to_s+"'); return true;
+   			   onmouseout=HideContent('asignatura"+id.to_s+"'); return true;>" %>
+                           <%= "<div id=asignatura"+id.to_s %> 
+				style='display:none;position:absolute;
+      					border-style: solid;
+      					background-color: white;width:200px;
+      					padding: 5px;';>
+                                        <%=h asig.nombre_asig %><br/>
+                                        <%=h asig.titulacion.abrevia %>
+			    </div>
+                 <%=h asignacion.solicitudlab.asignatura.abrevia_asig %></td>
+             <td><%=h asignacion.solicitudlab.curso %></td> 
+             <td><%=h asignacion.dia.nombre %></td>
+             <td><%=h asignacion.horaini+'-'+asignacion.horafin %></td>
+             <td style="text-align:center"><%=h asignacion.laboratorio.nombre_lab %></td>
+             <td><%=h asignacion.laboratorio.aviso %></td>
+             <td><%=h asignacion.mov_dia+asignacion.mov_hora %></td>
+            </tr>
+     <% else %>
+           <% if !(asignacion.peticionlab_id==asignacion_ant.peticionlab_id   and
+            asignacion.dia_id==asignacion_ant.dia_id) %>
+             <tr valign="top" class="<%=clase %>">        
+             <td></td>
+             <td></td> 
+             <td><%=h asignacion.dia.nombre %></td>
+             <td><%=h asignacion.horaini+'-'+asignacion.horafin %></td>
+             <td style="text-align:center">
+                 <%=h asignacion.laboratorio.nombre_lab %></td>
+             <td><%=h asignacion.laboratorio.aviso %></td>
+             <td><%=h asignacion.mov_dia+asignacion.mov_hora %></td>
+            </tr>  
+           <% else %>
+            <tr valign="top" class="<%=clase %>">
+             <td></td>
+             <td></td> 
+             <td></td>
+             <td><%=h asignacion.horaini+'-'+asignacion.horafin %></td>
+             <% if asignacion.laboratorio.id!=asignacion_ant.laboratorio.id %>
+                <td style="text-align:center">
+                    <%=h asignacion.laboratorio.nombre_lab %></td>
+                <td><%=h asignacion.laboratorio.aviso %></td>
+                <td><%=h asignacion.mov_dia+asignacion.mov_hora %></td>
+             <% else %>
+               <td></td>
+               <td></td>
+               <td></td>
+             <% end %>
+            </tr>
+           <% end %>
+     <% end %>           
+     <% asignacion_ant=asignacion %>
+    
+    <% end %>
+    </table>
+   
+<% else %>
+  <div id="inactivo"> 
+     <p>Actualmente no tiene concedida ninguna asignaci&oacute;n</p>
+     <p>Para cualquier consulta: tecnicos@lcc.uma.es</p>
+  </div>
+<% end %>
+<% else %>
+<div id="inactivo">  
+     <p>No hay ninguna asignaci&oacute;n vigente de periodo lectivo</p>
+     <p>Para cualquier consulta: tecnicos@lcc.uma.es</p>
+  </div>
+<% end %>
+</div></div></div>

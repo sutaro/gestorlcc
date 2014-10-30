@@ -1,0 +1,2 @@
+<%= select "asignatura","nombre_asig", @asignaturas.map {|p| [ p.nombre_asig ]} %>
+

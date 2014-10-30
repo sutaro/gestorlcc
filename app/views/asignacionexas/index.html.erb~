@@ -1,0 +1,13 @@
+<div id="central" >
+    <p>GESTOR DE RECURSOS<br>
+    &gt;Supervisi&oacute;n de asignaciones de laboratorios
+    <div id="recuadro">
+
+ 
+        
+
+      <div id="cuadrante"><%= render :partial => "cuadrante" %></div> 
+      
+    </div>
+   
+</div>

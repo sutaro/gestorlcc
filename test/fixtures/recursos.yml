@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  descripcion: MyString
+  identificador: MyString
+  caracteristicas: MyString
+
+two:
+  descripcion: MyString
+  identificador: MyString
+  caracteristicas: MyString

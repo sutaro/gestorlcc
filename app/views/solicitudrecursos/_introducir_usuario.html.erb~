@@ -1,0 +1,7 @@
+<table id="subformularioreserva" >
+   <tr style="font-size: 10px;font-weight: normal;text-align:center">
+      <td>Usuario&nbsp;&nbsp;</td>
+      <td><% @usuarios=Usuario.find(:all,:order=>"apellidos") %>
+          <%= select "usuario", "identificador", @usuarios.map {|u| [u.apellidos+", "+u.nombre]} %> </td>    
+   </tr>     
+</table>

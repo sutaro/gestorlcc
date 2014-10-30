@@ -1,0 +1,22 @@
+class SolicitarController < ApplicationController
+
+before_filter :login_requerido
+
+  def anadir
+    @peticion=Solicitud.new
+    session[:codigo_tramo]-=1
+    @peticion.id=session[:codigo_tramo]
+    @peticion.diasemana=params[:diasemana]
+    @peticion.horaini=params[:horaini]
+    @peticion.horafin=params[:horafin]
+    session[:tramos_horarios].anadir_solicitud(@peticion)
+    respond_to {|format| format.js }
+  end
+
+
+  def eliminar
+    session[:tramos_horarios].borrar_solicitud(params[:num])
+    respond_to {|format| format.js }
+  end
+
+end

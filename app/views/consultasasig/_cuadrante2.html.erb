@@ -1,0 +1,87 @@
+
+ <% activo=Periodo.find(:all,:conditions=>['activo = ? and tipo= ?',"t","Examenes"]) %>
+      <div id="nom_periodo">
+         <%= activo.first.nombre %>
+           <span style="margin-left:400px;color:blue;font-weight:normal;font-size:0.7em">
+         Para imprimir 
+         <%= link_to image_tag("print.png",:alt=>"Para imprimir"), '../listado/asignacion_examenes_impresa',{:target => "_blank" } %></span>
+      </div>
+
+<div id="recuadro">
+ <div id="lista-gestion">
+
+  <table>
+   <tr>
+
+    <th class="cien">Fecha</th>
+    <th class="doscincuenta">Profesor</th>
+    <th class="cientocincuenta">Asignatura</th>
+    <th class="cincuenta">Titulaci&oacute;n</th>
+    <th class="cien">Curso</th>
+    <th class="cincuenta">Puestos</th>
+    
+    <th class="cientoveinticinco">Horario</th>
+    <th class="cientocincuenta">Laboratorios</th>
+   </tr>
+   <% aant_id=0 %><% diaant="1000-1-1" %>
+   <% @asignacionexas.each do |a| %>
+  
+  <% if aant_id!=a.solicitudlabexa_id %>
+   <% if diaant != a.dia %>
+   <tr><td colspan=8 ></td></tr>
+  <% end %>
+  
+   <tr valign="top" class="<%=cycle('linea-impar','linea-par') %>">
+    <td style="text-align:center"><% if diaant != a.dia %>
+                                    <%=h formato_europeo(a.dia) %>
+                                  <% end %><% diaant=a.dia %></td>
+    <td><%=h a.solicitudlabexa.usuario.nombre+" "+a.solicitudlabexa.usuario.apellidos %></td>
+    <td><%= "<a onmouseover=ShowContent('asignatura"+a.id.to_s+"'); return true;
+   			   onmouseout=HideContent('asignatura"+a.id.to_s+"'); return true;>" %>
+                           <%= "<div id=asignatura"+a.id.to_s %> 
+				style='display:none;position:absolute;
+      					border-style: solid;
+      					background-color: white;
+      					padding: 5px;';>
+                                        <%=h a.solicitudlabexa.asignatura.nombre_asig %>
+                                        
+			    </div>
+         <%=h a.solicitudlabexa.asignatura.abrevia_asig %></a></td>
+   
+    <td>
+        <%= "<a onmouseover=ShowContent('titulacion"+a.id.to_s+"'); return true;
+   			   onmouseout=HideContent('titulacion"+a.id.to_s+"'); return true;>" %>
+                           <%= "<div id=titulacion"+a.id.to_s %> 
+				style='display:none;position:absolute;
+      					border-style: solid;
+      					background-color: white;
+      					padding: 5px;';>
+                                        <%=h a.solicitudlabexa.asignatura.titulacion.nombre %>
+			    </div>
+        <%=h a.solicitudlabexa.asignatura.titulacion.abrevia %></a></td>
+    <td style="text-align:center"><%=h a.solicitudlabexa.curso=="sin curso"? "-" : a.solicitudlabexa.curso %></td>
+    <td style="text-align:center"><%=h a.solicitudlabexa.npuestos %></td> 
+    <td><% todasas=@asignacionexas.select{|as| as.solicitudlabexa==a.solicitudlabexa } %>
+        <%=h a.horaini+"-"+todasas.last.horafin %></td>
+    <td style="text-align:center"><% labs=todasas.map{|as| as.laboratorio.nombre_lab }.sort %>
+        <% antlab=" " %>
+        <% labs.each do |l|  %>
+          <% if antlab!=l %>
+            <% if antlab!=" " %>
+               <%= " - " %>
+            <% end %>
+            <%=h l %>
+          <% end %>
+          <% antlab= l %>
+        <% end %></td>
+    
+                           
+    </td>
+   </tr>
+     <% aant_id=a.solicitudlabexa_id %>
+    <% end %><!-- de if ant -->
+   <% end %><!-- de @asignacionexas -->
+
+  </table>
+ </div>
+</div>

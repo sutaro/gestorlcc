@@ -1,0 +1,103 @@
+<table>
+ <tr>
+   <td>
+     <p style="font-size:1em;margin-left:50px;">ASIGNACI&Oacute;N GENERAL DE LABORATORIOS</p>
+     <% activo=Periodo.find(:first,:conditions=>['activo = ? and tipo= ?',"t","Lectivo"]) %>
+     <% if activo.nil? %>
+        <% activo=Periodo.find(:first,:conditions=>['tipo= ? and inicio>= ?',"Examenes",Date.today],:order=>"inicio") %>
+        <% inactivo=true %>
+     <% end %>
+     <div id="nom_periodo" style="margin-left:50px;">
+     <% if inactivo %>
+       <span style="color:red">(Consulta inactiva para usuarios)</span>
+     <% else %>
+       <%= activo.nombre %>
+     <% end %>
+     </div></td>
+   <td class="doscincuenta"></td>
+   <td>
+     <%= image_tag("logo_lcc.png", :border=>0,:width=>"195", :height=>"100", :id=>"logotipo") %> </td>
+  </tr>
+</table>
+      <% @dias=Dia.find(:all,:conditions=>['en_uso=?',"t"],:order=>"num") %><% @dias=@dias.select {|d| d.en_uso } %>
+      
+    
+        <% for dia in @dias %><!-- por cada dia de la semana, un cuadrante -->
+   
+        <div id="rotulodia">
+          <%="<p style='color:blue'>"+dia.nombre+"</p>&nbsp;&nbsp;" %><br/>
+          <%= image_tag ("bg_separ.gif") %>
+        </div>
+        <table id="asignacion">
+          <% @labs=Laboratorio.find(:all,:order=>"nombre_lab") %>
+          <tr>
+           <th></th>
+           <% for lab in @labs do %><!-- los laboratorios son las columnas -->
+           <th class="doscientos">
+              <%= lab.nombre_lab %>
+           </th>
+           <% end %><!-- del for lab in @labs --> 
+         </tr>
+
+         <%@horas=Horario.find(:all,:order=>"num") %>
+         <% for hora in @horas do %><!-- las horas son las filas -->
+         <tr>
+           <th class="cien"><%=hora.comienzo+'-'+hora.fin %></th>
+           <% for lab in @labs do %>
+             <!-- buscamos cada asignacion de ese laboratorio ese dia a esa hora -->
+             <% as=@asignacions.select {|a| a.laboratorio_id==lab.id and a.horaini.to_s==hora.comienzo.to_s and dia.id==a.dia_id and a.solicitudlab.fechafin>=Date.today} %>
+             <!-- ordenamos las asignaciones por fechaini -->
+             <% as_ordenadas=as.sort_by{|a| a.solicitudlab.fechaini}.to_a %>
+             <% solapa=0 %><!-- contamos los solapamientos -->
+             <% for i in 0..as_ordenadas.size-2 %>
+               <% if as_ordenadas[i].solicitudlab.fechafin>as_ordenadas[i+1].solicitudlab.fechaini %>
+                  <% solapa+=1 %>
+               <% end %>
+             <% end %>
+           <td> <% if solapa>0 %><!-- si hay colisiones, las enmarcamos en rojo -->
+                  <div style="border-style:solid;border-color:#ff0000">
+                <% end %>
+                <% for a in as %><!-- por cada asignacion (deberia ser una en todo caso) -->
+                          <% if a.solicitudlab.tipo=="T" %><!-- todo el periodo -->
+                              <div style="color:#ff8727">
+                          <% else if a.solicitudlab.tipo=="I" %><!-- un intervalo dentro del periodo -->
+                              <div style="color:#070d5b">
+                          <% else if a.solicitudlab.tipo=="X" %><!-- asignacion directa -->
+                              <div style="color:#9961c1">
+                          <% else %>
+			      <div style="color:#15611c"><!-- puntual -->
+                          <% end %>
+                          <% end %><% end %>
+                            <%= a.solicitudlab.asignatura.abrevia_asig %><br/>
+                            <%= "Grp: " %>
+                            <% if a.solicitudlab.curso!="sin curso" %>
+                               <%= a.solicitudlab.curso  %>
+                            <% else %>
+                               <%= " - " %>
+                            <% end %><%= a.solicitudlab.asignatura.titulacion.abrevia %><br>
+                            <%= a.solicitudlab.usuario.nombre+" "+a.solicitudlab.usuario.apellidos %><br>
+                            <% if a.solicitudlab.tipo=="T" %>
+                                         <%= "Todo el periodo" %>
+                            <% else if a.solicitudlab.tipo=="I" %>
+                                         <%= fecha_europea(a.solicitudlab.fechaini.to_s)+" - "+fecha_europea(a.solicitudlab.fechafin.to_s) %>
+                                   <% else if a.solicitudlab.tipo=="X" %>
+                                         <%= fecha_europea(a.solicitudlab.fechaini.to_s)+" - "+fecha_europea(a.solicitudlab.fechafin.to_s) %>
+                                   <% else %>
+                                         <%= fecha_europea(a.solicitudlab.fechaini.to_s) %>                                 
+                                   <% end %><% end %><% end %>
+			    
+                            
+                            </div>
+
+			    
+                <% end %><!-- del for a in as -->
+                <% if as.size>1 %>
+                  </div>
+                <% end %>
+              </td>
+             <% end %><!-- de for lab in @labs -->
+           </tr>
+     <% end %><!-- de for hora in @horas --> 
+   </table>
+   <% end %><!-- de for dia in @dias -->
+

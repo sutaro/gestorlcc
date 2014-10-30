@@ -1,0 +1,41 @@
+<div id="central" >
+    <p>GESTOR DE RECURSOS<br/>
+       <%= image_tag ("pointer.gif") %>Gesti&oacute;n de archivos: Editando solicitud de recurso
+    </p>
+    <div id="recuadro">
+       <p><%= image_tag ("bg_separ.gif") %></p>
+       <div id="recuadro-azul" style="height:350px">
+           <% form_for @solicitudrecurso, :html=> {:name => "formulario"} do |f| %>
+            <dl>
+              <dt>Fecha reserva</dt>
+              <dd><%= @dia %></dd>
+              <dt>Usuario *</dt>
+              <dd onchange=' mostrardiv("solicitudrecurso_submit")'>
+                    <%= select "usuario", "identificador", @usuarios.map {|u| [u.apellidos+", "+u.nombre]},
+                            html_options={:selected=>@usuarioselec } %></dd>
+              <dt>Tipo de recurso</dt>
+              <dd><% familia=Recurso.find_by_identificador(@solicitudrecurso.tipo).descripcion %>
+                  <%= familia+" : "+@solicitudrecurso.tipo %></dd>
+              <dt>Fecha reserva</dt>
+              <dd><%= @nfechareserva %>  </dd>
+              <dt>Motivos</dt>
+              <dd onkeydown=' mostrardiv("solicitudrecurso_submit")'>
+                 <%= f.text_area :motivos, :rows =>4, :cols=>40, :name=>"motivos" %></dd>
+                 <p><%= f.submit 'Actualizar datos', :class=>"botonescondido" %></p>
+            </dl> 
+       </div><!-- de recuadro-azul -->
+       <div id="errores">
+           <%= f.error_messages :header_message => 'Se produjeron errores en la captura de datos', 
+                :message => 'Imposible modificar la  solicitud de laboratorio:'%>
+           <% if flash[:notice] %>
+               <div id="errorExplanation">
+                  <p>Imposible modificar la  solicitud de recurso:</p>
+                  <ul>
+                    <li><%=flash[:notice]  %></li>
+                  </ul>
+               </div>
+           <% end %>
+       </div>
+       <% end %><!-- de form_for -->
+     </div><!-- de recuadro -->
+</div><!-- de central -->

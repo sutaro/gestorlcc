@@ -1,0 +1,46 @@
+<div id="central" >
+    <p>GESTOR DE RECURSOS<br>
+       <%= image_tag ("pointer.gif") %>Supervisi&oacute;n de asignaciones de laboratorios en periodo lectivo
+    </p>
+    <p><%= image_tag ("bg_separ.gif") %></p>
+
+      <% if @admision.size>0 %>
+        <div id="inactivo">
+         El periodo de admisi&oacute;n de solicitudes est&aacute; a&uacute;n abierto<br/>
+         Proceda a su clausura antes de asignar laboratorios<br/>
+        </div>
+      <% else %>
+        <div id="recuadro">
+         <div id="cuadrante">
+         <div id="revisa">
+          <table style="padding-top:20px">
+           <tr>
+            <td colspan=3 style="font-size:1.4em;font-weight:bold;text-align:center;width:500px;color:#f00">PERIODO LECTIVO</td>
+           </tr>
+           <tr>
+            <td class="doscientos">Asignaci&oacute;n inicial</td>
+            <td class="cien"><%= link_to_remote(image_tag("boton2.png",:border=>0),
+                         :before   => 'mostrardiv("imagen-progreso")',
+                         :url      => { :controller=>'asignacions',:action => 'asignar_iniciar' })%></td>
+            <td class="doscientoscincuenta">Asignaci&oacute;n en curso</td>
+            <td class="cien"><%= link_to_remote(image_tag("boton2.png",:border=>0),
+                         :before   => 'mostrardiv("imagen-progreso")',
+                         :url      => { :controller=>'asignacions',:action => 'asignar_continuar' })%></td>
+           </tr>
+           <tr>
+            <td class="doscientos" style="color:blue;font-size:1.5em;line-height:1.5em;border: 4px solid #fbbb13">Se tomaran las solicitudes iniciales<br/>Cualquier asignaci&oacute;n provisional almacenada ser&aacute; descartada</td>
+            <td class="cien"></td>
+            <td class="doscientos" style="color:blue;font-size:1.5em;line-height:1.5em;border: 4px solid #fbbb13">Se partir&aacute; de la &uacute;ltima asignaci&oacute;n provisional almacenada<br/><span style="color:red"><%= "Hay ya asignaciones provisionales!" unless @totalprov==0 %></span></td>
+            <td class="cien"></td>
+           <td colspan=4>
+                 <div id="imagen-progreso" style="text-align:center;visibility:hidden">
+                     <%=image_tag("ajax-loader.gif",:border=>0) %>
+                 </div></td>
+          </tr>
+          </table>
+          </div>
+          </div>     
+        </div>
+      <% end %>
+
+</div>

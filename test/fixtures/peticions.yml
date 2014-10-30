@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  solicitudrecurso_id: 1
+  diasemana: MyString
+  horaini: MyString
+  horafin: MyString
+
+two:
+  solicitudrecurso_id: 1
+  diasemana: MyString
+  horaini: MyString
+  horafin: MyString

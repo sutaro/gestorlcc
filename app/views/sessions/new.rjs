@@ -1,0 +1,2 @@
+page.replace_html "errorlogin", flash[:notice]
+page[:errorlogin].visual_effect :highlight

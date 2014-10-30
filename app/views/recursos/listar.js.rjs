@@ -1,0 +1,1 @@
+page.replace_html(:'tabla', :partial=>"/recursos/items_lista", :object=>@recursos)

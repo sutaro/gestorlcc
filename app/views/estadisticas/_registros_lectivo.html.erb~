@@ -1,0 +1,197 @@
+  <% if @todos %>
+    <% periodos=["Todos los periodos"] %>
+  <%else %>
+    <% periodos=@registros.map{|r| r.periodo}.uniq %>
+  <% end %>
+  <% for p in periodos %>
+   <div class="periodos">
+    <%= p + " : Horas x D&iacute;as "%>
+   </div>
+   <p style="margin: 30px 0px"><%= image_tag ("bg_separ.gif") %></p>
+
+    <% @labs=Laboratorio.find(:all,:order=>"nombre_lab") %>
+    <% @titulaciones=Titulacion.find(:all,:order=>"id") %>
+    <% @dias=Dia.find(:all,:order=>"num") %>
+    <% @horas=Horario.find(:all,:order=>"num",:select=>"comienzo,fin")%>
+
+    <table class="estadistica" >
+     <tr>
+      <th></th>
+      <% for dia in @dias do %><!-- Los dias son las columnas -->
+      <th>
+         <%= dia.nombre %>
+      </th>
+      <% end %><!-- del for dia --> 
+      <th>Total</th>
+     </tr>
+
+     
+     <% for hora in @horas do %><!-- las horas son las filas -->
+     <tr>
+      <th style="width:120px"><%=hora.comienzo+'-'+hora.fin %></th>
+      <% tot_as=0 %>
+      <% for dia in @dias do %>
+       <!-- busco las asignaciones ese dia y hora -->
+         <% if @todos %>
+              <% @asigna=@registros.select {|r| r.diasem==dia.nombre and r.horaini==hora.comienzo} %>
+         <% else %>
+              <% @asigna=@registros.select {|r| r.diasem==dia.nombre and r.horaini==hora.comienzo and r.periodo==p} %>
+         <% end %>
+         
+         <% as=@asigna.size %>
+         <% tot_as+=as %>
+         <td>
+           <% if as!=0 %><!-- esto es lo que se ve -->
+
+<!-- ESTO -->  <%= "<a onmouseover=ShowContent('hora"+hora.id.to_s+"-"+dia.id.to_s+"'); return true;
+   			   onmouseout=HideContent('hora"+hora.id.to_s+"-"+dia.id.to_s+"'); return true;>" %>
+                           <%= "<div id=hora"+hora.id.to_s+"-"+dia.id.to_s %> 
+				style='display:none;position:absolute;
+      					border-style: solid;
+      					background-color: white;width:400px;text-align:left;
+      					padding: 5px;';> 
+               <% for a in @asigna do %>
+                  <p style="font-size:0.8em"><%=a.nombre_lab+"<br/><span style='color:red'> Prof: </span> "+a.nombre_usu+" "+a.apellidos_usu %><br>
+                  <%= "<span style='color:red'>Asig: </span> "+a.nombre_asig  %><br>
+                  <%= "<span style='color:red'>Tit: </span> "+a.nombre_tit %></p>
+               <% end %> 
+               </div>
+
+
+          
+           <%= as.to_s+" labs / "+ @labs.size.to_s + " labs"%><br/><%= number_with_precision((Float(100*as)/@labs.size),:precision=>2)+" %" %>
+          <% end %>
+         </td>
+      <% end %>
+      <td>
+          <% if tot_as!=0 %><!-- esto es lo que se ve -->
+            <%= tot_as.to_s+" asig / "+(@labs.size*@dias.size).to_s + " asig<br/>"+number_with_precision((Float(100*tot_as)/(@labs.size*@dias.size)),:precision=>2)+ " % "%> 
+          <% else %>
+            <%= '-' %>
+          <% end %>  
+     </tr>
+     <% end %>
+     <tr>
+      <th>Total dias</th>
+      <% for dia in @dias do %>
+       <!-- busco las asignaciones a ese lab de las asignaturas de esa tit -->
+         <% if @todos %>
+             <% as_pordia=@registros.select {|r| r.diasem==dia.nombre }.size %>    
+         <% else %>
+             <% as_pordia=@registros.select {|r| r.diasem==dia.nombre and r.periodo==p}.size %>    
+         <% end %>
+          
+         <td><!-- esto es lo que se ve -->         
+           <%= as_pordia.to_s+" asig / "+ (@labs.size*@horas.size).to_s+ " asig<br>"+number_with_precision((Float(100*as_pordia)/(@labs.size*@horas.size)),:precision=>2)+" % " %>         
+         </td>
+      <% end %><th></th>
+     </tr>
+   </table><!--tabla de dias x horas -->
+
+   <div class="periodos">
+    <%= p + " : Laboratorios x Titulaci&oacute;n "%>
+   </div>
+   <p style="margin: 30px 0px"><%= image_tag ("bg_separ.gif") %></p>
+
+
+    <table class="estadistica">
+     <tr>
+      <th></th>
+      <% for lab in @labs do %><!-- Los laboratorios son las columnas -->
+      <th >
+        <%= "<a onmouseover=ShowContent('"+"flotante"+lab.id.to_s+"'); return true;
+   		      onmouseout=HideContent('"+"flotante"+lab.id.to_s+"'); return true;>" %>
+                      <%= "<div id="+"flotante"+lab.id.to_s+" 
+				style='display:none;position:absolute;
+      					border-style: solid;
+      					background-color: white;
+      					padding: 5px;';>" %>
+               <%= "Denominacion: "+lab.ssoo %><br>
+               <%= "Num. puestos: "+lab.puestos.to_s  %><br>
+               <%= "Lab Especial?: "+((lab.especial)?"SI":"NO") %>
+         </div>
+         <%= lab.nombre_lab %></a><!-- nombre_lab e info flotante por laboratorio -->
+      </th>
+      <% end %><!-- del for lab --> 
+      <th>Total</th>
+     </tr>
+
+     
+     <% for tit in @titulaciones do %><!-- las titulaciones son las filas -->
+     <tr>
+      <th style="width:120px">
+       <%= "<a onmouseover=ShowContent('tit"+tit.id.to_s+"'); return true;
+   			   onmouseout=HideContent('tit"+tit.id.to_s+"'); return true;>" %>
+                           <%= "<div id=tit"+tit.id.to_s %> 
+				style='display:none;position:absolute;
+      					border-style: solid;
+      					background-color: white;width:200px;
+      					padding: 5px;';>
+                                        <%=h tit.nombre %><!-- nombre completo de la titulacion -->
+			    </div>
+       <%=tit.abrevia %></th>
+      <% tot_as=0 %>
+      <% for lab in @labs do %>
+       <!-- busco las asignaciones a ese lab de las asignaturas de esa tit -->
+         <% if @todos %>
+             <% @asigna=@registros.select {|r| r.nombre_tit==tit.nombre and r.nombre_lab==lab.nombre_lab} %>
+         <% else %>
+             <% @asigna=@registros.select {|r| r.nombre_tit==tit.nombre and r.nombre_lab==lab.nombre_lab and r.periodo==p} %>
+         <% end %>
+         <% as=@asigna.size %>
+         <% tot_as+=as %>
+         <td>
+          <% if as!=0 %><!-- esto es lo que se ve -->
+
+
+
+
+<!-- ESTO -->  <%= "<a onmouseover=ShowContent('tit"+tit.id.to_s+"-"+lab.id.to_s+"'); return true;
+   			   onmouseout=HideContent('tit"+tit.id.to_s+"-"+lab.id.to_s+"'); return true;>" %>
+                           <%= "<div id=tit"+tit.id.to_s+"-"+lab.id.to_s %> 
+				style='display:none;position:absolute;
+      					border-style: solid;
+      					background-color: white;width:300px;text-align:left;
+      					padding: 5px;';>
+               <% for a in @asigna do %>
+                  <p style="font-size:0.8em">
+                  <%= "<span style='color:red'>Dia: </span> "+a.diasem+"<span style='color:red'> Hora: </span> "+a.horaini+"-"+a.horafin %><br/>
+                  <%= "<span style='color:red'>Prof: </span> "+a.nombre_usu+" "+a.apellidos_usu %><br>
+                  <%= "<span style='color:red'>Asig: </span> "+a.nombre_asig  %>
+                  </p>
+               <% end %> 
+               </div>
+           <%= as.to_s+" hs / "+ (@horas.size*@dias.size).to_s + " hs"%><br/><%= number_with_precision(Float(as*100)/(@horas.size*@dias.size),:precision=>2)+" %" %> 
+<!-- ESTO -->  </a>
+           
+          <% end %>
+         </td>
+      <% end %>
+      <td>
+          <% if tot_as!=0 %> <!-- esto es lo que se ve -->
+            <%= tot_as.to_s+" hs / "+ (@horas.size*@dias.size*@labs.size).to_s+ " hs<br/>"+number_with_precision((Float(100*tot_as)/(@labs.size*@dias.size*@horas.size)),:precision=>2)+" % "%> 
+          <% else %>
+            <%= '-' %>
+          <% end %>  
+     </tr>
+     <% end %>
+     <tr>
+      <th>Total lab.</th>
+<!-- AQUI HACER UN RECUENTO POR LABORATORIOS -->
+      <% for lab in @labs do %>
+       <!-- busco las asignaciones a ese lab de las asignaturas de esa tit -->
+         <% if @todos %>
+             <% as_porlab=@registros.select {|r| r.nombre_lab==lab.nombre_lab}.size %>   
+         <% else %>
+             <% as_porlab=@registros.select {|r| r.nombre_lab==lab.nombre_lab and r.periodo==p}.size %> 
+         <% end %>  
+         <td>  <!-- esto es lo que se ve -->          
+           <%= as_porlab.to_s+" hs /"+ (@horas.size*@dias.size).to_s + " hs<br/>"+number_with_precision((Float(100*as_porlab)/(@dias.size*@horas.size)),:precision=>2)+" % " %>         
+         </td>
+      <% end %><th></th>
+     </tr>
+   </table><!--tabla de tititulaciones x laboratorios -->
+
+
+ <% end %><!-- del for periodo -->
+ 

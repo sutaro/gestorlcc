@@ -1,0 +1,11 @@
+class RenameUsuarioSolicitudrecurso < ActiveRecord::Migration
+  def self.up
+    remove_column :solicitudrecursos, :usuario
+    add_column :solicitudrecursos, :usuario_id, :integer 
+  end
+
+  def self.down
+    add_column :solicitudrecursos, :usuario, :string
+    remove_column :solicitudrecursos, :usuario_id
+  end
+end

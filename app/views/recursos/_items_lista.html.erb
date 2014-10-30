@@ -1,0 +1,52 @@
+<% nsol=Solicitudlab.all.size %>
+<% nsolexa=Solicitudlabexa.all.size %>
+<% nasig=Asignacion.all.size %>
+<% nasigdef=Asignaciondef.all.size %>
+<% nasignacionexa=Asignacionlabexa.all.size %>
+<% nasignacionexadef=Asignacionlabexadef.all.size %>
+<% total=nsol+nsolexa+nasig+nasigdef+nasignacionexa+nasignacionexadef %>
+
+
+
+
+<% form_tag new_recurso_path, :method=>:get do -%>
+      <%= submit_tag "Nuevo recurso", :class=>"botonindexsearch" %>
+<% end -%>
+
+<% if @recursos %>
+   <p>Recursos : <%=@cuenta %></p>
+   <p><%= image_tag ("bg_separ.gif") %></p>
+
+   <% if @cuenta!=0 %>
+     <table>
+      <tr>
+        <th> </th>
+        <th class="cincuenta">Identificador</th>
+        <th class="doscientos">Tipo</th>
+        <th class="doscientos">Caracter&iacute;sticas</th>
+        <th class="cincuenta">Dispon.</th>
+        <th class="cientocincuenta">Aviso usuarios</th>
+      </tr>
+
+      <% @recursos.each do |i| %>
+
+      <tr valign="top" class="<%=cycle('linea-impar','linea-par') %>">
+        <td class="icono"><%= link_to image_tag("Editar.png", :border=>0), edit_recurso_path(i) %></td> 
+        <td><%=h i.identificador %></td>
+        <td><%=h i.descripcion %></td>
+        <td><%=h i.caracteristicas %></td>
+        <td><%= "SI" unless !i.disponible? %></td>
+        <td><%=h i.aviso %></td>
+        <td class="icono">
+        <% if total==0 %>
+          <%= link_to image_tag("borrar.png", :border=>0), i, 
+          :confirm => 'Seguro que desea eliminar el recurso '+i.identificador+'?', :method => :delete %>
+        <% end %></td> 
+      </tr>
+      <% end %><!-- de @recursos.each -->
+    </table>
+   <% end %><!-- de if @cuenta!=0 -->
+
+   <p>
+<% end %><!-- de @recursos -->
+

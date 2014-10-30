@@ -1,0 +1,104 @@
+<% nasignacionexa=Asignacionlabexa.all.size %>
+<% nasignacionexadef=Asignacionlabexadef.all.size %>
+<% total=nasignacionexa+nasignacionexadef %>
+
+<% form_tag new_solicitudlabexa_path, :method=>:get do -%>
+        <%= submit_tag "Nueva solicitud", :class=>"botonindexsearch" %>
+<% end -%>
+
+<% if @solicitudlabexas %>
+    <% periodo=Periodo.find(:first,:conditions=>['tipo = ? and (activo = ? or admision = ?)',"Examenes","t","t"],:order=>"admision desc") %>
+    <div id="nom_periodo">
+    <% if !periodo.nil? %><!-- si se esta en un periodo de asignaciones activadas o adjudicadas-->
+      <%= periodo.nombre %>
+    <% else %>
+      No hay ning&uacute;n periodo activo
+    <% end %>
+    </div>
+     <p>Solicitudes : <%=@cuenta %></p>
+     <p><%= image_tag ("bg_separ.gif") %></p>
+     <% if @cuenta!=0 %>
+
+       <table >
+
+        <tr>
+         <th> </th>
+         <th class="cien">Fecha sol.</th>  
+         <th class="doscientos">Usuario</th>
+         <th class="cientocincuenta">Asignatura</th>
+         <th class="cincuenta">Cur.</th>
+         <th class="cincuenta">Equ.</th>
+         <th class="cien">Fecha</th>
+         <th>Tramo horario</th>
+         <th class="cien">Soft.</th>
+         <th class="cientoveinticinco">Elecci&oacute;n equipos</th>       
+        </tr>
+
+        <tr>
+         <% if @solicitudlabexas.empty? %>
+           <td><%= h "No hay solicitudes de laboratorios emitidas" %></td>
+         <% end %> 
+        </tr>
+
+        <% @solicitudlabexas.each do |i| %>
+        <tr valign="top" class="<%=cycle('linea-impar','linea-par') %>">
+         
+         <td class="icono"><% if (i.tipo!="X" and total==0) and i.asignado!="D" %><!-- X: asignaciones directas de admin -->
+                             <%= link_to image_tag("Editar.png", :border=>0),  edit_solicitudlabexa_path(i) %>
+                           <% else %>
+                            <% if i.asignado=="D" %>
+                             <%= image_tag("mark.png", :border=>0, :size=>"24x24") %>
+                            <% else %>
+                              <% if i.asignado=="N" %>
+                                <%= link_to image_tag("Editar.png", :border=>0),  edit_solicitudlabexa_path(i) %>
+                              <% end %>
+                            <% end %>
+                           <% end %></td>
+         <td><%=h fecha_europea(i.fechasol) %></td>  
+         <td><% usuario=Usuario.find(i.usuario_id) %><%=h usuario.nombre+" "+usuario.apellidos %></td>
+         <td><% asig=Asignatura.find(i.asignatura_id) %>
+             <%= "<a onmouseover=ShowContent('asignatura"+i.id.to_s+"'); return true;
+   			   onmouseout=HideContent('asignatura"+i.id.to_s+"'); return true;>" %>
+                           <%= "<div id=asignatura"+i.id.to_s %> 
+				style='display:none;position:absolute;
+      					border-style: solid;
+      					background-color: white;width:300px;
+      					padding: 5px;';>
+                                        <%=h asig.nombre_asig %><br/><!-- nombre completo de la asignatura -->
+                                        <%="Titulacion :"+asig.titulacion.abrevia %>
+			    </div>
+             <%=h asig.abrevia_asig %></td><!-- nombre abreviado de la asignatura -->
+         <td style="text-align:center"><% if i.curso.to_s=="sin curso" %>
+                                          <%= "-" %>
+                                       <% else %>
+                                          <%=h i.curso %>
+                                       <% end %></td>
+         <td style="text-align:center"><%=h i.npuestos %></td>
+         <td><%=h fecha_europea(i.fecha) %></td>
+         
+         <td><%= i.horaini+" - "+i.horafin %></td>
+         <td style="text-align:center"><%= "<a onmouseover=ShowContent('"+"flotante"+i.id.to_s+"'); return true;
+   			   onmouseout=HideContent('"+"flotante"+i.id.to_s+"'); return true;>"  %>
+                            <%= "<div id="+"flotante"+i.id.to_s+" 
+				style='display:none;position:absolute;
+      					border-style: solid;
+      					background-color: white;
+      					padding: 5px;';>" %>
+                                        <%=i.comentarios %><!-- se visualiza el comentario completo -->
+			    </div>
+			    <%="SI" unless i.comentarios=="" %></a><!-- si hay comentarios, se indica --></td>
+         <td><% @preferencias=i.preferencias.split(";") unless i.preferencias.nil? %>  
+            <table>
+              <%=render(:partial => "/solicitudlabs/tramo_preferencia", :collection=> @preferencias ) %>
+            </table></td>    
+         <td class="icono"><% if total==0 or i.asignado=="N" %>
+                             <%= link_to image_tag("borrar.png", :border=>0), i, 
+                              :confirm => 'Seguro que desea eliminar la solicitud?', :method => :delete %>
+                           <% end %>
+                           </td> 
+        </tr>
+        <% end %><!-- de @solicitudlabexas.each -->
+       </table>
+     <% end %><!-- de if @cuenta!=0 -->  
+<% end %><!-- de if @solicitudlabexas -->
+

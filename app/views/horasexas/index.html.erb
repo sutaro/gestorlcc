@@ -1,0 +1,53 @@
+<% nsol=Solicitudlab.all.size %>
+<% nsolexa=Solicitudlabexa.all.size %>
+<% nasig=Asignacion.all.size %>
+<% nasigdef=Asignaciondef.all.size %>
+<% nasignacionexa=Asignacionlabexa.all.size %>
+<% nasignacionexadef=Asignacionlabexadef.all.size %>
+<% total=nsol+nsolexa+nasig+nasigdef+nasignacionexa+nasignacionexadef %>
+
+
+
+
+
+<div id="central" >
+   <p>GESTOR DE RECURSOS<br>
+      <%= image_tag ("pointer.gif") %>Par&aacute;metros del sistema: Horas h&aacute;biles
+   </p>
+   <div id="recuadro">
+
+    <div id="lista-gestion">
+     <p><%= image_tag ("bg_separ.gif") %></p>
+     <table>
+      <tr>
+        <th> </th>
+        <th class="cincuenta">N&uacute;m</th>
+        <th class="cincuenta">Inicio</th>
+        <th class="cincuenta">Fin</th>
+        <th class="cincuenta">En uso?</th>
+      </tr>
+      <% for horasexa in @horasexas %>
+      <tr valign="top" class="<%=cycle('linea-impar','linea-par') %>">
+        <td class="icono">
+        <% if total==0 %>
+           <%= link_to image_tag("Editar.png", :border=>0), edit_horasexa_path(horasexa) %>
+        <% end %></td> 
+        <td style="text-align:center"><%=h horasexa.num %></td>
+        <td style="text-align:right"><%=h horasexa.comienzo %></td>
+        <td style="text-align:right"><%=h horasexa.fin %></td>
+        <td style="text-align:center"><%=h "SI" unless !horasexa.en_uso? %></td>
+        <td class="icono">
+         <% if total==0 %>
+          <%= link_to image_tag("borrar.png", :border=>0), horasexa, 
+          :confirm => 'Seguro que desea eliminar el tramo '+horasexa.comienzo+'-'+horasexa.fin+'? ', :method => :delete %>
+         <% end %></td> 
+      </tr>
+      <% end %><!-- de for horasexa en @horasexas -->
+     </table>
+    <br/>
+   </div><!-- de lista-gestion -->
+   <% form_tag new_horasexa_path, :method=>:get do -%>
+      <%= submit_tag "Agregar hora", :class=>"botonindex" %>
+   <% end -%>
+   </div><!-- de recuadro -->
+</div><!-- de central -->

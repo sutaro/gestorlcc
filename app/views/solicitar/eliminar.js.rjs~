@@ -1,0 +1,7 @@
+page.replace_html(:'tramos', :partial=>"/solicitudlabs/muestra_tramo", :collection=>session[:tramos_horarios].solicitudes)
+
+page.replace_html(:'tramos', :partial=>"/solicitudlabs/vacio") if session[:tramos_horarios].solicitudes.size==0
+
+page[:tramos].visual_effect :highlight,
+:startcolor => "#010080" ,
+:endcolor => "#f6ecd5"                  if session[:tramos_horarios].solicitudes.size==0

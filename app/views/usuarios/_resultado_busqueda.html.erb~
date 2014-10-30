@@ -1,0 +1,43 @@
+
+<% if resultadobusqueda.length == 0 %>
+        <p>No se han encontrado resultados</p>
+<% else %>
+
+<table cellpadding="5" cellspacing="0">
+  <tr>
+    <th> </th>
+    <th width=100>Identificador</th>
+    <th width=100>Nombre</th>
+    <th width=150>Apellidos</th>
+    <th width=150>email</th>
+    <th width=75>Despacho</th>
+    <th width=75>Tel&eacute;fono</th>
+    <th>Admin?</th>
+  </tr>
+
+
+
+
+<% for usuario in resultadobusqueda %>
+  <tr valign="top" class="<%=cycle('linea-impar','linea-par') %>">
+    <td width=25><%= link_to image_tag("Editar.jpg", :border=>0), edit_usuario_path(usuario) %></td> 
+    <td width=100><%=h usuario.identificador %></td>
+    <td width=150><%=h usuario.nombre %></td>
+    <td width=100><%=h usuario.apellidos %></td>
+    <td width=150><%=h usuario.email %></td>
+    <td width=75><%=h usuario.despacho %></td>
+    <td width=75><%=h usuario.telefono %></td>
+    <td><b><%=h "SI" unless !usuario.admin  %></b></td>
+    <td width=25><%= link_to image_tag("clave.jpg", :border=>0),  cambiar_url(:id=>usuario.id) %></td>
+    <td width=25><%= link_to image_tag("borrar.jpg", :border=>0), usuario, :confirm => 'Esta seguro?', :method => :delete  unless usuario.admin? %></td> 
+  </tr>
+<% end %>
+</table>
+<br />
+<% form_tag new_usuario_path, :method=>:get do -%>
+<%= submit_tag "Nuevo usuario", :class=>"boton" %>
+<% end -%>
+</div>
+</div>
+
+<% end %>

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
+  <title>Gestor de recursos del Depto. de LCC (UMA)</title>
+  <link rel="shortcut icon" href="../images/favicon.ico">
+  <%= javascript_include_tag :defaults %>
+  <%= stylesheet_link_tag 'scaffold','dptolcc2' %>
+</head>
+
+
+<body>
+
+ <div id="conta_login">
+  <div id="log-in">
+    <a href="http://www.lcc.uma.es">
+    <%= image_tag ("logo_lcc.png"), :border=>0,:width=>"195",:id=>"logotipo" %></a>
+    <div class="centre0" id="autenticacion">
+       <% form_tag session_path, :name=>"login_form",:onsubmit=>"return true;" do %>
+          <p><%= label(:nombre, "Identificador:") %>
+             <%= text_field_tag 'login', nil,:class=>"usuario", :size=>10 %></p>
+          <p><%= label(:password, "Password:") %>
+             <%= password_field_tag 'password',nil, :class=>"clave", :size=>10 %></p>
+          <p><%= submit_tag 'Aceptar' %></p>   
+         
+          <div id="flasherror-portada" >
+            <% if flash[:notice] %>
+             <p><%= flash[:notice] %></p>
+            <% end %>
+          </div> 
+       <% end %><!-- del form_tag -->
+    </div><!-- de autenticacion -->
+   </div><!-- de log-in -->
+   <p id="copyright">&copy;&nbsp;PFC: Pilar Gonz&aacute;lez Augusto<br/>
+      Dirigido por: Juan A. Falgueras Cano<br/>
+      Departamento de Lenguajes y Ciencias de la Computaci&oacute;n, 2011</p>
+ </div>
+</body>
+
+</html>

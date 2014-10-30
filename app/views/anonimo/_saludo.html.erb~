@@ -1,0 +1,9 @@
+<div id="anonimo">
+      <table>
+        <tr>
+          <td ><%= image_tag("user2.png") %></td>
+          <td valign=top halign=center>Administrador:<br/>
+          <%= @usuario_actual.identificador %></td>
+        </tr>
+      </table>
+</div>

@@ -1,0 +1,2 @@
+<%= options_for_select(@asignaturas.map {|p| [ p.nombre_asig ]}) %>
+

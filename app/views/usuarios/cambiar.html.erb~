@@ -1,0 +1,39 @@
+<div id="titulo" >
+GESTI&Oacute;N DE RECURSOS<br><br>
+&gt;Gesti&oacute;n de archivos: Usuarios
+</div>
+<div id="recuadro">
+<h1>Cambiando la contrase&ntilde;a de usuario</h1>
+
+
+<% form_tag usuario_path, :action=>cambiar do %>
+  
+  <p>Password :
+     <%= text_field_tag 'password' %>
+  </p>
+  <p>Confirmacion:
+     <%= password_field_tag 'password_confirmation' %>
+  </p>
+  <p><%= submit_tag 'Aceptar', :class => "boton" %></p>
+  <h2 id="errorlogin">
+    <%=flash[:notice]  %><%flash[:notice]=''%>
+  </h2>
+<% end %>
+
+
+<!--<% form_for @usuario,  :action=>"cambiar" do |f|  %>
+  <%= f.error_messages %>
+
+   <p>
+    <%= f.label :password,"Password" %><br />
+    <%= f.password_field :password,:value=>" " %>
+  </p>
+  <p>
+    <%= f.label :password_confirmation,"Confirmar" %><br />
+    <%= f.password_field :password_confirmation,:value=>" " %>
+  </p>
+    <%= f.submit 'Cambiar password' %>
+  </p>
+<% end %>-->
+
+</div>

@@ -1,0 +1,21 @@
+<div id="central" >
+    <p>GESTOR DE RECURSOS<br>
+       &gt;Supervisi&oacute;n de asignaciones de laboratorios en periodo lectivo
+    </p>
+    <p><%= image_tag ("bg_separ.gif") %></p><% nsol=Solicitudlab.all.size %>
+     
+      <% if @adjudicado.size>0 %>
+        <div id="inactivo">
+         Hay un periodo ya activado<br/>
+         Proceda a su clausura antes de asignar laboratorios<br/>
+        </div>
+      <% else %>
+        
+        <div id="recuadro">
+          <div id="cuadrante">
+            <%= nsol %>
+          </div>     
+        </div>
+      <% end %>
+
+</div>

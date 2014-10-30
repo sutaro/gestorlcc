@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  codigo_asig: MyString
+  nombre_asig: MyString
+  area_depto: MyString
+  codigo_tit: MyString
+  caracter: MyString
+  coeficiente_exp: 1.5
+  curso: 1
+  cuatrimestre: 1
+
+two:
+  codigo_asig: MyString
+  nombre_asig: MyString
+  area_depto: MyString
+  codigo_tit: MyString
+  caracter: MyString
+  coeficiente_exp: 1.5
+  curso: 1
+  cuatrimestre: 1

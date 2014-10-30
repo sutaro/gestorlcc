@@ -1,0 +1,18 @@
+class SolicitudusuariolabController < ApplicationController
+  def index
+    @solicitudlabs= Solicitudlab.find_all_by_usuario(@usuario_actual.identificador)
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @solicitudusuariolab }
+    end
+  end
+
+
+  def edit
+  end
+
+  def new
+  end
+
+end

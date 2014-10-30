@@ -1,0 +1,7 @@
+class Asignacion < ActiveRecord::Base
+
+    belongs_to :peticionlab;
+    belongs_to :solicitudlab;
+    belongs_to :laboratorio;
+
+end

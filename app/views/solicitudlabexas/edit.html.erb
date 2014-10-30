@@ -1,0 +1,126 @@
+<div id="central" >
+    <p>GESTOR DE RECURSOS<br/>
+       <%= image_tag ("pointer.gif") %>Gesti&oacute;n de archivos: Editando solicitud de laboratorio para ex&aacute;menes
+    </p>
+    <div id="recuadro">
+      <p><%= image_tag ("bg_separ.gif") %></p>
+      <div id="recuadro-azul" style="height:500px">
+       <% form_for @solicitudlabexa, :html=> {:name => "formulario"} do |f| %>
+          
+          <dl>
+            <dt>Fecha solicitud</dt>
+            <dd><%= fecha_europea(Date.today) %></dd>
+            <dt>Usuario *</dt>                    
+            <dd onchange=' mostrardiv("solicitudlabexa_submit")'>
+               <% @usuarios=Usuario.find(:all,:order=>"apellidos").reject{|u| u.identificador=="anonimo"} %>
+               <% usuario=Usuario.find(@solicitudlabexa.usuario_id) %>
+               <% @usuarioselec=usuario.apellidos+", "+usuario.nombre%>
+               <%= select "usuario", "identificador", @usuarios.map {|u| [u.apellidos+", "+u.nombre,u.id]},
+                              html_options={:selected=>@solicitudlabexa.usuario_id } %></dd>
+            <dt>Titulaci&oacute;n *</dt>
+            <dd id="combo_titulacion" onchange='mostrardiv("solicitudlabexa_submit")'>
+               <% @titulaciones=Titulacion.find(:all,:order=>"nombre") %>
+               <% @asignatura=Asignatura.find(@solicitudlabexa.asignatura_id) %>
+               <% @titulacionselec=@asignatura.titulacion_id %>
+               <% @cursoselec=@solicitudlabexa.curso %>
+               <%= select "titulacion", "titulacion_id", @titulaciones.map {|t| [t.nombre,t.id]},
+					html_options={:selected=>@titulacionselec } %></dd>
+            <dt>Curso *</dt>
+            <dd id="combo_nivel" onchange='mostrardiv("solicitudlabexa_submit")'>
+               <%= select_tag "nivel", options_for_select(Asignatura::CURSO,@solicitudlabexa.asignatura.curso)%></dd>
+            <dt>Asignatura *</dt>
+            <dd onchange='mostrardiv("solicitudlabexa_submit")'>
+               <SPAN id="combo_asignatura">
+                <% @asignaturas=Asignatura.find(:all, :conditions => ['titulacion_id = ? and curso = ?', @asignatura.titulacion_id, @solicitudlabexa.asignatura.curso],:order=>"nombre_asig")%>
+                <% @asignaturaselec=@solicitudlabexa.asignatura_id %>
+                <%= select "asignatura", "id", @asignaturas.map {|t| [t.nombre_asig,t.id]}, 
+                    html_options={:selected=>@asignaturaselec } %>
+               </span><dd>
+               <%= observe_field 'titulacion_titulacion_id', 
+                       :url =>{:controller => 'asignaturas', :action => 'combo_por_titulacion'}, 
+                       :update => 'combo_asignatura', 
+                       :with => 'combo_titulacion' %>
+               <%= observe_field 'nivel', 
+                            :url =>{:controller => 'asignaturas', :action => 'combo_por_nivel'}, 
+                            :update => 'combo_asignatura', 
+                            :with => 'combo_nivel' %>
+
+	    <dt>Puestos *</dt>
+            <dd onchange='mostrardiv("solicitudlabexa_submit")'>
+                                
+                <% @puestos=Laboratorio.find_by_sql(["select distinct(puestos) from laboratorios order by puestos"]).map{|l| l.puestos} %>
+                <%= select_tag "npuestos", options_for_select((@puestos<<Laboratorio::DOS_LAB)+Laboratorio::PUESTOS_EXAMEN,@solicitudlabexa.npuestos) %>
+            </dd>
+            <dt>Fecha *</dt>
+            <dd onclick='mostrardiv("solicitudlabexa_submit")'><%= f.text_field :fecha, :size=>12, :name=>"fecha",  :id=>"DPC_fecha_DD-MM-YYYY",:value=>@solicitudlabexa.fecha %></dd>
+            <dt>Soft. requerido</dt>
+            <dd onkeydown='mostrardiv("solicitudlabexa_submit")'>
+              <%= f.text_area :comentarios, :rows =>4, :cols=>40, :name=>"comentarios" %></dd>
+              <% @especiales=Laboratorio.find(:all,:conditions=>['especial=?',"t"]) %>              
+              <% if @especiales.size>0 %>
+               <dt>Tipo de equipos</dt>
+               <dd >
+                 <table id="preferencias"><tr style="font-size: 10px;font-weight: normal;text-align:center">
+                  <tr>
+                   <td></td>
+                   <td style="text-align:center">Si</td>
+                   <td style="text-align:center">No</td>
+                   <td style="text-align:center">Indif.</td>
+                  </tr>
+             
+                  <% for especial in @especiales do %>
+                  <tr style="font-size: 10px;font-weight: normal;text-align:center" >
+                   <td width=100><% nombre=especial.ssoo %><%= especial.ssoo %>
+                           <% n=@solicitudlabexa.preferencias.index(especial.ssoo)  %>  
+                           <% if !n.nil? %>   
+                              <% parte=@solicitudlabexa.preferencias.split("-") %>
+                              <%  valor=parte[2].slice(0,2).to_s %>
+                           <% else %>
+                              <% valor="in" %>
+                           <% end %></td>
+                  <td style="text-align:center" class="cincuenta"><%= radio_button_tag nombre, 'si' ,valor == 'si',
+                      :onclick=>'mostrardiv("solicitudlabexa_submit")' %>   </td>
+                  <td style="text-align:center" class="cincuenta"><%= radio_button_tag nombre, 'no' ,valor == 'no',
+                      :onclick=>'mostrardiv("solicitudlabexa_submit")' %>   </td>
+                  <td style="text-align:center" class="cincuenta"><%= radio_button_tag nombre, 'in' ,valor == 'in',
+                      :onclick=>'mostrardiv("solicitudlabexa_submit")' %>  </td>
+                 </tr>
+                 <% end %><!-- de for especial in @especiales -->
+                </table>
+              </dd>
+             <% end %><!-- de if @especiales.size > 0 -->
+            <dt><dt>Tramo horario *</dt>
+           <dd><table>
+                       <tr style="font-size:1.1em;text-align:center">
+                          <td class="cien">Hora inicio </th>
+                          <td class="cien">Hora fin </th>
+                       </tr>
+                       <tr valign="top" style="text-align:center"> 
+                          <td class="cien" onchange=' mostrardiv("solicitudlabexa_submit")'>
+                               <% @horas=Horasexa.find(:all,:conditions=>['en_uso=?',"t"],:order=>"id") %>
+                               <%= select "horaini", "comienzo", @horas.map {|h| [h.comienzo] },
+                                           html_options={:selected=>@solicitudlabexa.horaini}%></td>
+                          <td class="cien" onchange=' mostrardiv("solicitudlabexa_submit")'>
+                               <%= select "horafin", "fin", @horas.map {|h| [h.fin]},
+                                           html_options={:selected=>@solicitudlabexa.horafin}%></td>
+                       </tr>
+              </table><!-- muestra los tramos ya seleccionados e incluye el subformulario -->
+              </dd>
+              <p><%= f.submit 'Guardar cambios' %></p>          
+            </dl> 
+          </div><!-- de recuadro-azul -->
+          <div id="errores">
+                <%= f.error_messages :header_message => 'Se produjeron errores en la captura de datos', 
+                    :message => 'Imposible modificar la  solicitud de laboratorio:'%>
+                <% if flash[:notice] %>
+                   <div id="errorExplanation">
+                      <p>Imposible modificar la  solicitud de laboratorio: </p>
+                      <ul>
+                       <li><%=flash[:notice] %></li>
+                      </ul>
+                   </div>
+                <% end %>
+          </div>
+      <% end %><!-- de form_for -->
+   </div><!-- de recuadro -->
+</div><!-- de central -->

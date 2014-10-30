@@ -1,0 +1,18 @@
+<p>
+  <b>Solicitudlab:</b>
+  <%=h @asignacion.solicitudlab_id %>
+</p>
+
+<p>
+  <b>Peticion:</b>
+  <%=h @asignacion.peticion_id %>
+</p>
+
+<p>
+  <b>Laboratorio:</b>
+  <%=h @asignacion.laboratorio_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_asignacion_path(@asignacion) %> |
+<%= link_to 'Back', asignacions_path %>

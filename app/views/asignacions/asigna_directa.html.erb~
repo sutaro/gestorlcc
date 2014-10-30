@@ -1,0 +1,114 @@
+<div id="central" >
+     <p>GESTOR DE RECURSOS<br/>
+        <%= image_tag ("pointer.gif") %>Asignaci&oacute;n de laboratorios: Asignaci&oacute;n directa
+     </p>
+     <div id="recuadro">
+       <p><%= image_tag ("bg_separ.gif") %></p>
+        <div id="recuadro-azul" style="height:600px">
+          <% form_for @solicitudlab,:url => '../asignacions/graba', :action=>"graba",  :html=> {:name => "formulario"} do |f| %>
+          <dl>
+            <dt>Fecha solicitud</dt>
+            <dd><%= @dia=@solicitudlab.fechaini=@solicitudlab.fechafin= fecha_europea(Date.today) %></dd>
+            <dt>Usuario *</dt>
+            <dd><% @usuarios=Usuario.find(:all,:order=>"apellidos") %>
+                <%= select "usuario", "identificador", @usuarios.map {|u| [u.apellidos+", "+u.nombre,u.id]} %>
+            </dd>
+            <dt>Titulaci&oacute;n *</dt>
+            <dd id="combo_titulacion"><%@titulaciones=Titulacion.find(:all,:order=>"nombre")%>
+                <%= select "titulacion", "titulacion_id", @titulaciones.map {|t| [t.nombre,t.id]} %></dd>
+            <dt>Curso *</dt>
+            <dd id="combo_nivel"><%= select_tag "nivel", options_for_select(Asignatura::CURSO)%></dd>
+	    <dt>Asignatura *</dt>    
+            <dd><SPAN id="combo_asignatura">
+                <% @asignaturas=Asignatura.find(:all,:conditions=>['titulacion_id = ? and curso = ?',@titulaciones.first.id,as]) %>
+                <%= select "asignatura", "id", @asignaturas.map {|t| [t.nombre_asig,t.id]} %>
+                </span><dd>
+                <%= observe_field 'titulacion_titulacion_id', 
+                            :url =>{:controller => 'asignaturas', :action => 'combo_por_titulacion'}, 
+                            :update => 'combo_asignatura', 
+                            :with => 'combo_titulacion' %>
+                <%= observe_field 'nivel', 
+                            :url =>{:controller => 'asignaturas', :action => 'combo_por_nivel'}, 
+                            :update => 'combo_asignatura', 
+                            :with => 'combo_nivel' %>
+            </dd>
+            <dt>Laboratorio *</dt>
+            <dd><% @laboratorios=Laboratorio.find(:all,:order=>"nombre_lab") %>                                             
+                <%= select "laboratorio_id", "nombre_lab", @laboratorios.map {|l| [l.nombre_lab]} %>
+            </dd>            
+            <dt>Fecha inicio *</dt>
+            <dd>
+              <%= f.text_field :fechaini, :size=>12, :name=>"fechaini",  :id=>"DPC_fechaini_DD-MM-YYYY", 
+                  :value=>@dia %></dd>
+            <dt>Fecha fin *</dt>
+            <dd><%= f.text_field :fechafin, :size=>12, :name=>"fechafin", :id=>"DPC_fechafin_DD-MM-YYYY",
+                  :value=>@dia %>  </dd>
+            <dt>Soft. requerido</dt>
+            <dd><%= f.text_area :comentarios, :rows =>4, :cols=>40, :name=>"comentarios" %></dd>
+            
+           <dt>Tramos horarios *</dt>
+           <dd><table>
+                <tr> 
+                  <td id="subform"><!-- los tramos a visualizar -->
+                    <% @tramos=session[:tramos_horarios].solicitudes %> 
+                    <table id="tramos">
+                      <% if @tramos.empty? %>
+                        <tr><td><%= h "Introduzca tramos horarios" %></td></tr>
+                      <% else %>
+                        <%=render(:partial => "solicitudlabs/muestra_tramo", :collection=> @tramos) %> 
+                      <% end %>
+                    </table></td>
+                  <td><a onclick='mostrardiv("subformulario")'>
+                            <%= image_tag("reloj.jpg",:border=>0) %></a></td>
+                 </tr>
+                 <tr height=10></tr>
+                 <tr>
+                   <td>
+                     <table id="subformulario" style="visibility:hidden"><!-- subformulario para anadir tramo horario -->
+                       <tr style="font-size: 10px;font-weight: normal;text-align:center">
+                          <th width=60></th>
+                          <th width=60></th>
+                          <th width=60></th>
+                          <th style="align:left"><%=image_tag("icon_close.png",:border=>0,
+                               :onclick=>'ocultardiv("subformulario")')%></th>
+                       </tr>
+                       <tr style="font-size: 10px;font-weight: normal;text-align:center">
+                          <th width=60>Dia semana</th>
+                          <th width=60>Hora inicio </th>
+                          <th width=60>Hora fin </th>
+                          <th></th>
+                       </tr>
+                       <tr valign="top" halign=center>
+                          <td width=60><% @dias=Dia.find(:all,:conditions=>['en_uso=?',"t"]) %>
+                                       <%= select  "diasemana","nombre", @dias.map {|d| [d.nombre] }%></td> 
+                          <td width=60><% @horas=Horario.find(:all,:conditions=>['en_uso=?',"t"]) %>
+                                       <%= select "horaini", "comienzo", @horas.map {|h| [h.comienzo] }%></td>
+                          <td width=60><%= select "horafin", "fin", @horas.map {|h| [h.fin] }%></td>
+                          <td width=15>
+                              <%= link_to_remote(image_tag("mas.png",:border=>0),
+                                            :submit   => "subformulario",
+                                            :url      => { :controller=>:solicitar,:action => 'anadir' },
+                                            :success  => 'mostrardiv("asignar")') %>
+                          </td>
+                        </tr>
+                      </table><!-- de subformulario --></td>
+                 </tr>
+                </table></dd><!-- de tramos horarios -->
+               <p><% form_tag '../asignar/asigna_directa', :method=>:get do -%>
+                     <%= submit_tag "Asignar", :style=>"position:relative;left:-50px",:id=>"asignar" %>
+                  <% end -%></p>
+          </dl>  
+        </div><!-- de recuadro-azul -->
+        <div id="errores">
+             <%= f.error_messages :header_message => 'Se produjeron errores en la captura de datos', 
+                  :message => 'Imposible crear una nueva asignacion de laboratorio:'%>
+             <% if flash[:notice] %>
+                <div id="errorExplanation">
+                  <p>Imposible crear una nueva asignacion de laboratorio:</p>
+                  <ul><li><%=flash[:notice]%></li></ul>
+                </div>
+             <% end %>
+         </div>
+        <% end %><!-- de form_for -->
+     </div><!-- de recuadro -->
+</div><!-- de central -->

@@ -1,0 +1,44 @@
+<div id="central" >
+   <p>GESTOR DE RECURSOS<br/>
+      &gt;Gesti&oacute;n de archivos: Edit&aacute;ndo laboratorio
+   </p>
+   <div id="recuadro">
+      <p><%= image_tag ("bg_separ.gif") %></p>
+
+      <div id="recuadro-azul" style="height:500px">
+
+       <% form_for(@laboratorio) do |f| %>
+        <dl>
+          <dt>N&uacute;mero *</dt>
+          <dd><%= f.text_field :nombre_lab,:size=>4 %></dd>
+          <dt> Lab. especial?</dt>
+          <% n=Solicitudlab.find(:all,:conditions=>["preferencias LIKE ?","%"+@laboratorio.nombre_lab+"%"]).size.to_s %>
+          <dd><%= f.check_box :especial,:size=>1, :onclick=>"alert('hay "+n+" solicitudes en curso afectadas')" %></dd>
+          <dt>Puestos *</dt>
+          <dd><%= f.text_field :puestos,:size=>2 %></dd>
+          <dt>Denominaci&oacute;n/SSOO *</dt>
+          <dd><%= f.text_area :ssoo, :rows=>3, :cols=>30 %></dd>
+          <dt>Hardware</dt>
+          <dd><%= f.text_area :descr_HW, :rows=>3,:cols=>30 %></dd>
+          <dt>Software</dt>
+          <dd><%= f.text_area :descr_SW,:rows=>3,:cols=>30 %></dd>     
+          <dt>Comentarios</dt>
+          <dd><%= f.text_area :comentarios,:rows=>3,:cols=>30 %></dd>
+          <dt>Aviso</dt>
+          <dd><%= f.text_area :aviso,:rows=>3,:cols=>30 %></dd>       
+          <p><%= f.submit 'Guardar cambios', :class=>"boton" %></p>
+       </dl>
+     </div><!-- de recuadro-azul -->
+
+     <div id="errores">
+       <%= f.error_messages :header_message => 'Se produjeron errores en la captura de datos', 
+         :message => 'Imposible modificar el laboratorio debido a:'%>
+     </div>
+
+    <% end %><!-- de form-for -->
+
+ </div><!-- de recuadro -->
+</div><!-- de central -->
+
+
+

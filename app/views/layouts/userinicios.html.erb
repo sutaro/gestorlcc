@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
+  <title>Inicio - Usuario</title>
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <%= stylesheet_link_tag 'scaffold','dptolcc2' %>
+</head>
+
+<body>
+<div id="wrapper">
+  <div id="conta_header">
+    <div id="header">
+      <h1>Departamento de Lenguajes y Ciencias de la Computaci&oacute;n</h1>
+      <h2>Universidad de M&aacute;laga</h2>
+      <%= link_to image_tag("logo_lcc.png", :border=>0,:width=>"195", :height=>"100", :id=>"logotipo"), "http://www.lcc.uma.es" %>
+    </div>
+  </div>
+
+<div  id="conta-main">
+ <div id="main">
+
+  <div id="nav">
+    <!-- reconocimiento de usuario -->
+    <div id="saludo">
+     <%= render :partial => 'userinicios/saludo' %>
+    </div>  
+     <!-- barra de navegación de admin -->
+     <%= render :partial =>'navbaruser' %>
+    <div id="cubos" style="top:565px">
+     <%= image_tag ("seis-cubos.gif") %>
+    </div>
+  </div>
+  
+        <%= yield %>
+
+ </div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<div id="titulo" >
+GESTI&Oacute;N DE RECURSOS<br><br>
+&gt;Gesti&oacute;n de archivos: Creando solicitud de recurso
+</div>
+<div id="recuadro">
+   
+<% form_for @solicitudrecurso, :html=> {:name => "formulario"} do |f| %>
+<%= f.error_messages :header_message => 'Se produjeron errores en la captura de datos', :message => 'Imposible crear una nueva solicitud de otros recursos:'%>
+
+<table cellpadding="15" cellspacing="0">
+  <tr>
+    <th>Fecha solicitud</th> 
+    <th>Usuario</th>
+    <th>Tipo de recurso</th>
+    <th>Consultas</th>
+    
+  </tr>
+  <tr valign="top" >
+    <td><%= @dia %></td>
+    <td><%= select "usuario", "identificador", @usuarios.map {|u| [u.identificador]} %></td>
+    <td><%= select "tipo", "descripcion", @tipos.map {|t| [t.descripcion]} %></td>
+    <td color="#ff0000"><%= "A&Ntilde;ADIMOS ENLACE A CONSULTAS" %></td>
+  </tr>
+</table>
+
+<p><p><p>
+
+<table cellpadding="15" cellspacing="0">
+  <tr>
+    <th>Fecha inicio</th>
+    <th>Fecha fin</th>
+    <th>Motivos</th>   
+  </tr>
+  <tr valign="top" >
+   <td>
+    <%= f.text_field :fechaini, :size=>10, :name=>"fechaini",  :id=>"DPC_fechaini_DD-MM-YYYY" %>
+   </td>
+   <td>
+    <%= f.text_field :fechafin, :size=>10, :name=>"fechafin", :id=>"DPC_fechafin_DD-MM-YYYY" %>    
+   </td>
+   <td><%= f.text_area :motivos, :rows =>4, :cols=>40, :name=>"motivos" %></td>
+ </tr>
+</table>
+
+</td>
+<td><% @solicitudrecurso.usuario.to_s %><%= @otras=Solicitudrecurso.find(:all,:conditions =>"fechaini < #{@solicitudrecurso.fechaini}") %>
+<table>
+<tr><th>Tramos horarios</th></tr>
+<tr><td> 
+<table>
+  <tr> 
+    <td id="subform">
+      <!-- OBTENGO LOS TRAMOS QUE HAY QUE VISUALIZAR , NINGUNO EN PRINCIPIO-->
+
+      <% @tramos=session[:tramos_horarios].solicitudes %> 
+      <table id="tramos">
+        <% if @tramos.empty? %>
+            <tr><td><%= h "No hay tramos horarios" %></td></tr>
+        <% else %>
+            <%=render(:partial => "muestra_tramo", :collection=> @tramos) %> 
+        <% end %>
+      </table>
+      
+
+     <!-- INCLUYO FORMULARIO DE CAPTACION PARA UN NUEVO TRAMO Y LO MANDO A LA ACCION DE ANADIR A CARRO -->
+  
+   <table id="subformulario">
+       <tr>
+         <th>Dia semana</th>
+         <th>Hora inicio </th>
+         <th>Hora fin </th>
+       </tr>
+       <tr valign="top" >
+        <td><%= select  "diasemana","nombre", @dias.map {|d| [d.nombre] }%></td> 
+        <td><%= select "horaini", "comienzo", @horas.map {|h| [h.comienzo] }%></td>
+        <td><%= select "horafin", "fin", @horas.map {|h| [h.fin] }%></td>
+        <td>
+        <%= link_to_remote(image_tag("mas.jpg",:border=>0),
+            :submit   => "subformulario",
+            :url      => { :controller=>:solicitar,:action => 'anadir' }) %>
+
+        </td>
+        
+       </tr>
+      </table>
+      </td>
+      </tr>
+    </table>
+  </td>
+  <td valign=bottom><%= f.submit 'Crear', :class=>"boton" %></td>
+  <td><% if flash[:notice]!='' %>
+            <div id="flasherror" align="center"><%=flash[:notice]  %><%flash[:notice]=''%></div>
+            <% end %>
+        </td></tr>
+<% end %>
+</div>
+

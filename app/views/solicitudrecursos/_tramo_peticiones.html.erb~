@@ -1,0 +1,39 @@
+
+<!-- OBTENGO LOS TRAMOS QUE HAY QUE VISUALIZAR , 0 EN PRINCIPIO-->
+
+<%= @tramos=@tramos_peticiones.solicitudes %> 
+<table>
+  <% if @tramos.size==0 %>
+    <tr><td><%= h "No hay tramos horarios" %></td></tr>
+  <% else %>
+    <%=render(:partial => "tramo_peticion2", :collection=> @tramos) %> <!-- MUESTRO TRAMOS SI LOS HAY -->
+  <% end %>
+<tr><td>
+
+<!-- INCLUYO FORMULARIO DE CAPTACION PARA UN NUEVO TRAMO Y LO MANDO AL CONTROLLER DE PETICIONS-->
+
+<% form_remote_tag :url => {:controller=> :peticions, :action => :create} do %>
+ 
+<table>
+  <tr>
+    <th>Solicitud recurso </th>
+    <th>Dia semana</th>
+    <th>Hora inicio </th>
+    <th>Hora fin </th>
+  </tr>
+
+
+ <tr valign="top" >
+        <%= session[:ident] %> 
+    
+    <td><%= select_tag "diasemana", options_for_select(["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"]) %>
+
+
+    <td><%= select_tag "horaini", options_for_select(["8:45","9:45","10:45","11:45","12:45","13:45","14:45","15:15","16:15","17:15","18:15","19:15","20:15"]) %></td>
+    <td><%= select_tag "horafin", options_for_select(["9:45","10:45","11:45","12:45","13:45","14:45","15:15","16:15","17:15","18:15","19:15","20:15","21:45"]) %></td>
+
+  </tr>
+ </table>
+&nbsp;&nbsp;&nbsp;<%= submit_tag '+', :class=>"boton"  %>
+<% end %>
+</td></tr>

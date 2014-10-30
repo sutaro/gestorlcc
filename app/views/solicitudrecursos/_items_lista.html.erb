@@ -1,0 +1,48 @@
+<% form_tag new_solicitudrecurso_path, :method=>:get do -%>
+     <%= submit_tag "Consulta/Reserva", :class=>"botonindexsearch" %>
+<% end -%>
+
+<% if @solicitudrecursos %>
+   
+   
+    <p>Reservas : <%= @cuenta %></p>
+    <p><%= image_tag ("bg_separ.gif") %></p>
+    <% if @cuenta!=0 %>
+
+        <table style="margin-left:950px; margin-top:-20px;">
+          <tr>
+            
+            <td><%= link_to_remote(image_tag("limpiar.jpeg",:border=>0,:width=>32,:height=>32),
+                         :url      => { :controller=>'solicitudrecursos',:action => 'borrar_reservas' },
+                         :confirm  => "Esto eliminara todo el registro de reservas. Esta seguro?")%></td>
+            <td style="color:#010080;font-size:0.9em">Eliminar todas<br/>las reservas</td>
+          </tr>
+        </table>
+    <table>
+      <tr>
+       <th> </th>
+       <th class="cien">Fecha reserva</th>  
+       <th class="doscientos">Usuario</th>
+       <th class="doscientoscincuenta">Recurso</th>
+       <th class="cien">Dia reservado</th>
+       <th class="cientocincuenta">Tramo horario</th>
+       <th class="doscientos">Motivos</th>
+      </tr>
+
+      <% @solicitudrecursos.each do |i| %>
+      <tr valign="top" class="<%=cycle('linea-impar','linea-par') %>">
+        <td class="icono"><%= link_to image_tag("Editar.png", :border=>0),  edit_solicitudrecurso_path(i) %></td> 
+        <td><%= i.fechasol.strftime("%d-%m-%Y")  %></td>  
+        <td><% usuario=Usuario.find(i.usuario_id) %><%=h usuario.nombre+" "+usuario.apellidos %></td>
+        <td><% familia=Recurso.find_by_identificador(i.tipo) %><%=h familia.descripcion+" : "+i.tipo %></td>
+        <td><%= i.fechareserva.strftime("%d-%m-%Y")  %></td>
+        <td style="text-align:center"><%= i.horaini+"-"+i.horafin %></td>
+        <td class="cientocincuenta"><%=h i.motivos %></td>
+        <td class="icono"><%= link_to image_tag("borrar.png", :border=>0), i, 
+                             :confirm => 'Seguro que desea eliminar la reserva?', :method => :delete %></td> 
+      </tr>
+      <% end %><!-- de @solicitudrecursos.each -->
+    </table>
+    <% end %><!-- de @cuenta!=0 -->  
+<% end %><!-- de @solicitudrecursos -->
+

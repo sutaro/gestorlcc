@@ -1,0 +1,33 @@
+<div id="central" >
+    <p>GESTI&Oacute;N DE RECURSOS<br/>
+       <%= image_tag ("pointer.gif") %>Gesti&oacute;n de archivos: Cre&aacute;ndo nuevo recurso
+    </p>
+    <div id="recuadro">
+       <p><%= image_tag ("bg_separ.gif") %></p>
+       <div id="recuadro-azul" style="height:275px">
+
+        <% form_for(@recurso) do |f| %>
+         <dl>
+          <dt>Identificador *</dt>
+          <dd><%= f.text_field :identificador, :size=>5 %></dd>
+          <dt>Tipo *</dt>
+          <dd><%= f.text_field :descripcion, :size=>25 %></dd>
+          <dt>Caracter&iacute;sticas</dt>
+          <dd><%= f.text_field :caracteristicas, :cols=>30, :rows=>3 %></dd>
+          <dt>Disponible?</dt>
+          <dd><%= f.check_box :disponible, :size=>2 %></dd>
+          <dt>Aviso</dt>
+          <dd><%= f.text_area :aviso, :cols=>30, :rows=>3 %></dd>
+          <p><%= f.submit 'Crear', :class=>"boton"%></p>
+        </dl>
+      </div><!-- de recuadro-azul -->
+
+      <div id="errores">
+         <%= f.error_messages :header_message => 'Se produjeron errores en la captura de datos', 
+             :message => 'Imposible crear nuevo recurso debido a:'%>
+      </div>
+
+      <% end %><!-- de form_for -->
+
+    </div><!-- de recuadro -->
+</div><!-- de central -->

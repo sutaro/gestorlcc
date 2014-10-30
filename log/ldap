@@ -1,0 +1,14 @@
+require 'net/ldap'
+
+username = 'jdoe'
+password = 'mypass'
+ldap = Net::LDAP.new(:host => 'ldap.example.com', :base => 'dc=example,dc=com')
+filter = Net::LDAP::Filter.eq('uid', username)
+ldap.search(:filter => filter) {|entry| username = entry.dn}
+ldap.auth(username, password)
+
+if ldap.bind
+  # authentication succeeded
+else
+  # authentication failed
+end

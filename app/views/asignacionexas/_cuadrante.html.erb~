@@ -1,0 +1,238 @@
+
+
+<% if @asignacionexas.size!=0  %>
+
+ <% periodo=Periodo.find(:all,:conditions=>['tipo = ? and inicio > ?','Examenes',Date.today],:order=>'inicio').first %>
+
+ <% fechas=[] %>
+ <% for dia in periodo.inicio..periodo.fin %>
+   <% if dia.wday!=0 %>
+      <% fechas<<dia %>
+   <% end %>
+ <% end %>
+
+ <div id="revisa"> 
+  <table>
+   <tr>
+    <td>Revisar colisiones</td>
+    <td style="padding-right:150px"><%= link_to_remote image_tag("boton2.png", :border=>0), 
+                                :url=>{ :controller=>'asignacionexas',:action => 'revisar' } %></td>
+    <td>Grabar asignaci&oacute;n definitiva</td>
+    <td><%= link_to_remote image_tag("boton2.png", :border=>0), 
+                                :url=>{ :controller=>'asignacionexas',:action => 'grabar_asignacion' } %></td>
+   </tr>
+  </table>
+ </div> 
+
+ <div class="aviso" id="colision">
+   <p>Grabe la asignaci&oacute;n definitiva cuando todo sea correcto<br/><br/>y active el periodo correspondiente</p>
+ </div>
+
+<p>
+
+
+
+<a name="up"></a>
+<div id="rotulodias">
+  <% c=0 %>
+  <% for dia in fechas %>
+    <% c+=1 %>
+    
+    <%= "<a href=#"+dia.to_s+">"+(Dia::DIASEM[dia.wday]).ljust(10,' ')+"&nbsp;"+fecha_europea(dia).to_s+"&nbsp;&nbsp;&nbsp;&nbsp"+"</a>" %>
+    <% if c>4 %>
+      <br/><br/><% c=0 %>
+    <% end %>
+  <% end %>
+</div>
+</p>
+<% @labs=Laboratorio.find(:all,:order=>"nombre_lab") %>
+<% @horas=Horario.find(:all,:order=>"num") %>
+<% for dia in  fechas %><!-- POR CADA DIA DE EXAMEN -->
+   
+   <div id="rotulodia"><%="<a name="+dia.to_s+">"+Dia::DIASEM[dia.wday]+"&nbsp;"+fecha_europea(dia).to_s+"</a>&nbsp;&nbsp;" %><br/>
+                       <%= image_tag ("bg_separ.gif") %>&nbsp;&nbsp
+                       <a href="#up"><%= image_tag ("up.png") %></a>
+   </div> 
+
+
+
+   <table id="asignacion">
+     
+     <tr>
+      <th></th>
+      <% for lab in @labs do %><!-- Los laboratorios son las columnas -->
+      <th>
+        <%= "<a onmouseover=ShowContent('"+"flotante"+lab.id.to_s+"'); return true;
+   		      onmouseout=HideContent('"+"flotante"+lab.id.to_s+"'); return true;>" %>
+                      <%= "<div id="+"flotante"+lab.id.to_s+" 
+				style='display:none;position:absolute;
+      					border-style: solid;
+      					background-color: white;
+      					padding: 5px;';>" %>
+               <%= "Denominacion: "+lab.ssoo %><br>
+               <%= "Num. puestos: "+lab.puestos.to_s  %><br>
+               <%= "Lab Especial?: "+((lab.especial)?"SI":"NO") %>
+         </div>
+         <%= lab.nombre_lab %></a><!-- nombre_lab e info flotante por laboratorio -->
+      </th>
+      <% end %> 
+     </tr>
+
+     
+     <% for hora in @horas do %><!-- las horas son las filas -->
+     <tr>
+      <th><%=hora.comienzo+'-'+hora.fin %></th>
+
+       <% for lab in @labs do %>
+       <!-- busco las asignaciones a ese lab ese dia a esa hora -->
+         <% as=@asignacionexas.select {|a| a.laboratorio_id==lab.id and a.horaini.to_s==hora.comienzo.to_s and dia==a.dia} %>
+         
+         <td >
+                <% if as.size>1 %><!-- si hay colision, remarco en rojo -->
+                  <div style="border-style:solid;border-color:#ff0000">
+                <% end %>
+
+                <% for a in as %><!-- por cada asignacion hallada -->   
+                  <%= "<a onmouseover=ShowContent('"+"flotante"+dia.to_s+hora.id.to_s+lab.id.to_s+ 
+                        a.id.to_s+"'); return true;
+   		      onmouseout=HideContent('"+"flotante"+dia.to_s+hora.id.to_s+lab.id.to_s+a.id.to_s+"'); 
+                                 return true;>" %>
+                      <%= "<div id="+"flotante"+dia.to_s+hora.id.to_s+lab.id.to_s+a.id.to_s+" 
+				style='display:none;position:absolute;
+      					border-style: solid;
+      					background-color: white;width:200px;
+					font-weight: bold;
+      					padding: 5px;';>" %>
+                                   <%= "Preferencias:" %>
+                                   <% if a.solicitudlabexa.preferencias=="" %>
+                                       <%= "ninguna" %>
+                                   <% else %>
+                                       <%= a.solicitudlabexa.preferencias %>
+                                   <% end %><br/>
+                                   <%= "Asig: "+a.solicitudlabexa.asignatura.abrevia_asig %>
+                                   <%= "  ( "+a.solicitudlabexa.asignatura.titulacion.abrevia+" )" %><br/>
+				   <%= "Curso: "+a.solicitudlabexa.curso %><%="  Puestos: "+a.solicitudlabexa.npuestos.to_s %><br/>
+                                   <%= "Profesor: "+a.solicitudlabexa.usuario.nombre+" "+a.solicitudlabexa.usuario.apellidos %><br/>            
+                                   <%= "Soft: "+a.solicitudlabexa.comentarios %><br>
+                                   <%= "Mov. dia: "+a.mov_dia unless a.mov_dia=="" %><br/>
+                                   <%= "Mov. hora: "+a.mov_hora unless a.mov_hora=="" %>
+			    </div>
+                            
+
+                             <%= a.solicitudlabexa.asignatura.abrevia_asig %><br/><br/>
+                       <% hi=Horario.find_by_comienzo(a.solicitudlabexa.horaini).num %>
+                            <% hf=Horario.find_by_fin(a.solicitudlabexa.horafin).num %>
+                            <%= '('+(hf-hi+1).to_s+'h)' %><!-- muestro abrevia_asig e info flotante -->
+                        
+                      </a>
+
+                           <% if a.solicitudlabexa.tipo=="X" %><!-- si la asignacion es directa, se podra eliminar -->
+                              <% formid2="formborra"+hora.id.to_s+dia.to_s+a.id.to_s %>
+			      <%= "<div id="+formid2+" >"%>
+                               <%= hidden_field_tag "asigna", value=a.id %>
+                              </div>        
+			      <%= link_to_remote image_tag("borrar.png", :border=>0,:height=>16,:width=>16,:style=>"float:left"),
+                                :submit=> formid2, 
+                                :url=>{ :controller=>'asignacionexas',:action => 'borradir' },
+                                :confirm=>'Seguro que desea eliminar la asignacion?' %><!-- para eliminar la asignacion -->
+                            <% else %>
+                              <% formid3="formborra"+hora.id.to_s+dia.to_s+a.id.to_s %>
+			      <%= "<div id="+formid3+" >"%>
+                               <%= hidden_field_tag "asigna", value=a.id %>
+                              </div>        
+			      <%= link_to_remote image_tag("borrar.png", :border=>0,:height=>16,:width=>16),
+                                :submit=> formid3, 
+                                :url=>{ :controller=>'asignacionexas',:action => 'borranormal' },
+                                :confirm=>'Seguro que desea eliminar la asignacion?' %><!-- para eliminar la asignacion -->
+                            <% end %>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <!-- NO PUEDE BORRAR AQUI TAMBIEN LAS ASIGNACIONES **** VER CONTROLLER -->
+
+ 
+
+                      <%= "<a onclick=ShowContent('"+"flotanteform"+dia.to_s+hora.id.to_s+lab.id.to_s+a.id.to_s+"');
+                                      return true;>" %>
+                           <%=image_tag("Ambox_move.png",:border=>0,:width=>16,:height=>16,:style=>"cursor:pointer")%>
+                      </a><br/>
+                           <% formid="form"+dia.to_s+hora.id.to_s+lab.id.to_s+a.id.to_s %>
+                              <%= "<div id="+"flotanteform"+dia.to_s+hora.id.to_s+lab.id.to_s+a.id.to_s+"
+				                style='display:none;position:absolute;
+      					        border-style: solid;width:200px;
+      					        background-color: white;
+      					        padding: 2px;';>" %>
+                                     <%= "<div id="+formid+" >"%>
+                                        <table class=flotante2>
+                                           <tr>
+                                             <td></td>
+                                             <td align=right valign=top>
+                                                 <%=image_tag("icon_close.png",:border=>0,:style=>"float:right",
+                                                     :onclick=>"HideContent('"+"flotanteform"+dia.to_s+hora.id.to_s+lab.id.to_s+a.id.to_s+"')")%>
+                                             </td>
+                                           </tr>
+			                   <tr>
+                                             <td>Preferencias:</td>
+                                             <td><% if a.solicitudlabexa.preferencias!="" %>
+                                                      <%= a.solicitudlabexa.preferencias %>
+                                                 <% else %>
+                                                      Ninguna
+                                                 <% end %>
+                                             </td>
+                                            </tr>
+				            <tr>
+                                              <td>Laboratorio </td>
+                                              <td> <% @laboratorios=Laboratorio.find(:all,:order=>"nombre_lab") %>
+                                                   <% labora=Laboratorio.find(a.laboratorio_id).nombre_lab %>
+                				   <%= select "laboratorio_id", "nombre_lab", 
+								@laboratorios.map {|l| [l.nombre_lab]},
+                                                                html_options={:selected=>labora } %></td>
+			                    </tr>                                               
+					    <tr>
+                                              <td>Dia </td>
+                                              <td><% fechas_europeas=[] %>
+                                                  <% for d in fechas %>
+						       <% fechas_europeas<<fecha_europea(d) %>
+						  <% end %>
+						  <%= select "dia", "dia", 
+								fechas_europeas,
+                                                                html_options={:selected=>fecha_europea(a.dia) } %></td>
+                                            </tr>
+                                            <tr>
+                                              <td>Hora </td>
+                                              <td> <% @horas=Horario.find(:all,:conditions=>['en_uso = ?',"t"]) %>
+                                                   <% a.horaini %>
+                				   <%= select "horario_id", "comienzo", 
+								@horas.map {|h| [h.comienzo]},
+                                                                html_options={:selected=>a.horaini } %></td>
+			                    </tr>
+
+				            <tr>
+                                              <td><%= hidden_field_tag "id", a.id %>
+                                              </td>
+                                              <td>
+                                        	<%= button_to_remote ( "Mover"),
+					    	:success=>"HideContent('"+"flotanteform"+dia.to_s+hora.id.to_s+lab.id.to_s+a.id.to_s+"')",
+                                            	:submit=> formid, 
+                                            	:url=> { :controller=>'asignacionexas',:action => 'mover' }%>
+                                              </td>
+                                            </tr>
+                                         </table>
+                                       </div>
+                                  </div><!-- formulario flotante para mover asignacion -->       
+                <% end %>
+                <% if as.size>1 %>
+                  </div>
+                <% end %>
+              </td>
+        
+      <% end %><!-- del for lab in @labs -->
+  </tr>
+     <% end %><!-- del for hora in horas -->  
+   </table>
+<% end %><!-- del for dia in @dias -->
+</div>
+
+<% else %><!-- no hay asignaciones hechas -->
+  <div class="aviso" style="text-align:left;font-size:160%">
+     No hay solicitudes o asignaciones en curso
+  </div>
+<% end %>

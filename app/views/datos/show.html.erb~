@@ -1,0 +1,28 @@
+<div id="titulo" >
+GESTI&Oacute;N DE RECURSOS<br><br>
+&gt;Edición de datos personales
+</div>
+<div id="recuadro">
+<table cellpadding="5" cellspacing="0">
+  <tr>
+    <th>Identificador</th>
+    <th>Nombre</th>
+    <th>Apellidos</th>
+    <th>email</th>
+    <th>Despacho</th>
+    <th>Tel&eacute;fono</th>
+    <th>Admin?</th>
+  </tr>
+<tr valign="top" >
+    <td><%= h @usuario.identificador %></td>
+    <td><%= h @usuario.nombre %></td>
+    <td><%= h @usuario.apellidos %></td>
+    <td><%= h @usuario.identificador %></td>
+    <td><%= h @usuario.despacho %></td>
+    <td><%= h @usuario.telefono %></td>
+    <td><%= h @usuario.admin %></td>
+   
+</tr>
+
+</table>
+</div>

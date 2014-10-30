@@ -1,0 +1,8 @@
+<dl>
+ <dt>Usuario</dt>
+          <dd><% @usuarios=Usuario.find(:all,:order=>"apellidos") %>
+              <%= select "usuario", "identificador", @usuarios.map {|u| [u.apellidos+", "+u.nombre]} %>
+          </dd>
+<dt>Motivos</dt>
+          <dd><%= text_area :motivos, :rows =>4, :cols=>40, :name=>"motivos" %></dd>
+</dl>

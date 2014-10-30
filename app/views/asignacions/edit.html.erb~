@@ -1,0 +1,28 @@
+<h1>Editing asignacion</h1>
+
+<% form_for(@asignacion) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :solicitudlab_id %><br />
+    <%= f.text_field :solicitudlab_id %>
+  </p>
+  <p>
+    <%= f.label :peticion_id %><br />
+    <%= f.text_field :peticionlab_id %>
+  </p>
+  <p>
+    <%= f.label :laboratorio_id %><br />
+    <%= f.text_field :laboratorio_id %>
+  </p>
+  <p>
+    <%= f.label :horaini %><br />
+    <%= f.text_field :horaini %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @asignacion %> |
+<%= link_to 'Back', asignacions_path %>

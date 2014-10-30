@@ -1,0 +1,215 @@
+# This file is auto-generated from the current state of the database. Instead of editing this file, 
+# please use the migrations feature of Active Record to incrementally modify your database, and
+# then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your database schema. If you need
+# to create the application database on another system, you should be using db:schema:load, not running
+# all the migrations from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended to check this file into your version control system.
+
+ActiveRecord::Schema.define(:version => 20101130041636) do
+
+  create_table "asignaciondefs", :force => true do |t|
+    t.integer  "solicitudlab_id"
+    t.integer  "peticionlab_id"
+    t.integer  "laboratorio_id"
+    t.string   "horaini"
+    t.string   "horafin"
+    t.integer  "dia_id"
+    t.string   "mov_dia"
+    t.string   "mov_hora"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "asignacionexas", :force => true do |t|
+    t.integer  "solicitudlab_id"
+    t.integer  "peticionlab_id"
+    t.integer  "laboratorio_id"
+    t.string   "horaini"
+    t.string   "horafin"
+    t.integer  "dia_id"
+    t.string   "mov_dia"
+    t.string   "mov_hora"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "asignacionlabexas", :force => true do |t|
+    t.integer  "solicitudlabexa_id"
+    t.integer  "laboratorio_id"
+    t.date     "dia"
+    t.string   "horaini"
+    t.string   "horafin"
+    t.string   "mov_dia"
+    t.string   "mov_hora"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "asignacions", :force => true do |t|
+    t.integer  "solicitudlab_id"
+    t.integer  "peticionlab_id"
+    t.integer  "laboratorio_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "horaini"
+    t.string   "horafin"
+    t.integer  "dia_id"
+    t.string   "mov_dia"
+    t.string   "mov_hora"
+  end
+
+  create_table "asignaturas", :force => true do |t|
+    t.string   "codigo_asig"
+    t.string   "nombre_asig"
+    t.string   "area_depto"
+    t.string   "caracter"
+    t.float    "coeficiente_exp"
+    t.integer  "curso"
+    t.integer  "cuatrimestre"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "abrevia_asig"
+    t.integer  "titulacion_id"
+  end
+
+  create_table "dias", :force => true do |t|
+    t.integer  "num"
+    t.string   "nombre"
+    t.boolean  "en_uso"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "horarios", :force => true do |t|
+    t.integer  "num"
+    t.string   "comienzo"
+    t.string   "fin"
+    t.boolean  "en_uso"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "laboratorios", :force => true do |t|
+    t.string   "nombre_lab"
+    t.integer  "puestos"
+    t.string   "ssoo"
+    t.string   "descr_HW"
+    t.string   "descr_SW"
+    t.string   "comentarios"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "aviso"
+    t.boolean  "especial"
+  end
+
+  create_table "periodos", :force => true do |t|
+    t.string   "nombre"
+    t.date     "inicio"
+    t.date     "fin"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.date     "iniciosol"
+    t.date     "finsol"
+    t.string   "tipo"
+    t.boolean  "activo"
+    t.boolean  "admision"
+  end
+
+  create_table "peticionlabs", :force => true do |t|
+    t.text     "diasemana"
+    t.text     "horaini"
+    t.text     "horafin"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "solicitudlab_id"
+  end
+
+  create_table "peticions", :force => true do |t|
+    t.integer  "solicitudrecurso_id"
+    t.string   "diasemana"
+    t.string   "horaini"
+    t.string   "horafin"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "recursos", :force => true do |t|
+    t.string   "descripcion"
+    t.string   "identificador"
+    t.string   "caracteristicas"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "disponible"
+    t.text     "aviso"
+  end
+
+  create_table "solicitudlabexas", :force => true do |t|
+    t.date     "fechasol"
+    t.integer  "usuario_id"
+    t.integer  "asignatura_id"
+    t.date     "fecha"
+    t.text     "curso"
+    t.integer  "npuestos"
+    t.text     "comentarios"
+    t.text     "preferencias"
+    t.text     "horaini"
+    t.text     "horafin"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "tipo"
+  end
+
+  create_table "solicitudlabs", :force => true do |t|
+    t.date     "fechaini"
+    t.date     "fechafin"
+    t.date     "fechasol"
+    t.integer  "usuario_id"
+    t.integer  "asignatura_id"
+    t.text     "curso"
+    t.integer  "npuestos"
+    t.text     "comentarios"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "preferencias"
+    t.string   "tipo"
+  end
+
+  create_table "solicitudrecursos", :force => true do |t|
+    t.date     "fechareserva"
+    t.date     "fechasol"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "tipo"
+    t.string   "motivos"
+    t.integer  "usuario_id"
+    t.string   "horaini"
+    t.string   "horafin"
+  end
+
+  create_table "titulacions", :force => true do |t|
+    t.integer  "codigo"
+    t.string   "nombre"
+    t.string   "abrevia"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "usuarios", :force => true do |t|
+    t.string   "identificador"
+    t.string   "password"
+    t.string   "nombre"
+    t.string   "apellidos"
+    t.string   "email"
+    t.boolean  "admin"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "despacho"
+    t.integer  "telefono"
+    t.integer  "usuario_id"
+  end
+
+end

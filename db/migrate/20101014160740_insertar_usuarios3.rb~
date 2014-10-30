@@ -1,0 +1,98 @@
+class InsertarUsuarios3 < ActiveRecord::Migration
+
+  def self.up
+    usuario=Usuario.new(:identificador=>"jcampo",
+                      :password=>"60db0240e61bfc8cde548102dc8e037d",
+                      :password_confirmation=>"60db0240e61bfc8cde548102dc8e037d",
+                      :nombre=>"José del",
+                      :apellidos=>"Campo Ávila",
+                      :email=>"jcampo@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.34",
+                      :telefono=>"3393" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"canal",
+                      :password=> "4709ead2b0079d2d9ae797c94baf3e2a",
+                      :password_confirmation=> "4709ead2b0079d2d9ae797c94baf3e2a",
+                      :nombre=>"Carlos",
+                      :apellidos=>"Canal Velasco",
+                      :email=>"canal@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.26",
+                      :telefono=>"3311" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"jlcaro",
+                      :password=>"a5ff76d885d72c80ab68926d2a2b59f0",
+                      :password_confirmation=>"a5ff76d885d72c80ab68926d2a2b59f0",
+                      :nombre=>"José Luis",
+                      :apellidos=>"Caro Herrero",
+                      :email=>"jlcaro@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"E.U. Turismo 28",
+                      :telefono=>"3253" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"carrillo",
+                      :password=>"72cf1eabab646d317689302c1226688c",
+                      :password_confirmation=>"72cf1eabab646d317689302c1226688c",
+                      :nombre=>"Antonio Luis",
+                      :apellidos=>"Carrillo León",
+                      :email=>"carrillo@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"2.141.D",
+                      :telefono=>"52390" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"marino",
+                      :password=>"6a685df5893aac445d5dcd4d50b3afcd",
+                      :password_confirmation=>"6a685df5893aac445d5dcd4d50b3afcd",
+                      :nombre=>"Marino",
+                      :apellidos=>"Castillo Cabezas",
+                      :email=>"marino@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"SCI",
+                      :telefono=>"2365" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"chicano",
+                      :password=> "5b30a3651af7b7000e8ea045a16ad02f",
+                      :password_confirmation=> "5b30a3651af7b7000e8ea045a16ad02f",
+                      :nombre=>"Francisco",
+                      :apellidos=>"Chicano García",
+                      :email=>"chicano@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.47",
+                      :telefono=>"2815" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"jcoego",
+                      :password=>"21299825c8daf6a35dfb5144d2bd573d",
+                      :password_confirmation=>"21299825c8daf6a35dfb5144d2bd573d",
+                      :nombre=>"Javier",
+                      :apellidos=>"Coego Botana",
+                      :email=>"jcoego@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.3.12",
+                      :telefono=>"3372" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"conejo",
+                      :password=>"31f466af75370e2dec5a2c17565a03ed",
+                      :password_confirmation=>"31f466af75370e2dec5a2c17565a03ed",
+                      :nombre=>"Ricardo",
+                      :apellidos=>"Conejo Muñoz",
+                      :email=>"conejo@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.25",
+                      :telefono=>"2812" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"ccottap",
+                      :password=>"aa924023479ae18f077fd71586f37904",
+                      :password_confirmation=>"aa924023479ae18f077fd71586f37904",
+                      :nombre=>"Carlos",
+                      :apellidos=>"Cotta Porras",
+                      :email=>"ccottap@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.49",
+                      :telefono=>"7158" )
+    usuario.save!
+  end
+
+  def self.down
+  end
+end

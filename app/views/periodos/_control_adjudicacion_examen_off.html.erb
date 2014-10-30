@@ -1,0 +1,16 @@
+<p>Si desactiva el periodo de adjudicaci&oacute;n, se recomienda:</p>
+<table class="aviso" style="text-align:left">
+  <tr>
+    <td class="doscientoscincuenta" style="font-size:0.5cm">Guardar adjudicaciones en historico</td>
+    <td><%= link_to_remote(image_tag("boton2.png",:border=>0,:align=>"left"),
+            :url      => { :controller=>'periodos',:action => 'grabar_historico_examen' },
+            :confirm  => "Se guardar&aacute;n las asignaciones de este periodo en un archivo hist&oacute;rico para su an&aacute;lisis estad&iacute;stico")%></td>
+  </tr>
+  <tr>
+    <td class="doscientoscincuenta" style="font-size:0.5cm">Enviar correo de cierre a usuarios</td>
+    <td><%= link_to_remote(image_tag("boton2.png",:border=>0,:align=>"left"),
+            :url      => { :controller=>'periodos',:action => 'enviar_correo_activo_off' },
+            :confirm  => "Se enviara un correo a todos los usuarios de la base, en el que se anunciara el cierre del periodo de adjudicaci&oacute;n")%></td>
+  </tr>
+</table>
+<p style="font-size:2em;"><%=  @mensaje %></p>

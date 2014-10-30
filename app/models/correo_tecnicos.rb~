@@ -1,0 +1,135 @@
+# encoding: utf-8
+
+#iso-8859-10
+class CorreoTecnicos < ActionMailer::Base
+  
+  def aperturalectivo(nombre,fechafin)
+    buzones=Usuario.all.map{|u| u.email}
+    @subject  =  'Apertura del plazo de solicitudes de reservas de laboratorios (periodo lectivo)'
+    @recipients= buzones
+    @from      = 'reservas@lcc.uma.es'
+    @sent_on   = Time.now
+    
+    body["nombre"]=nombre
+    body["fechafin"]=fechafin
+  end
+
+  def aperturaexamen(nombre,fechafin)
+    buzones=Usuario.all.map{|u| u.email}
+    @subject  =  'Apertura del plazo de solicitudes de reservas de laboratorios (examenes)'
+    @recipients= buzones
+    @from =      'reservas@lcc.uma.es'
+    @sent_on =   Time.now
+    
+    body["nombre"]=nombre
+    body["fechafin"]=fechafin
+  end
+
+
+
+  def cierrelectivo(nombre)
+    buzones=Usuario.all.map{|u| u.email}
+    @subject  =  'Cierre del plazo de solicitudes de reservas de laboratorios (periodo lectivo)'
+    @recipients= buzones
+    @from     =  'reservas@lcc.uma.es'
+    @sent_on  =  Time.now
+    
+    body["nombre"]=nombre
+  end
+
+  def cierreexamen(nombre)
+    buzones=Usuario.all.map{|u| u.email}
+    @subject   = 'Cierre del plazo de solicitudes de reservas de laboratorios (examenes)'
+    @recipients =buzones
+    @from =     'reservas@lcc.uma.es'
+    @sent_on    =Time.now
+    
+    body["nombre"]=nombre
+  end
+
+  def adjudicalectivo(nombre)
+    buzones=Usuario.all.map{|u| u.email}
+    @subject =  'Apertura de consultas de adjudicaciones de laboratorios (periodo lectivo)'
+    @recipients= buzones
+    @from  =     'reservas@lcc.uma.es'
+    @sent_on   = Time.now
+    
+    body["nombre"]=nombre
+  end
+
+  def adjudicaexamen(nombre)
+    buzones=Usuario.all.map{|u| u.email}
+    @subject =   'Apertura de consultas de adjudicaciones de laboratorios (examenes)'
+    @recipients= buzones
+    @from    =   'reservas@lcc.uma.es'
+    @sent_on  =  Time.now
+    
+    body["nombre"]=nombre
+  end
+
+  def cierreadjudicalectivo(nombre)
+    buzones=Usuario.all.map{|u| u.email}
+    @subject =   'Clausura de consultas de adjudicaciones de laboratorios (periodo lectivo)'
+    @recipients= buzones
+    @from  =     'reservas@lcc.uma.es'
+    sent_on   = Time.now
+    
+    body["nombre"]=nombre
+   
+  end
+
+  def cierreadjudicaexamen(nombre)
+    buzones=Usuario.all.map{|u| u.email}
+    @subject =   'Clausura de consultas de adjudicaciones de laboratorios (examenes)'
+    @recipients= buzones
+    @from  =     'reservas@lcc.uma.es'
+    @sent_on  =  Time.now
+    
+    body["nombre"]=nombre
+  end
+
+  def emitesolicitudlectivo(solicitudlab,fechaini,fechafin,tramos,emisor,tipo)
+    buzon=Usuario.find(solicitudlab.usuario_id).email
+    @subject =   tipo+'solicitud de laboratorio (periodo lectivo)'
+    @recipients= ['pilaronrails@gmail.com','reservas@lcc.uma.es']
+    @from   =    buzon
+    @sent_on  = Time.now
+    
+    body["fecha"]=solicitudlab.fechasol
+    body["usuario"]=solicitudlab.usuario.nombre+' '+solicitudlab.usuario.apellidos
+    body["asignatura"]=solicitudlab.asignatura.nombre_asig
+    body["titulacion"]=solicitudlab.asignatura.titulacion.nombre
+    body["curso"]=solicitudlab.curso
+    body["npuestos"]=solicitudlab.npuestos
+    body["fechaini"]=fechaini
+    body["fechafin"]=fechafin
+    body["tramos"]=tramos
+    body["preferencias"]=solicitudlab.preferencias
+    body["comentarios"]=solicitudlab.comentarios
+    body["emisor"]=emisor
+    body["tipo"]=tipo
+
+  end
+ 
+  def emitesolicitudexamen(solicitudlabexa,fecha,emisor,tipo)
+    buzon=Usuario.find(solicitudlab.usuario_id).email
+    @subject =   tipo+'solicitud de laboratorio (examenes)'
+    @recipients =['pilaronrails@gmail.com','reservas@lcc.uma.es']
+    @from  =     buzon
+    @sent_on  =  Time.now
+    
+    body["usuario"]=solicitudlabexa.usuario.nombre+' '+solicitudlabexa.usuario.apellidos
+    body["asignatura"]=solicitudlabexa.asignatura.nombre_asig
+    body["titulacion"]=solicitudlabexa.asignatura.titulacion.nombre
+    body["curso"]=solicitudlabexa.curso
+    body["npuestos"]=solicitudlabexa.npuestos
+    body["fecha"]=fecha
+    body["horaini"]=solicitudlabexa.horaini
+    body["horafin"]=solicitudlabexa.horafin
+    body["preferencias"]=solicitudlabexa.preferencias
+    body["comentarios"]=solicitudlabexa.comentarios
+    body["emisor"]=emisor
+    body["tipo"]=tipo
+  end
+
+end

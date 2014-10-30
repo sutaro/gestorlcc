@@ -1,0 +1,109 @@
+<% nasig=Asignacion.all.size %>
+<% nasigdef=Asignaciondef.all.size %>
+<% total=nasig+nasigdef %>
+
+<% form_tag new_solicitudusuariolab_path, :method=>:get do -%>
+    <%= submit_tag "Nueva solicitud", :class=>"botonindexsearch" %>
+<% end -%>
+
+<% if @solicitudlabs %>
+    <% periodo=Periodo.find(:first,:conditions=>['tipo = ? and (activo = ? or admision = ?)',"Lectivo","t","t"], :order=>"admision desc") %>
+    <div id="nom_periodo">
+    <% if !periodo.nil? %><!-- si se esta en un periodo de asignaciones activadas o adjudicadas-->
+      <%= periodo.nombre %>
+    <% else %>
+      No est&aacute; abierta la admisi&oacute;n de solicitudes
+    <% end %>
+    </div>
+     <p>Solicitudes : <%=@cuenta %></p>
+     <p><%= image_tag ("bg_separ.gif") %></p>
+     <% if @cuenta!=0 %>
+        <table >
+          <tr>
+            <th> </th>
+            <th class="cien">Fecha sol.</th>  
+            <th class="doscientos">Asignatura</th>
+            <th class="cincuenta">Curso</th>
+            <th class="cincuenta">Eq.</th>
+            <th class="cien">Fecha inicio</th>
+            <th class="cien">Fecha fin</th>
+            <th >Petici&oacute;n</th>
+            <th>Soft.</th>
+            <th class="cientocincuenta">Tipo lab</th>
+            
+          </tr>
+          <tr>
+          <% if @solicitudlabs.empty? %>
+            <td><%= h "No hay solicitudes de laboratorios emitidas" %></td>
+          <% end %> 
+          </tr>
+          <% @solicitudlabs.each do |i| %>
+          <tr valign="top" class="<%=cycle('linea-impar','linea-par') %>">
+            
+            <td class="icono"><% if (i.tipo!="X" and !periodo.nil? and total==0) and i.asignado!="D" %>
+                              <!-- solicitudes que reflejan asignaciones directas de admin o periodos no vigentes -->
+                                <%= link_to image_tag("Editar.png", :border=>0),  edit_solicitudlab_path(i) %>
+                              <% else %>
+                                <% if i.asignado=="D" %>
+                                  <%= image_tag("mark.png", :border=>0, :size=>"24x24") %>
+                                <% else %>
+                              <% if i.asignado=="N" %>
+                                <%= link_to image_tag("Editar.png", :border=>0),  edit_solicitudlab_path(i) %>
+                              <% end %>
+                            <% end %>
+                           <% end %></td>
+            <td class="fecha"><%=h fecha_europea(i.fechasol) %></td>  
+            <td><% asig=Asignatura.find(i.asignatura_id) %>
+                <%= "<a onmouseover=ShowContent('asignatura"+i.id.to_s+"'); return true;
+   			   onmouseout=HideContent('asignatura"+i.id.to_s+"'); return true;>" %>
+                           <%= "<div id=asignatura"+i.id.to_s %> 
+				style='display:none;position:absolute;
+      					border-style: solid;
+      					background-color: white;width:300px;
+      					padding: 5px;';>
+                                        <%=h asig.nombre_asig %><br/><!-- nombre completo de la asignatura -->
+                                        <%="Titulacion :"+asig.titulacion.abrevia %>
+			    </div>
+             <%=h asig.abrevia_asig %></td><!-- nombre abreviado de la asignatura -->
+            <td style="text-align:center"><% if i.curso.to_s=="sin curso" %>
+                                          <%= "-" %>
+                                       <% else %>
+                                          <%=h i.curso %>
+                                       <% end %></td>
+            <td style="text-align:center"><%=h i.npuestos %></td>
+            <td><%=h fecha_europea(i.fechaini) %></td>
+            <td><%=h fecha_europea(i.fechafin) %></td>
+            <td><% @tramos=i.peticionlab %>
+                <table>
+                   <%=render(:partial => "/solicitudrecursos/tramo_peticion", :collection=> @tramos ) %>
+                </table>
+            </td>
+            <td style="text-align:center"><%= "<a onmouseover=ShowContent('"+"flotante"+i.id.to_s+"'); return true;
+   			   onmouseout=HideContent('"+"flotante"+i.id.to_s+"'); return true;>"  %>
+                            <%= "<div id="+"flotante"+i.id.to_s+" 
+				style='display:none;position:absolute;width:200px;
+      					border-style: solid;
+      					background-color: white;
+      					padding: 5px;';>" %>
+                                        <%=i.comentarios %>
+			    </div><!-- se visualiza el comentario -->
+			    <%="SI" unless i.comentarios=="" %></a><!-- se indica si hay comentario que visualizar --></td>
+            <td><% @preferencias=i.preferencias.split(";") unless i.preferencias.nil? %>  
+               <table>
+                   <%=render(:partial => "/solicitudlabs/tramo_preferencia", :collection=> @preferencias ) %>
+               </table>
+            </td>           
+            <td class="icono"><% if (i.tipo!="X" and !periodo.nil? and total==0) and i.asignado!="D"  %>
+                              <!-- solicitudes que reflejan asignaciones directas de admin o periodos no vigentes-->
+                                 <%= link_to image_tag("borrar.png", :border=>0), solicitudlab_path(i), 
+                                    :confirm => 'Seguro que desea eliminar la solicitud?', :method => :delete %>
+                                 <% else %>
+                                   <% if i.tipo=="X" %>
+                                    Asignaci&oacute;n directa
+                                   <% end %>
+                                 <% end %></td>  
+          </tr>
+       <% end %><!-- de @solicitudlabs.each -->
+     </table>
+   <% end %><!-- de if @cuenta!=0 -->
+<% end %><!-- de if @solicitudlabs -->

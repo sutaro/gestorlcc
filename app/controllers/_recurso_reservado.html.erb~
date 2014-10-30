@@ -1,0 +1,23 @@
+<table id="horario">
+<tr><th>
+        <% for  r in @recs %>
+           <th><%= r.descripcion+" "+r.identificador %></th>
+        <% end %>
+</tr>
+<tr><th>
+        <% for  r in @recs %>
+           <th><%= r.caracteristicas %></th>
+        <% end %>
+</tr>
+
+        <% for hora in @horas %>
+           <tr><th><%= hora.comienzo+"-"+hora.fin %></th>
+           <% for r in @recs %>
+            <td id="celda_reserva"><%= r.descripcion %>
+                                   OCUPADO
+                                   <% end %>
+            </td>  
+           <% end %>
+           </tr>
+        <% end %>
+</table>

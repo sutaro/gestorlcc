@@ -1,0 +1,115 @@
+<%    @dias=Dia.find(:all,:conditions=>['en_uso=?',"t"])  %>
+
+<% if @festivo %>
+    <div id="errores">     
+       <div id="errorExplanation">
+          <p>Imposible efectuar reserva de recurso:</p>
+          <ul><li>El d&iacute;a seleccionado es festivo o pasado</li>
+          </ul>
+       </div>     
+    </div>
+<% else %>
+
+ <table id="horario">
+  <tr>
+    <th>
+    <% for  r in @recs %>
+           <th style="padding: 5px 0px;">
+
+             <%= "<a onmouseover=ShowContent('recurso"+r.id.to_s+"'); return true;
+   			   onmouseout=HideContent('recurso"+r.id.to_s+"'); return true;>" %>
+                           <%= "<div id=recurso"+r.id.to_s %> 
+				style='display:none;position:absolute;
+      					border-style: solid;
+      					background-color: white;
+      					padding: 5px;
+                                        width:300px;';>
+                                        <%= r.caracteristicas %>
+			    </div>
+              <%= r.descripcion+" : "+r.identificador %></a></th>
+              <% end %>
+      </tr>
+  <% fila=0 %>
+  <% for i in 0..Recurso::NUMHORAS %>
+    <% fila+=1 %>
+    <tr>
+      <th><%= Recurso::HORAS[i]+"-"+Recurso::HORAS[i+1] %></th>
+          <% columna=0 %>
+          <% for r in @recs %>
+             <% columna+=1 %>
+	     <% reserva=@reservas.select{|m| m.tipo==r.identificador && m.horaini==Recurso::HORAS[i]}   %>
+             <% if !reserva.empty? %>
+                <td id="celda_ocupada"><% profesor=reserva[0].usuario %>
+                      <%= "<a onmouseover=ShowContent('"+"flotante"+fila.to_s+columna.to_s+"'); return true;
+   			   onmouseout=HideContent('"+"flotante"+fila.to_s+columna.to_s+"'); return true; >"  %>
+                            <%= "<div id="+"flotante"+fila.to_s+columna.to_s+" 
+				style='display:none;position:absolute;
+      					border-style: solid;
+      					background-color: white;
+      					padding: 5px;';>" %>
+                                        <%=profesor.nombre+' '+profesor.apellidos%><br> 
+       					Despacho: <%= profesor.despacho %><br>
+                                        Telefono: <%= profesor.telefono %><br>
+                                        Email: <%= profesor.email %>
+			    </div><!-- datos detallados de quien ocupa el recurso -->
+			    <%=profesor.nombre+' '+profesor.apellidos%><!-- nombre y apellidos de quien ocupa el recurso -->
+                            <% if profesor.id==session[:user_id] %><!-- puede anular sus reservas -->
+                               <% formid2="formborra"+fila.to_s+columna.to_s %>
+			       <%= "<div id="+formid2+" >"%>
+                                 <%= hidden_field_tag "reserva", value=reserva[0].id %>
+                               </div>
+                               <% if Date.today <=reserva[0].fechareserva %>         
+			         <%= link_to_remote image_tag("borrar.png", :border=>0,:height=>16,:width=>16,:style=>'cursor:pointer'),
+                                     :submit=> formid2, 
+                                     :url=>{ :controller=>'solicitudrecursousuarios',:action => 'borra' },
+                                     :before => "confirm('Seguro que desea eliminar la reserva?')" %>
+                               <% end %>
+                            <% end %></a></td>
+             <% else %>
+                 <td id="celda_libre" >
+                       <% formid="form"+fila.to_s+columna.to_s %>
+		       <%= "<div id="+formid+" >"%>
+			   <%= "<a onclick=ShowContent('"+"flotanteform"+fila.to_s+columna.to_s+"'); return true; style='cursor:pointer'>" %>Reservar</a>
+
+                             <%= "<div id="+"flotanteform"+fila.to_s+columna.to_s+" 
+				         style='display:none;position:absolute;
+      					        border-style: solid;
+      					        background-color: #f6ecd5;
+      					        padding: 5px;';>" %>
+                                                <table class=flotante><!-- formulario de reserva -->
+                                                  <tr>
+                                                   <td></td>
+                                                   <td align=right valign=top><%=image_tag("icon_close.png",:border=>0,
+                                                        :style=>'cursor:pointer',
+                                                        :onclick=>"HideContent('"+"flotanteform"+fila.to_s+columna.to_s+"')")%></td>
+                                                  </tr>
+                                                  <tr>
+                                                   <td>Motivos </td>
+                                                   <td> <%= text_area_tag "motivos",nil,:cols=>30,:rows=>3 %></td> 
+                                                 </tr>                                              
+                                        	 <%= hidden_field_tag "tipo", value=r.identificador %>
+                                        	 <%= hidden_field_tag "horai", value=Recurso::HORAS[i] %>
+                                        	 <%= hidden_field_tag "horaf", value=Recurso::HORAS[i+1] %>
+                                        	 <%= hidden_field_tag "fechasol",value=Date.today %>
+						 <tr>
+                                                   <td></td>
+                                                   <td><%= button_to_remote ( "Reservar"),
+					    	                :success=>"HideContent('"+"flotanteform"+fila.to_s+columna.to_s+"')",
+                                            	                :submit=> formid, 
+                                            	                :url=> { :controller=>'solicitudrecursousuarios',:action => 'create' }%>
+                                                   </td>
+                                                 </tr>
+                                                </table>
+                                  </div><!-- de flotanteform -->
+                            </div><!-- de formid -->
+                    </td>
+             <% end %><!-- de if !reserva.empty? -->   
+          <% end %><!-- de for r -->
+    </tr>
+  <% end %><!-- de for i -->
+  </table>
+  <%= flash[:notice] %>
+<% end %><!-- de if @festivo -->
+
+
+

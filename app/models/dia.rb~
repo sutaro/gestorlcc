@@ -1,0 +1,9 @@
+class Dia < ActiveRecord::Base
+
+  has_many :asignacion;
+
+  
+# restricciones sobre los datos
+validates_presence_of :num, :nombre,
+                        :message => ': No puede estar en blanco'
+end

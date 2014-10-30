@@ -1,0 +1,1 @@
+page.replace_html(:'admision', :partial=>"/asignaturas/cambia_admision", :object=>@mensaje)

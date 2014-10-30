@@ -1,0 +1,39 @@
+<div id="central" >
+    <p>GESTOR DE RECURSOS<br/>
+       <%= image_tag ("pointer.gif") %>Editando solicitud de recurso
+    </p>
+    <div id="recuadro">
+       <p><%= image_tag ("bg_separ.gif") %></p>
+       <div id="recuadro-azul" style="height:300px">
+       <% form_for @solicitudrecurso, :url => solicitudrecursousuario_path, :action=>"update", 
+                  :html=> {:name => "formulario"} do |f| %>
+         <dl>
+          <dt>Fecha solicitud</dt>
+          <dd><%= @dia %></dd>
+          <dt>Usuario</dt>
+          <dd><%= @usuario %></dd>
+          <dt>Tipo de recurso</dt>
+          <dd>
+             <%= @solicitudrecurso.tipo %></dd>
+          <dt>Fecha reserva</dt>
+          <dd >
+             <%= @nfechareserva %>  </dd>
+          <dt>Motivos</dt>
+          <dd onkeydown=' mostrardiv("solicitudrecurso_submit")'>
+             <%= f.text_area :motivos, :rows =>4, :cols=>40, :name=>"motivos" %></dd>
+          <p><%= f.submit 'Actualizar datos', :class=>"botonescondido" %></p>
+         </dl> 
+        </div><!-- de recuadro-azul -->
+     <div id="errores">
+         <%= f.error_messages :header_message => 'Se produjeron errores en la captura de datos', 
+             :message => 'Imposible modificar la  solicitud de laboratorio:'%>
+         <% if flash[:notice] %>
+           <div id="errorExplanation">
+              <p>Imposible modificar la  solicitud de laboratorio:<p>
+              <ul><li><%=flash[:notice]  %></li></ul>
+           </div>
+         <% end %>
+     </div>
+     <% end %>
+    </div><!-- de recuadro -->
+</div><!-- de central -->

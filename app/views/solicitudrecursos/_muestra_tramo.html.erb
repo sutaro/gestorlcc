@@ -1,0 +1,14 @@
+<% if muestra_tramo.id == @actual %>
+<tr id="actual" valign=top>
+<% else %>
+<tr valign=top>
+<% end %>
+<td width=80><%= muestra_tramo.diasemana %></td>  
+<td width=30><%= muestra_tramo.horaini %></td>
+<td width=10><%="-" %></td>
+<td width=30><%= muestra_tramo.horafin %></td>
+<td width=15><%= link_to_remote image_tag("menos.png", :border=>0), 
+         :url => { :controller=>:solicitar, :action => 'eliminar', :num=> muestra_tramo.id },
+         :success=>'mostrardiv("solicitudrecurso_submit")' %></td>
+       
+</tr>

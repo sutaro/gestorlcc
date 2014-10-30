@@ -1,0 +1,140 @@
+class ConsultasasigController < ApplicationController
+  def porusuario
+    @solicitudes = Solicitudlab.find(:all,:conditions=>["usuario_id == ?",session[:user_id]])
+    ids=@solicitudes.map {|s| s.id }
+    @asignacions = Asignacion.find(:all,:conditions=> ["solicitudlab_id in (?)", ids],
+					:order=>"solicitudlab_id,peticionlab_id")
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @asignacions }
+    end
+  end
+
+  def general
+    @asignacions = Asignacion.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @asignacions }
+    end
+  end
+
+  def asignar
+     solicitudes=Solicitudlab.all
+     @solicitudlabs=solicitudes.to_a
+
+  # ordenacion segun metodo de ascenso de burbujas por tres criterios:
+  # 1- por coeficiente de experimentabilidad, inicialmente el mismo en todas
+  # 2- por tipo de solicitud (1- T:todo el periodo, 2- I:intervalo, 3- C:dias concretos)
+  # 3- por numero de tramos horarios que tenga la peticion   
+
+     for i in 0..@solicitudlabs.size-1
+       for j in 0..@solicitudlabs.size-2-i
+         if @solicitudlabs[j].asignatura.coeficiente_exp<@solicitudlabs[j+1].asignatura.coeficiente_exp
+           @solicitudlabs[j],@solicitudlabs[j+1]=@solicitudlabs[j+1],@solicitudlabs[j]
+         end
+       end
+     end
+  
+      for i in 0..@solicitudlabs.size-1
+       for j in 0..@solicitudlabs.size-2-i
+         if @solicitudlabs[j].asignatura.coeficiente_exp==@solicitudlabs[j+1].asignatura.coeficiente_exp and
+            @solicitudlabs[j].tipo<@solicitudlabs[j+1].tipo
+           @solicitudlabs[j],@solicitudlabs[j+1]=@solicitudlabs[j+1],@solicitudlabs[j]
+         end
+       end
+     end
+
+      for i in 0..@solicitudlabs.size-1
+       for j in 0..@solicitudlabs.size-2-i
+         if @solicitudlabs[j].asignatura.coeficiente_exp==@solicitudlabs[j+1].asignatura.coeficiente_exp and
+            @solicitudlabs[j].tipo==@solicitudlabs[j+1].tipo and
+            @solicitudlabs[j].peticionlab.size<@solicitudlabs[j+1].peticionlab.size
+           @solicitudlabs[j],@solicitudlabs[j+1]=@solicitudlabs[j+1],@solicitudlabs[j]
+         end
+       end
+     end
+
+     # los componentes ordenados secuencialmente, se cargan en un array 3d de horas x labs x diasemana
+
+     cuadrante=Array3d.new
+     @asignacions=[]
+     @tripletas=[]
+   
+    
+     @solicitudlabs.each { |sol|     #por cada una de las @solicitudlabs, buscamos los lab que tienen ese n. de puestos
+       sol.peticionlab.each { |pet|     #por cada peticion de tramo de cada solicitud
+        
+         # tomamos el dia, la hora de inicio y la de fin
+         dia=Dia.find_by_nombre(pet.diasemana).id
+         hi=Horario.find_by_comienzo(pet.horaini).id.to_i
+         hf=Horario.find_by_fin(pet.horafin).id.to_i
+         for hora in hi..hf     #   for cada hora del tramo, una asignacion
+          if sol.npuestos<55
+           @todoslab=Laboratorio.find(:all,:order=>"nombre_lab desc",:conditions=>["puestos = ?",sol.npuestos])
+           # en principio el laboratorio asignado es ninguno y buscamos uno libre de ese tamaño
+           lab=nil
+           @todoslab.each {|laboratorio|
+                                if sol.npuestos<=laboratorio.puestos and cuadrante[hora, laboratorio.id,dia].nil?
+                                  lab=[laboratorio.id]  # si el laboratorio está libre y cabe el num de puestos     
+                                end       
+                          }
+           # si no habia ninguno libre, colisionamos en el primero de los lab de esa capacidad
+           if lab.nil?
+                lab=[@todoslab.first.id]
+           end  
+
+          else 
+           uno=Laboratorio.find_by_nombre_lab("3.1.1").id
+           dos=Laboratorio.find_by_nombre_lab("3.1.2").id
+           ocho=Laboratorio.find_by_nombre_lab("3.1.8").id 
+           nueve=Laboratorio.find_by_nombre_lab("3.1.9").id
+           if sol.npuestos==55
+               # se asignan "a mano los lab 1 y 8 o bien el 2 y el 9 que son contiguos
+                
+               if cuadrante[hora,uno,dia]==nil and cuadrante[hora,dos,dia]==nil
+                lab=[uno,dos]
+               else 
+                lab=[ocho,nueve]
+                
+               end #if 
+           else
+             lab=[uno,dos,ocho,nueve]
+             if sol.npuestos==150
+                 lab+=[tres,cinco]
+               
+             end # if == 150
+           end # if ==55
+          end # if <55
+           # siempre habra al menos una asignacion para todos
+           # CONSTRUIR UNA LISTA Y UNA ITERACION  SOBRE ELLA DE ASIGNACIONES
+           lab.each {|l| @asignacions<<asignacion=Asignacion.new(:solicitudlab_id=>sol.id,
+                                       :laboratorio_id=>l,
+                                       :peticionlab_id=>pet.id,
+                                       :horaini=>Horario.find(hora).comienzo,
+                                       :horafin=>Horario.find(hora).fin)
+                    }
+           if cuadrante[hora,lab,dia].nil?
+             cuadrante[hora,lab,dia]=[asignacion]
+           else
+             cuadrante[hora,lab,dia]<<[asignacion]
+           end         
+          end # for horas
+         
+         
+      } # for pet
+     }  # for sol
+     
+
+     
+     respond_to do |format|
+      format.html # new.html.erb
+     
+     end
+       
+
+
+  end
+
+end

@@ -1,0 +1,3 @@
+Se comunica a los profesores que a partir de este momento y hasta el <%= @fechafin %> queda abierto el periodo de admision de solicitudes de reserva de laboratorio para el <%= Iconv.conv('ascii//translit', 'utf-8', @nombre) %>
+
+Para cualquier consulta o duda, pónganse en contacto con tecnicos@lcc.uma.es.

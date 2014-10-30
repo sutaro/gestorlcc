@@ -1,0 +1,1098 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/*
+	www.lcc.uma.es
+	Tabla de contenidos:
+		Globales
+		Layout
+			- 
+			- 
+			- 
+*/
+
+/* Globales
+-------------------------------------------------- */
+
+
+* {
+	padding: 0;
+	margin: 0
+}
+
+body {
+	font-size: 62.5%;
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+	color: #036;
+	background: #FFF;
+	text-align: center
+}
+
+a {
+	color: #069;
+	text-decoration: none;
+	background: url(../images/px_069.gif) left bottom repeat-x;
+}
+
+a:hover {
+	color: #333;
+	text-decoration: none;
+	background: none
+}
+
+a img  {
+	border: none 0
+}
+
+p.edited {
+	float: left
+}
+
+/* Layout
+-------------------------------------------------- */
+// PRINCIPAL
+#wrapper {
+	width: 100%
+}
+
+#conta_login {
+	background: url(../images/tr_lycc.gif) center top repeat-x;
+	width: 100%;
+	height: 140px;
+	margin: 200px auto
+}
+
+#log-in {
+	background: url(../images/bg_login.png) center top no-repeat;
+	width: 760px;
+	height: 140px;
+	margin: 0 auto
+}
+// PRINCIPAL
+#conta_header {
+	background: url(../images/tr_lycc.gif) left top repeat-x;
+	width: 100%;
+	height: 140px;
+	float: left
+}
+// PRINCIPAL
+#header {
+	background: url(../images/bg_cabec.png) center top no-repeat;
+	width: 960px;
+	height: 140px;
+	margin: 0 auto
+}
+
+#conta_main {
+	background: url(../images/bg_lcc1.png) center bottom no-repeat;
+	width: 100%;
+	float: left
+}
+
+#main {
+	width: 960px;
+	margin: 0 auto
+}
+
+#nav {
+	width: 190px;
+	float: left
+}
+
+#conta_footer {
+	background: url(../images/bg_foot.png) left top repeat-x;
+	width: 100%;
+	height: 180px;
+	float: left;
+	clear: both;
+}
+
+#footer0 {
+	width: 960px;
+	padding: 5px 0;
+	margin: 100px auto 0
+}
+
+#footer {
+	background: url(../images/bg_lcc2.png) center top no-repeat;
+	width: 960px;
+	height: 120px;
+	margin: 0 auto
+}
+
+/* Navegacion
+-------------------------------------------------- */
+/* Menu
+------------------------- */
+
+div#nav ul {
+	width: 190px;
+	float: left;
+	list-style: none
+}
+
+div#nav ul li {
+	font-size: 1.3em;
+	text-align: left
+}
+
+div#nav ul li a {
+	color: #222C3C;
+	line-height: 15px;
+	display: block;
+	width: 160px;
+	height: 15px;
+	padding: 5px 15px
+}
+
+div#nav ul li a:hover {
+	color: #FFF
+}
+
+div#nav ul li a#home {
+	color: #222C3C;
+	background-color: #FFF;
+	background-image: none
+}
+
+div#nav ul li a#home:hover {
+	color: #999
+}
+
+div#nav ul li a.col1 {
+	background: url(../images/bg_col1.png) left top no-repeat
+}
+
+div#nav ul li a.col2 {
+	background: url(../images/bg_col2.png) left top no-repeat
+}
+
+div#nav ul li a.col3 {
+	background: url(../images/bg_col3.png) left top no-repeat
+}
+
+div#nav ul li a.col4 {
+	background: url(../images/bg_col4.png) left top no-repeat
+}
+
+div#nav ul li a.col5 {
+	background: url(../images/bg_col5.png) left top no-repeat
+}
+
+div#nav ul li a.col6 {
+	background: url(../images/bg_col6.png) left top no-repeat
+}
+
+div#nav ul li a.col7 {
+	background: url(../images/bg_col7.png) left top no-repeat
+}
+
+div#nav ul li a:hover {
+	background-position: left bottom
+}
+
+div#nav ul li#actual a {
+	color: #FFF;
+	background-position: left bottom
+}
+
+/* Contenidos
+-------------------------------------------------- */
+
+/* Error
+------------------------- */
+
+#nav0 {
+	width: 190px;
+	height: 300px;
+	float: left
+}
+
+
+/* Cabecera
+------------------------- */
+
+h1,h2 {
+	display: none
+}
+
+img#logotipo {
+	float: left;
+	margin: 20px 0 20px 12px
+}
+
+img.otros_logos {
+	float: right;
+	margin: 20px 10px 20px 0
+}
+
+/* Cuerpo
+------------------------- */
+
+p.direccion {
+	font-size: 1.0em;
+	font-style: italic;
+	text-align: right;
+	width: 780px;
+	float: left
+}
+
+div.centre0 {
+	width: 400px; /*600 reales*/
+	float: left;
+	margin: 5px 0 0 20px
+}
+
+div.centre {
+	width: 570px; /*600 reales*/
+	float: left;
+	padding: 15px
+}
+
+div.sidebar {
+	width: 170px;
+	float: left;
+	padding: 15px 0
+}
+
+div.centre h3 {
+	font-size: 1.5em;
+	line-height: 30px;
+	text-align: left;
+	width: 570px
+}
+
+div.centre h3 span {
+	color: #069;
+}
+
+div.centre#portada h3 {
+	color: #556B90;
+	text-transform: uppercase
+}
+
+div.centre h3 span a {
+        text-decoration: none;
+	background: url(../images/fleizq1.gif) left top no-repeat;
+	padding: 0 0 0 12px
+}
+
+div.centre h3 span a:hover {
+	text-decoration: none;
+	background: url(../images/fleizq2.gif) left top no-repeat;
+	padding: 0 0 0 12px
+}
+
+div.centre0 h3 {
+	font-size: 1.5em;
+	line-height: 30px;
+	text-align: left;
+	width: 400px
+}
+
+div.sidebar h3 {
+	font-size: 1.3em;
+	font-weight: normal;
+	line-height: 30px;
+	text-align: left;
+	width: 170px
+}
+
+div.centre#portada h3,div.sidebar#portada h3 {
+	background: url(../images/bg_sb0.gif) left bottom no-repeat
+}
+
+div.centre#direccion h3,div.sidebar#direccion h3 {
+	background: url(../images/bg_sb1.gif) left bottom no-repeat
+}
+
+div.centre#personal h3,div.sidebar#personal h3 {
+	background: url(../images/bg_sb2.gif) left bottom no-repeat
+}
+
+div.centre#docencia h3,div.sidebar#docencia h3 {
+	background: url(../images/bg_sb3.gif) left bottom no-repeat
+}
+
+div.centre#publicaciones h3,div.sidebar#publicaciones h3 {
+	background: url(../images/bg_sb4.gif) left bottom no-repeat
+}
+
+div.centre#investigacion h3,div.sidebar#investigacion h3 {
+	background: url(../images/bg_sb5.gif) left bottom no-repeat
+}
+
+div.centre#pfc h3,div.sidebar#pfc h3 {
+	background: url(../images/bg_sb6.gif) left bottom no-repeat
+}
+
+div.centre#tablon h3,div.sidebar#tablon h3 {
+	background: url(../images/bg_sb7.gif) left bottom no-repeat
+}
+
+div.centre#error h3,div.sidebar#error h3 {
+	background: url(../images/bg_sb8.gif) left bottom no-repeat
+}
+
+div.centre h4 {
+	font-size: 1.4em;
+	line-height: 30px;
+	text-align: left;
+	width: 570px;
+	float: left;
+	clear: left
+}
+
+p {
+	font-size: 1.2em;
+	text-align: justify;
+	margin: 5px 0
+}
+
+p span.separador {
+	line-height: 2px;
+	background: url(../images/bg_separ.gif) left top repeat-y;
+	width: 570px;
+	height: 2px;
+	float: left;
+	margin: 10px auto
+}
+
+p span.separador2 {
+	line-height: 2px;
+	background: url(../images/bg_sepa2.gif) left top repeat-y;
+	width: 570px;
+	height: 2px;
+	float: left;
+	margin: 5px auto 0
+}
+
+img.foto_personal {
+	float: left;
+	margin: 5px 5px 5px 0
+}
+
+/* Pie
+------------------------- */
+
+div#footer p {
+	font-size: 1.1em;
+	text-align: right;
+	float: left;
+	padding: 5px 0;
+	margin: 0 0 0 200px	
+}
+
+div#footer0 p {
+	font-size: 1.1em;
+	text-align: right;
+	float: left;
+	padding: 5px 0
+}
+
+div#footer img,div#footer0 img {
+	float: right;
+	margin: 3px
+}
+
+/* Listas
+-------------------------------------------------- */
+
+/* Basica
+------------------------- */
+
+div.centre ul {
+	text-align: left;
+	width: 550px;
+	float: left;
+	margin: 10px 0;
+	list-style-position: inside
+}
+
+div.centre ul li {
+	font-size: 1.2em;
+	float: none
+}
+
+div.centre ul li a {
+	background: url(../images/px_069.gif) left bottom repeat-x;
+	line-height: 16px
+}
+
+div.centre ul li a:hover {
+	background: none
+}
+
+div.centre ol {
+	font-size: 1.2em;
+	text-align: left;
+	width: 550px;
+	float: left;
+	margin: 10px 0;
+	list-style-position: inside
+}
+
+div.centre ol li {
+	line-height: 16px	
+}
+
+/* Miembros
+------------------------- */
+
+div.centre dl {
+	font-size: 1.2em;
+	text-align: left;
+	float: left;
+	margin: 20px auto
+}
+
+dt {
+	font-weight: bold;
+	clear: left;
+	margin: 10px auto 0
+}
+
+dl ul li {
+	font-size: 1.0em !important;
+	list-style: none;
+	list-style-image: none;
+	list-style-position: outside
+}
+
+dd ol li {
+	font-size: 0.8em !important;
+}
+
+/* Personal
+------------------------- */
+
+dl.paginaslcc dt span {
+	line-height: 18px;
+	background: url(../images/ic_hoja.png) no-repeat left top;
+	padding: 2px 0 2px 16px
+}
+
+dl.paginaslcc dd {
+	margin: 0 0 0 16px
+}
+
+/* Documentos
+------------------------- */
+
+ul.documentos {
+	float: left;
+	margin: 5px 0;
+	list-style: none
+}
+
+ul.documentos li {
+	background: url(../images/px_col1.gif) left bottom repeat-x;
+	text-align: left;
+	width: 170px;
+	float: left;
+	clear: both;
+	margin: 2px 0 5px
+}
+
+ul.documentos li img {
+	float: left
+}
+
+ul.documentos li a {
+	background: none;
+	width: 140px;
+	float: left;
+	padding: 2px 5px
+
+}
+
+/* Docencia y publicaciones
+------------------------- */
+
+dl.asignatura {
+	width: 570px;
+}
+
+dl.asignatura dt {
+	font-size: 1.1em;
+	font-weight: bold;
+	background: url(../images/px_dl.gif) repeat-x left bottom;
+	width: 192px;
+	float: left;
+	clear: both;
+	padding: 2px 4px;
+	margin: 2px 0 0
+}
+
+dl.asignatura dd {
+	font-size: 1.1em;
+	font-weight: normal;
+	width: 362px;
+	float: left;
+	padding: 2px 4px;
+	margin: 2px 0 0
+}
+
+dl.asignatura dt.nobg {
+	background: none
+}
+
+dl.asignatura dd p {
+	font-size: 1.0em;
+	text-transform: uppercase;
+	margin: 2px 0
+}
+
+dl.asignatura dd ul {
+	float: none !important;
+	clear: right !important;
+	padding: 0;
+	margin: 0
+}
+
+dl.asignatura dd ul li,dl.asignatura dd ol li {
+	margin: 2px 0
+}
+
+dl.asignatura dd ol li {
+	list-style-position: inside
+}
+
+div.centre#docencia dl dd p {
+	font-size: 1.0em;
+	margin: 2px 0
+}
+
+ul.publicado {
+	width: 570px;
+	margin: 0 !important
+}
+
+ul.publicado li {
+	font-size: 1.1em;
+	background: url(../images/px_dl.gif) repeat-x left bottom;
+	width: 542px;
+	float: left;
+	clear: both;
+	padding: 4px;
+	margin: 2px 0;
+	list-style: none
+}
+
+span.titulo {
+	font-weight: bold;
+	font-style: italic
+}
+
+a.iconos img {
+	background-image: none
+}
+
+/* PFC
+------------------------- */
+
+/* Docencia y publicaciones
+------------------------- */
+
+dl.pfcs {
+	width: 570px;
+}
+
+dl.pfcs dt {
+	font-size: 1.1em;
+	font-weight: bold;
+	background: url(../images/px_dl.gif) repeat-x left bottom;
+	width: 570px;
+	float: left;
+	clear: both;
+	padding: 2px 4px;
+	margin: 2px 0 0
+}
+
+dl.pfcs dd {
+	font-size: 1.1em;
+	font-weight: normal;
+	width: 570px;
+	float: left;
+	padding: 2px 4px;
+	margin: 2px 0 0
+}
+
+dl.pfcs dd.tema {
+	font-weight: bold;
+	text-transform: uppercase
+}
+
+dl.pfcs dt.nobg {
+	background: none
+}
+
+dl.pfcs dd p {
+	font-size: 1.0em;
+	text-transform: uppercase;
+	text-align: justify;
+	margin: 2px 0
+}
+
+dl.pfcs dd ul {
+	padding: 0;
+	margin: 0
+}
+
+dl.pfcs dd ul li,dl.pfcs dd ol li {
+	margin: 2px 0
+}
+
+dl.pfcs dd ul li a {
+	background: none
+}
+
+dl.pfcs dd ol li {
+	list-style-position: inside
+}
+
+/* Formularios
+-------------------------------------------------- */
+
+div.centre0 form {
+	background: url(../images/bg_form0.gif) center top no-repeat;
+	width: 200px;
+	float: left;
+	padding: 0 20px
+}
+
+div.centre0 form div {
+	float: left
+}
+
+div.centre form {
+	background: url(../images/bg_forms.gif) center top no-repeat;
+	width: 530px;
+	float: left;
+	padding: 0 20px
+}
+
+div.centre form div {
+	float: left
+}
+
+div#superior1 {
+	width: 450px;
+	margin: 5px 0 0
+}
+
+div#superior2 {
+	width: 80px;
+	margin: 5px 0 0
+}
+
+div#superior2 label {
+	width: 60px !important
+}
+
+div#medio {
+	width: 530px;
+	margin: 5px 0 0
+}
+
+div#inferior {
+	width: 530px;
+	margin: 5px 0 0
+}
+
+div.centre form p {
+	font-size: 1.1em;
+	color: #036;
+	text-align: left;
+	float: left;
+	clear: both
+}
+
+div.centre0 p.error {
+	font-size: 1.0em;
+	color: #F00;
+	text-align: left;
+	width: 240px;
+	float: left
+}
+
+div.centre0 a.olvido {
+	font-size: 1.0em;
+	text-align: left;
+	float: left;
+	clear: both
+}
+
+label {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #036;
+	text-align: left;
+	display: block;
+	width: 100%;
+	padding: 3px 0
+}
+
+label.todos {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #036;
+	text-align: left;
+	display: inline;
+	width: 100px;
+	float: left;
+	padding: 3px 0;
+	margin: 0 5px 0 0
+}
+
+div.centre#publicaciones form label,div.centre#pfc form label  {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #036;
+	text-align: left;
+	width: 150px;
+	float: left;
+	clear: left;
+	padding: 3px 10px;
+	margin: 2px 0
+}
+
+div.centre#publicaciones form input.campos,div.centre#pfc form input.campos {
+	font-size: 1.1em;
+	background-color: #FFF;
+	width: 350px;
+	height: 18px;
+	float: left;
+	border: solid 1px #CCC
+}
+
+div.centre#publicaciones form select {
+	font-size: 1.1em;
+	background-color: #FFF;
+	width: 352px;
+	height: 18px;
+	float: left;
+	border: solid 1px #CCC
+}
+
+div.centre#pfc form input.areas {
+	font-size: 1.1em;
+	background-color: #FFF;
+	width: 350px;
+	height: 90px;
+	float: left;
+	border: solid 1px #CCC
+}
+
+input.usuario,input.clave {
+	background-color: #FFF;
+	width: 200px;
+	height: 18px;
+	border: solid 1px #CCC
+}
+
+input#criterios {
+	background-color: #FFF;
+	width: 445px;
+	height: 18px;
+	float: left;
+	border: solid 1px #CCC
+}
+
+select#valores {
+	background-color: #FFF;
+	width: 530px;
+	height: 22px;
+	border: solid 1px #CCC
+}
+
+input#buscar,input#mostrar,input#acceder {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #036;
+	background: url(../images/bg_bt80.png) left top no-repeat;
+	width: 80px;
+	height: 20px;
+	float: left;
+	border: none 0
+}
+
+input#acceder {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #036;
+	background: url(../images/bg_bt80.png) left top no-repeat;
+	width: 80px;
+	height: 20px;
+	float: right;
+	border: none 0
+}
+
+input#enviar,input#borrar {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #036;
+	background: url(../images/bg_bt80.png) left top no-repeat;
+	width: 80px;
+	height: 20px;
+	float: right;
+	margin: 5px 10px 5px 0;
+	border: none 0
+}
+
+input#buscar:hover,input#mostrar:hover,input#acceder:hover {
+	background-position: bottom
+}
+
+input#vertodos {
+	display: inline;
+	float: left;
+	clear: left;
+	margin: 0 5px 0 0
+}
+
+div.finform {
+	background: url(../images/bg_form2.gif) center top no-repeat;
+	line-height: 9px;
+	width: 570px;
+	height: 9px;
+	float: left;
+	margin: 0 auto 20px
+}
+
+div.finform0 {
+	background: url(../images/bg_form1.gif) center top no-repeat;
+	line-height: 9px;
+	width: 240px;
+	height: 9px;
+	float: left;
+	margin: 0 auto
+}
+
+/* Nuevo 09/06/2009 */
+form#buscar_personal select,form#buscar_pfc select {
+	background-color: #FFF;
+	width: 445px;
+	height: 18px;
+	float: left;
+	border: solid 1px #CCC
+}
+
+/* Botones de imagen doble varios
+-------------------------------------------------- */
+
+a.botones {
+	text-decoration: none;
+	display: block
+}
+
+a.botones:hover {
+	text-decoration: none;
+	background-position: bottom !important
+}
+
+a.botones span {
+	display: none
+}
+
+.activo {
+	text-decoration: none;
+	background-position: bottom
+}
+
+a.bototex100 {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #036;
+	line-height: 20px;
+	background: url(../images/bg_bt100.png) left top no-repeat;
+	width: 100px;
+	height: 20px;
+	float: left;
+	border: none 0
+}
+
+a.bototex100:hover {
+	background-position: bottom
+}
+
+/* Identificadores de botones
+-------------------------------------------------- */
+
+#webmail {
+	background: url(../images/bt_wmail.png);
+	width: 180px;
+	height: 20px;
+	float: left
+}
+
+/* Personal
+------------------------- */
+
+#mispages {
+	background: url(../images/bt_mispa.png);
+	width: 132px;
+	height: 16px;
+	float: left;
+	margin: 4px 0
+}
+
+#accepag {
+	background: url(../images/bt_pagis.png);
+	width: 113px;
+	height: 16px;
+	float: left;
+	margin: 4px 0
+}
+
+/* Publicaciones
+------------------------- */
+
+#datospubli {
+	background: url(../images/bt_info.gif);
+	line-height: 14px;
+	width: 14px;
+	height: 14px;
+	float: left;
+	margin: 2px 0
+}
+
+#pdfpubli {
+	background: url(../images/bt_pdf.gif);
+	line-height: 14px;
+	width: 14px;
+	height: 14px;
+	float: left;
+	margin: 2px 0
+}
+
+#urlpubli {
+	background: url(../images/bt_url.gif);
+	line-height: 14px;
+	width: 14px;
+	height: 14px;
+	float: left;
+	margin: 2px 0
+}
+
+#docpubli {
+	background: url(../images/bt_doc.gif);
+	line-height: 14px;
+	width: 14px;
+	height: 14px;
+	float: left;
+	margin: 2px 0
+}
+
+/* Paginas
+-------------------------------------------------- */
+
+.paginado {
+	font-size: 0.9em;
+	font-weight: bold;
+	line-height: normal;
+	letter-spacing: 140%;
+	text-align: left;
+	width: 550px;
+	float: left;
+	clear: both;
+	margin: 5px 0
+}
+
+.paginado a,.paginado a:link,.paginado a:active {
+	color: #069;
+	text-decoration: none;
+	background-image: none;
+	background-color: #FFF;
+	display: inline-block;
+	padding: 2px 4px;
+	margin: 2px;
+	border: solid 1px #7FA0D3
+}
+
+.paginado a:hover,.paginado a:focus,.paginado a:active,.paginado a:visited:focus,.paginado a:visited:active {
+	color:#FFF;
+	background-color: #7FA0D3;
+	border: solid 1px #7FA0D3
+}
+
+.paginado a:visited {
+	color: #666;
+	text-decoration: none;
+}
+
+.paginado span.actual {
+	color: #FFF;
+	background-color: #7FA0D3;
+	display: inline-block;
+	padding: 2px 4px;
+	margin: 2px;
+	border: solid 1px #7FA0D3
+}
+
+.paginado span.extendido {
+	color: #666;
+	padding: 2px 4px
+}
+
+/* Recurrentes
+-------------------------------------------------- */
+
+.izq {
+	float: left
+}
+
+.der {
+	float: right
+}
+
+.disnone {
+	display: none
+}
+
+.limpizq {
+	clear: left
+}
+
+.reset {
+	clear: both
+}
+
+.oculto {
+	display: none
+}
+
+.nobg {
+	background: none
+}
+
+/*---------------------otros---------------*/
+div.centre#pfc form textarea.areas {
+	font-size: 1.1em;
+	background-color: #FFF;
+	width: 350px;
+	height: 90px;
+	float: left;
+	border: solid 1px #CCC
+}
+.error {
+	font-size: 1.1em;
+	color: #800000;
+font-weight: bold;
+}
+
+input#grande {
+	background-color: #FFF;
+	width: 530px;
+	height: 18px;
+	float: left;
+	border: solid 1px #CCC
+}
+
+
+div.centrepeque form {
+	background: url(../images/bg_forms.gif) center top no-repeat;
+	width: 260px;
+	float: left;
+	padding: 0 20px
+}

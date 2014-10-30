@@ -1,0 +1,91 @@
+<div id="titulo" >
+GESTI&Oacute;N DE RECURSOS<br><br>
+&gt;Gesti&oacute;n de archivos: Editando solicitud de recurso
+</div>
+<div id="recuadro">
+
+<!-- form_for por defecto asume que el boton submit envia los datos
+al controller del objeto, en este caso solicitudrecurso, por lo que en este
+caso, pasariamos al rol de admin, por lo que hay que enviarlo
+dentro del ambito de solicitudrecursousuario particular -->
+
+<% form_for @solicitudrecurso, :url => solicitudrecursousuario_path, :action=>"update",
+                               :html=> {:name => "formulario"} do |f| %>
+  <%= f.error_messages :header_message => 'Se produjeron errores en la captura de datos', :message => 'Imposible modificar la solicitud de otros recursos debido a:'%>
+
+<table cellpadding="15" cellspacing="0">
+  <tr>
+    <th>Fecha solicitud</th>  
+    <th>Tipo de recurso</th>
+  </tr>
+  <tr valign="top" >
+    <td><%hoy=Date.today.to_s.split('-') %><%= hoy[2]+'-'+hoy[1]+'-'+hoy[0] %></td>
+    <td><% @tipos=Recurso.find(:all,:order=>"descripcion") %>
+        <%= select "tipo", "descripcion", @tipos.map {|u| [u.descripcion]}, 
+	    html_options={:selected=>@solicitudrecurso.tipo }%></td>
+  </tr>
+</table>
+<p><p><p>
+<table cellpadding="15" cellspacing="0">
+  <tr>
+    <th>Fecha inicio</th>
+    <th>Fecha fin</th>
+    <th>Motivos</th>  
+  </tr>
+  <tr valign="top" >
+    <td>
+    <%= f.text_field :fechaini, :size=>10, :name=>"fechaini",  :id=>"DPC_fechaini_DD-MM-YYYY" %>
+   </td>
+   <td>
+    <%= f.text_field :fechafin, :size=>10, :name=>"fechafin", :id=>"DPC_fechafin_DD-MM-YYYY" %>    
+   </td>
+    <td><%= f.text_area :motivos, :rows =>4, :cols=>40, :name=>"motivos" %></td>
+    
+  </tr>
+</table>
+<table>
+<tr><td>
+<table cellpadding="15" cellspacing="0">
+  <tr><th>Tramos horarios</th></tr>
+  <tr><td> 
+   <table>
+    <tr> 
+     <td id="subform">
+      <!-- OBTENGO LOS TRAMOS QUE HAY QUE VISUALIZAR -->      
+             
+        <% @tramos=session[:tramos_horarios].solicitudes %> 
+       <table id="tramos">
+        <% if @tramos.empty? %>
+            <tr><td><%= h "No hay tramos horarios" %></td></tr>
+        <% else %>
+            <%=render(:partial => "solicitudrecursos/muestra_tramo", :collection=> @tramos) %> 
+        <% end %>
+      </table>
+      <!-- INCLUYO FORMULARIO DE CAPTACION PARA UN NUEVO TRAMO  -->
+
+      <table id="subformulario">
+       <tr>
+         <th>Dia semana</th>
+         <th>Hora inicio </th>
+         <th>Hora fin </th>
+       </tr>
+       <tr valign="top" >     
+        <td><%= select_tag "diasemana", options_for_select(["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"]) %>
+        <td><%= select_tag "horaini", options_for_select(["8:45","9:45","10:45","11:45","12:45","13:45","14:45","15:15","16:15","17:15","18:15","19:15","20:15"]) %></td>
+        <td><%= select_tag "horafin", options_for_select(["9:45","10:45","11:45","12:45","13:45","14:45","15:15","16:15","17:15","18:15","19:15","20:15","21:45"]) %></td>
+        <td><%= params[:borrar] %>
+        <%= link_to_remote image_tag("mas.jpg",:border=>0),
+            :submit   => "subformulario",
+            :url      => { :controller=>:solicitar,:action => 'anadir' } %>
+ 
+        </td>
+      </tr>
+     </table>
+   </td>
+   <td valign="bottom"> <%= f.submit 'Actualizar',:class=>"boton" %></td>
+ </tr>
+
+</table>
+
+
+<% end %>

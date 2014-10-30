@@ -1,0 +1,1561 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/*
+	www.lcc.uma.es
+	Tabla de contenidos:
+		Globales
+		Layout
+			- 
+			- 
+			- 
+*/
+
+/* Globales
+-------------------------------------------------- */
+
+
+* {                   
+	padding: 0;
+	margin: 0
+}
+
+body {                       	font-size: 75%;
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+	color: #036;
+	background: #FFF;
+	text-align: center
+}
+
+/* login */
+
+#wrapper {
+	width: 100%
+}
+
+#conta_login {
+	background: url(../images/tr_lycc.gif) center top repeat-x;
+	width: 100%;
+	height: 140px;
+	margin: 200px auto
+}
+
+#log-in {
+	background: url(../images/bg_login.png) center top no-repeat;
+	width: 760px;
+	height: 140px;
+	margin: 0 auto
+}
+/* MIA VS. */
+a { 
+    color:#010080;
+    text-decoration: none;
+ 
+}
+
+#menu { font-size: 80%;}
+#menu a:visited {
+        
+        color:#010080;
+        }
+#menu a:hover {
+        background:#fbbb13;
+        color:#010080;
+        }
+
+img  {
+	border: none 0
+}
+
+p.edited {
+	float: left
+}
+
+
+/* Layout
+-------------------------------------------------- */
+
+#copyright {
+        font-size:0.8em;
+        width: 500px;
+        position: absolute;
+        top: 400px;
+        left: 10px;
+}
+
+#wrapper {
+	width: 100%
+}
+ #conta_header {
+	background: url(../images/tr_lycc.gif) left top repeat-x;
+	width: 100%;
+	height: 160px;
+	float: left
+}
+
+#header {
+	background: url(../images/bg_cabec.png) center top no-repeat;
+	width: 960px;
+	height: 160px;
+	margin: 0 auto
+}
+
+#conta_main {
+	//background: url(../images/bg_modif.png) left top no-repeat;
+	width: 100%;
+	float: left
+}
+
+
+#conta-main #main #central {
+        padding: 0px;
+        font-size: 100%;
+        //min-height:900px;
+        //min-width: 1000px;
+        left: 200px;
+        top: 165px;
+        position:absolute;
+    
+}
+
+
+#main { 
+        
+	width: 100%;
+	margin: 0 auto
+}
+
+#cubos {
+        position: absolute;
+        top: 710px;
+        float: center;
+        padding: 25px;
+        width: 100px;
+	height: 80px;
+}
+
+#flasherrorportada {background: url(../images/bg_form1.gif)}
+
+#nav {  background: url(../images/bg_modif.png) left top no-repeat;
+	width: 200px;
+	min-height:600px;
+        
+}
+
+#nav #menu {
+        position :relative;
+        top: 45px;//estaba a 60px
+        height: 710px;
+        
+}
+
+#nav #saludo {
+        position: absolute;
+        top: 150px;
+        width: 170px;
+        height:50px;
+        font-size:120%;
+        padding: 1px;
+        margin-left: 10px;
+        font-weight: bold;
+        
+ }       
+
+#nav #saludo #admin {    
+        width: 150px; 
+        font-weight:bold;       
+        background:#fbbb13;
+        color:#ffffff;
+        
+}
+
+#nav #saludo #anonimo {    
+        width: 150px;
+        height:40px;
+        text-align:center; 
+        background:#c5d72b;
+        color:#ffffff;
+        
+}
+
+#nav #saludo #usuario {
+	width: 150px;
+        background:#f0f0f0;
+        color:#010080;
+        
+}
+
+#nav p {
+        font-size:120%;
+        color:#000000;
+}
+
+.rotulo-menu {
+        font-size:1.1em;
+        width:200px;
+        //border: 2px solid #fbbb13;
+        padding: 0px 3px;
+        background-image: url(../images/bg_separ_nav.gif) left top no-repeat;;
+}
+
+#recuadro {
+        min-width: 1075px;
+        position:absolute;
+        //min-height: 600px;
+        //left: 185px;
+}
+
+#recuadro-azul {
+        margin-top:5px;
+        background:#dee1e9;
+        width: 600px;
+	//width: 600px; 	POR EL TEMA DE LOS MENSAJES DE ERROR
+        position:absolute;
+        //left: 190px;
+	padding: 5px;
+      
+}
+#busqueda {
+        background:#dee1e9;
+	width: 450px; 
+	//margin: 0px 0px 0px 190px ; 
+        padding: 10px;
+}
+#busqueda2 {
+        background:#dee1e9;
+	width: 590px; 
+	//margin: 0px 0px 0px 190px ; 
+        padding: 10px;
+}
+
+#copy { width: 75%;
+        height:100px;
+        font-size:85%;
+        float: bottom;
+}
+
+#revisa * td {
+        text-align: left;
+        font-size:0.4cm;
+        padding: 15px;
+        }
+
+#lista-gestion table {
+        border-collapse: collapse;
+        //min-width:900px;
+}
+
+ table tr th {
+        color: #010080;
+        vertical-align: top;
+        overflow: auto;
+        font-weight:bold;
+        padding: 5px 0px;
+}
+
+.treinta {
+        min-width:30px;
+        width:30px;
+}
+
+.cincuenta {
+        min-width:50px;
+        width:50px;
+}
+.setenta {
+        min-width:70px;
+        width:70px;
+}
+.cien {
+        min-width:100px;
+        width:100px;
+}
+.cientocincuenta {
+        min-width:150px;
+        width:150px;
+}
+.cientoveinticinco {
+        min-width:125px;
+        width:125px;
+}
+.doscientos {
+        min-width:200px;
+        width:200px;
+}
+.doscincuenta {
+        min-width:250px;
+        width:250px;
+}
+
+.icono {
+        width:25px;
+        background: white;
+}
+
+table.flotante {
+        width:300px;
+        height: 150px;
+        text-align: left;
+}
+
+table.flotante2 {
+        width:200px;
+        height: 100px;
+        text-align: left;
+        background-color:white;
+}
+
+#celda_libre {
+        background:#dee1e9;
+        font-weight:bold;
+}
+
+#celda_ocupada {
+        background:#facc50;
+        font-weight:bold;
+}
+
+#horario tr td {
+        border:1px;
+        width:200px;
+        height:45px;
+       // background: #dee1e9;
+}
+
+#asignacion tr td, .estadistica tr td {
+        border:1px;
+        width:110px;
+        height:50px;
+        background: #dee1e9;
+        text-align:center;
+}
+
+#asignacion tr th,  {
+        border:1px;
+        width:90px;
+        height:50px;
+        background: #fff
+        ;
+}
+
+#asignacion tr td table tr td, .estadistica tr td table tr td{
+        border:1px;
+        width:250px;
+        height:25px;
+        background-color: white;
+}
+
+#confirma {
+        text-align: left;
+        width:215px;
+        left:40px;
+        padding:10px;
+        background-color: #f6ecd5;
+        font-size:1.5em;
+}
+
+#nom_periodo {
+        text-align:left;
+        font-size:1.5em;
+        color:#fbbb13;
+        font-weight: bold;
+        padding-top: 10px;
+        padding-bottom: 10px;
+}
+
+#lista-gestion table tr td {
+        padding: 5px;
+        vertical-align: top;
+        text-align: left;
+        overflow: auto;
+}
+
+#lista-gestion .list-actions {
+  font-size:    x-small;
+  text-align:   right;
+  padding-left: 1em;
+}
+
+#lista-gestion .linea-par {
+  background:   #dee1e9;
+}
+
+#lista-gestion .linea-impar {
+  background:   #f6ecd5;
+}
+
+#tramos {
+  vertical-align: top;
+  text-align:left; 
+  position: relative;
+  width: 220px;
+  background: white;
+        }
+
+#subformulario, #preferencias {
+        width: 300px;
+        background: #f6ecd5;
+        text-align: left;
+        position: relative;
+	font-size: 1.1em;
+	float: left;
+        }
+
+.boton {
+
+        //float: left;
+        margin: 10px;
+        position: relative;
+       }
+
+.botonescondido {
+        
+        visibility:hidden;
+        float: left;
+        margin: 5px;
+        position: relative;
+       }
+.botonindex {
+        
+        position:relative;
+        left: -450px;
+       }
+.botonindexsearch {
+        
+        position:absolute;
+        left: 330px;
+        top: 25px;
+       }
+
+#recuadro-azul form dl {
+        
+	font-size: 1.1em;
+	width: 192px;
+	float: left;
+	padding: 2px 4px;
+	margin: 2px 0 0
+}
+
+
+
+#recuadro-azul form dl dd {
+        text-align: left;
+        position: relative;
+        left: 175px;
+	font-size: 1.1em;
+	width: 585px;
+	float: left;
+	padding: 2px 4px;
+	margin: -22px 0 0
+
+}
+
+#recuadro-azul form dl dt {
+        text-align: left;
+	font-size: 1.1em;
+	background: url(../images/px_dl.gif) repeat-x left bottom;
+	width: 160px;
+	float: left;
+	clear: both;
+	padding: 2px 4px;
+	margin: 2px 0 0
+}
+
+#recuadro-azul form dl dd p {
+	font-size: 1.0em;
+	text-transform: uppercase;
+	//margin: 2px 0
+}
+
+#subformularioreserva {
+       position: relative;
+       left: 620px;
+       top: -515px;
+       background:#dee1e9;
+       padding: 10px;
+}
+
+#rotulodia {
+       text-align: left;
+       font-size: 2.0em;
+       text-transform: uppercase;
+       color: red;
+       padding: 25px;
+}
+
+#rotulodias, #rotuloperiodos, .periodos {
+       text-align: left;
+       font-size: 1.5em;
+       color: blue;
+       margin: 25px;
+             
+}
+
+
+
+#asignadirecta {
+       position: relative;
+       top: -30px;
+       left: 650px;
+       font-size: 1.5em;
+       border: 2px solid #fbbb13;
+       width: 180px;
+       padding:5px;
+       background-color: white;
+}
+       
+
+.aviso, #inactivo {
+       text-align: center;
+       font-size: 0.4cm;
+       line-height: 1.5em;
+       color: blue;
+       width: 600px;
+       margin: 15px;
+       padding: 15px;
+       border: 4px solid #fbbb13;
+      
+}
+/* Formulario flotante
+-------------------------------------------------- */
+
+
+div.sample_popup { z-index: 1; }
+
+div.sample_popup div.menu_form_header
+{
+  border: 1px solid black;
+  border-bottom: none;
+
+  width: 200px;
+
+  height:      20px;
+  line-height: 19px;
+  vertical-align: middle;
+
+  background: url('form_header.png') no-repeat;
+
+  text-decoration: none;
+  font-family: Times New Roman, Serif;
+  font-weight: 900;
+  font-size:  13px;
+  color:   #206040;
+  cursor:  default;
+}
+
+div.sample_popup div.menu_form_body
+{
+  width: 200px;
+  border: 1px solid black;
+  background: url('form.png') no-repeat left bottom;
+}
+
+div.sample_popup img.menu_form_exit
+{
+  float:  right;
+  margin: 4px 5px 0px 0px;
+  cursor: pointer;
+}
+
+div.sample_popup table
+{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+div.sample_popup th
+{
+  width: 1%;
+  padding: 0px 5px 1px 0px;
+
+  text-align: left;
+
+  font-family: Times New Roman, Serif;
+  font-weight: 900;
+  font-size:  13px;
+  color:   #004060;
+}
+
+div.sample_popup td
+{
+  width: 99%;
+  padding: 0px 0px 1px 0px;
+}
+
+div.sample_popup form
+{
+  margin:  0px;
+  padding: 8px 10px 10px 10px;
+}
+
+div.sample_popup input.field
+{
+  width: 95%;
+  border: 1px solid #808080;
+
+  font-family: Verdana, Sans-Serif;
+  font-size: 12px;
+}
+
+div.sample_popup input.btn
+{
+  margin-top: 2px;
+  border: 1px solid #808080;
+
+  background-color: #DDFFDD;
+
+  font-family: Verdana, Sans-Serif;
+  font-size: 11px;
+}
+
+/* Menu
+------------------------- */
+
+div#nav ul {
+	width: 190px;
+	float: left;
+	list-style: none
+}
+
+div#nav ul li {
+	font-size: 1.3em;
+	text-align: left
+}
+
+div#nav ul li a {
+	color: #222C3C;
+	line-height: 15px;
+	display: block;
+	width: 160px;
+	height: 15px;
+	padding: 5px 15px
+}
+
+div#nav ul li a:hover {
+	color: #FFF
+}
+
+div#nav ul li a#home {
+	color: #222C3C;
+	background-color: #FFF;
+	background-image: none
+}
+
+div#nav ul li a#home:hover {
+	color: #999
+}
+
+div#nav ul li a.col1 {
+	background: url(../images/bg_col1.png) left top no-repeat
+}
+
+div#nav ul li a.col2 {
+	background: url(../images/bg_col2.png) left top no-repeat
+}
+
+div#nav ul li a.col3 {
+	background: url(../images/bg_col3.png) left top no-repeat
+}
+
+div#nav ul li a.col4 {
+	background: url(../images/bg_col4.png) left top no-repeat
+}
+
+div#nav ul li a.col5 {
+	background: url(../images/bg_col5.png) left top no-repeat
+}
+
+div#nav ul li a.col6 {
+	background: url(../images/bg_col6.png) left top no-repeat
+}
+
+div#nav ul li a.col7 {
+	background: url(../images/bg_col7.png) left top no-repeat
+}
+
+div#nav ul li a:hover {
+	background-position: left bottom
+}
+
+div#nav ul li#actual a {
+	color: #FFF;
+	background-position: left bottom
+}
+
+/* Contenidos
+-------------------------------------------------- */
+
+/* Error
+------------------------- */
+
+#nav0 {
+	width: 190px;
+	height: 300px;
+	float: left
+}
+
+
+/* Cabecera
+------------------------- */
+
+h1,h2 {
+	display: none
+}
+
+img#logotipo {
+	float: left;
+	margin: 20px 0 20px 12px
+}
+
+img.otros_logos {
+	float: right;
+	margin: 20px 10px 20px 0
+}
+
+/* Cuerpo
+------------------------- */
+
+p.direccion {
+	font-size: 1.0em;
+	font-style: italic;
+	text-align: right;
+	width: 780px;
+	float: left
+}
+
+div.centre0 {
+	width: 400px; /*600 reales*/
+	float: left;
+	margin: 5px 0 0 20px
+}
+
+div.centre {
+	width: 570px; /*600 reales*/
+	float: left;
+	padding: 15px
+}
+
+div.sidebar {
+	width: 170px;
+	float: left;
+	padding: 15px 0
+}
+
+div.centre h3 {
+	font-size: 1.5em;
+	line-height: 30px;
+	text-align: left;
+	width: 570px
+}
+
+div.centre h3 span {
+	color: #069;
+}
+
+div.centre#portada h3 {
+	color: #556B90;
+	text-transform: uppercase
+}
+
+div.centre h3 span a {
+        text-decoration: none;
+	background: url(../images/fleizq1.gif) left top no-repeat;
+	padding: 0 0 0 12px
+}
+
+div.centre h3 span a:hover {
+	text-decoration: none;
+	background: url(../images/fleizq2.gif) left top no-repeat;
+	padding: 0 0 0 12px
+}
+
+div.centre0 h3 {
+	font-size: 1.5em;
+	line-height: 30px;
+	text-align: left;
+	width: 400px
+}
+
+div.sidebar h3 {
+	font-size: 1.3em;
+	font-weight: normal;
+	line-height: 30px;
+	text-align: left;
+	width: 170px
+}
+
+div.centre#portada h3,div.sidebar#portada h3 {
+	background: url(../images/bg_sb0.gif) left bottom no-repeat
+}
+
+div.centre#direccion h3,div.sidebar#direccion h3 {
+	background: url(../images/bg_sb1.gif) left bottom no-repeat
+}
+
+div.centre#personal h3,div.sidebar#personal h3 {
+	background: url(../images/bg_sb2.gif) left bottom no-repeat
+}
+
+div.centre#docencia h3,div.sidebar#docencia h3 {
+	background: url(../images/bg_sb3.gif) left bottom no-repeat
+}
+
+div.centre#publicaciones h3,div.sidebar#publicaciones h3 {
+	background: url(../images/bg_sb4.gif) left bottom no-repeat
+}
+
+div.centre#investigacion h3,div.sidebar#investigacion h3 {
+	background: url(../images/bg_sb5.gif) left bottom no-repeat
+}
+
+div.centre#pfc h3,div.sidebar#pfc h3 {
+	background: url(../images/bg_sb6.gif) left bottom no-repeat
+}
+
+div.centre#tablon h3,div.sidebar#tablon h3 {
+	background: url(../images/bg_sb7.gif) left bottom no-repeat
+}
+
+div.centre#error h3,div.sidebar#error h3 {
+	background: url(../images/bg_sb8.gif) left bottom no-repeat
+}
+
+div.centre h4 {
+	font-size: 1.4em;
+	line-height: 30px;
+	text-align: left;
+	width: 570px;
+	float: left;
+	clear: left
+}
+
+p {
+	font-size: 1.2em;
+	text-align: justify;
+	margin: 5px 0
+}
+
+p span.separador {
+	line-height: 2px;
+	background: url(../images/bg_separ.gif) left top repeat-y;
+	width: 570px;
+	height: 2px;
+	float: left;
+	margin: 10px auto
+}
+
+p span.separador2 {
+	line-height: 2px;
+	background: url(../images/bg_sepa2.gif) left top repeat-y;
+	width: 570px;
+	height: 2px;
+	float: left;
+	margin: 5px auto 0
+}
+
+img.foto_personal {
+	float: left;
+	margin: 5px 5px 5px 0
+}
+
+/* Pie
+------------------------- */
+
+div#footer p {
+	font-size: 1.1em;
+	text-align: right;
+	float: left;
+	padding: 5px 0;
+	margin: 0 0 0 200px	
+}
+
+div#footer0 p {
+	font-size: 120%;
+	text-align: right;
+	float: left;
+	padding: 5px 0
+}
+
+div#footer img,div#footer0 img {
+	float: right;
+	margin: 3px
+}
+
+/* Listas
+-------------------------------------------------- */
+
+/* Basica
+------------------------- */
+
+div.centre ul {
+	text-align: left;
+	width: 550px;
+	float: left;
+	margin: 10px 0;
+	list-style-position: inside
+}
+
+div.centre ul li {
+	font-size: 1.2em;
+	float: none
+}
+
+div.centre ul li a {
+	background: url(../images/px_069.gif) left bottom repeat-x;
+	line-height: 16px
+}
+
+div.centre ul li a:hover {
+	background: none
+}
+
+div.centre ol {
+	font-size: 1.2em;
+	text-align: left;
+	width: 550px;
+	float: left;
+	margin: 10px 0;
+	list-style-position: inside
+}
+
+div.centre ol li {
+	line-height: 16px	
+}
+
+/* Miembros
+------------------------- 
+
+div.centre dl {
+	font-size: 1.2em;
+	text-align: left;
+	float: left;
+	margin: 20px auto
+}
+
+dt {
+	font-weight: bold;
+	clear: left;
+	margin: 10px auto 0
+}
+
+dl ul li {
+	font-size: 1.0em !important;
+	list-style: none;
+	list-style-image: none;
+	list-style-position: outside
+}
+
+dd ol li {
+	font-size: 0.8em !important;
+}
+
+/* Personal
+------------------------- 
+
+dl.paginaslcc dt span {
+	line-height: 18px;
+	background: url(../images/ic_hoja.png) no-repeat left top;
+	padding: 2px 0 2px 16px
+}
+
+dl.paginaslcc dd {
+	margin: 0 0 0 16px
+}
+
+/* Documentos
+------------------------- 
+
+ul.documentos {
+	float: left;
+	margin: 5px 0;
+	list-style: none
+}
+
+ul.documentos li {
+	background: url(../images/px_col1.gif) left bottom repeat-x;
+	text-align: left;
+	width: 170px;
+	float: left;
+	clear: both;
+	margin: 2px 0 5px
+}
+
+ul.documentos li img {
+	float: left
+}
+
+ul.documentos li a {
+	background: none;
+	width: 140px;
+	float: left;
+	padding: 2px 5px
+
+}
+
+/* Docencia y publicaciones
+------------------------- 
+
+
+dl.asignatura dt.nobg {
+	background: none
+}
+
+dl.asignatura dd p {
+	font-size: 1.0em;
+	text-transform: uppercase;
+	margin: 2px 0
+}
+
+dl.asignatura dd ul {
+	float: none !important;
+	clear: right !important;
+	padding: 0;
+	margin: 0
+}
+
+dl.asignatura dd ul li,dl.asignatura dd ol li {
+	margin: 2px 0
+}
+
+dl.asignatura dd ol li {
+	list-style-position: inside
+}
+
+div.centre#docencia dl dd p {
+	font-size: 1.0em;
+	margin: 2px 0
+}
+
+ul.publicado {
+	width: 570px;
+	margin: 0 !important
+}
+
+ul.publicado li {
+	font-size: 1.1em;
+	background: url(../images/px_dl.gif) repeat-x left bottom;
+	width: 542px;
+	float: left;
+	clear: both;
+	padding: 4px;
+	margin: 2px 0;
+	list-style: none
+}
+
+span.titulo {
+	font-weight: bold;
+	font-style: italic
+}
+
+a.iconos img {
+	background-image: none
+}
+
+/* PFC
+------------------------- */
+
+/* Docencia y publicaciones
+------------------------- 
+
+dl.pfcs {
+	width: 570px;
+}
+
+dl.pfcs dt {
+	font-size: 1.1em;
+	font-weight: bold;
+	background: url(../images/px_dl.gif) repeat-x left bottom;
+	width: 570px;
+	float: left;
+	clear: both;
+	padding: 2px 4px;
+	margin: 2px 0 0
+}
+
+dl.pfcs dd {
+	font-size: 1.1em;
+	font-weight: normal;
+	width: 570px;
+	float: left;
+	padding: 2px 4px;
+	margin: 2px 0 0
+}
+
+dl.pfcs dd.tema {
+	font-weight: bold;
+	text-transform: uppercase
+}
+
+dl.pfcs dt.nobg {
+	background: none
+}
+
+dl.pfcs dd p {
+	font-size: 1.0em;
+	text-transform: uppercase;
+	text-align: justify;
+	margin: 2px 0
+}
+
+dl.pfcs dd ul {
+	padding: 0;
+	margin: 0
+}
+
+dl.pfcs dd ul li,dl.pfcs dd ol li {
+	margin: 2px 0
+}
+
+dl.pfcs dd ul li a {
+	background: none
+}
+
+dl.pfcs dd ol li {
+	list-style-position: inside
+}
+
+/* Formularios
+-------------------------------------------------- */
+
+div.centre0 form {
+	background: url(../images/bg_form0.gif) center top no-repeat;
+	width: 200px;
+	float: left;
+	padding: 0 20px
+}
+
+div.centre0 form div {
+	float: left
+}
+
+div.centre form {
+	background: url(../images/bg_forms.gif) center top no-repeat;
+	width: 530px;
+	float: left;
+	padding: 0 20px
+}
+
+div.centre form div {
+	float: left
+}
+
+div#superior1 {
+	width: 450px;
+	margin: 5px 0 0
+}
+
+div#superior2 {
+	width: 80px;
+	margin: 5px 0 0
+}
+
+div#superior2 label {
+	width: 60px !important
+}
+
+div#medio {
+	width: 530px;
+	margin: 5px 0 0
+}
+
+div#inferior {
+	width: 530px;
+	margin: 5px 0 0
+}
+
+div.centre form p {
+	font-size: 1.1em;
+	color: #036;
+	text-align: left;
+	float: left;
+	clear: both
+}
+
+div.centre0 p.error {
+	font-size: 1.0em;
+	color: #F00;
+	//text-align: left;
+	width: 240px;
+	//float: left
+}
+
+div.centre0 a.olvido {
+	font-size: 1.0em;
+	text-align: left;
+	float: left;
+	clear: both
+}
+
+label {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #036;
+	text-align: left;
+	display: block;
+	width: 100%;
+	padding: 3px 0
+}
+
+label.todos {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #036;
+	text-align: left;
+	display: inline;
+	width: 100px;
+	float: left;
+	padding: 3px 0;
+	margin: 0 5px 0 0
+}
+
+div.centre#publicaciones form label,div.centre#pfc form label  {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #036;
+	text-align: left;
+	width: 150px;
+	float: left;
+	clear: left;
+	padding: 3px 10px;
+	margin: 2px 0
+}
+
+div.centre#publicaciones form input.campos,div.centre#pfc form input.campos {
+	font-size: 1.1em;
+	background-color: #FFF;
+	width: 350px;
+	height: 18px;
+	float: left;
+	border: solid 1px #CCC
+}
+
+div.centre#publicaciones form select {
+	font-size: 1.1em;
+	background-color: #FFF;
+	width: 352px;
+	height: 18px;
+	float: left;
+	border: solid 1px #CCC
+}
+
+div.centre#pfc form input.areas {
+	font-size: 1.1em;
+	background-color: #FFF;
+	width: 350px;
+	height: 90px;
+	float: left;
+	border: solid 1px #CCC
+}
+
+input.usuario,input.clave {
+	background-color: #FFF;
+	width: 200px;
+	height: 18px;
+	border: solid 1px #CCC
+}
+
+input#criterios {
+	background-color: #FFF;
+	width: 445px;
+	height: 18px;
+	float: left;
+	border: solid 1px #CCC
+}
+
+select#valores {
+	background-color: #FFF;
+	width: 530px;
+	height: 22px;
+	border: solid 1px #CCC
+}
+
+input#buscar,input#mostrar,input#acceder {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #036;
+	background: url(../images/bg_bt80.png) left top no-repeat;
+	width: 80px;
+	height: 20px;
+	float: left;
+	border: none 0
+}
+
+input#acceder {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #036;
+	background: url(../images/bg_bt80.png) left top no-repeat;
+	width: 80px;
+	height: 20px;
+	float: right;
+	border: none 0
+}
+
+input#enviar,input#borrar {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #036;
+	background: url(../images/bg_bt80.png) left top no-repeat;
+	width: 80px;
+	height: 20px;
+	float: right;
+	margin: 5px 10px 5px 0;
+	border: none 0
+}
+
+input#buscar:hover,input#mostrar:hover,input#acceder:hover {
+	background-position: bottom
+}
+
+input#vertodos {
+	display: inline;
+	float: left;
+	clear: left;
+	margin: 0 5px 0 0
+}
+
+div.finform {
+	background: url(../images/bg_form2.gif) center top no-repeat;
+	line-height: 9px;
+	width: 570px;
+	height: 9px;
+	float: left;
+	margin: 0 auto 20px
+}
+
+div.finform0 {
+	background: url(../images/bg_form1.gif) center top no-repeat;
+	line-height: 9px;
+	width: 240px;
+	height: 9px;
+	float: left;
+	margin: 0 auto
+}
+
+/* Nuevo 09/06/2009 */
+form#buscar_personal select,form#buscar_pfc select {
+	background-color: #FFF;
+	width: 445px;
+	height: 18px;
+	float: left;
+	border: solid 1px #CCC
+}
+
+/* Botones de imagen doble varios
+-------------------------------------------------- */
+
+a.botones {
+	text-decoration: none;
+	display: block
+}
+
+a.botones:hover {
+	text-decoration: none;
+	background-position: bottom !important
+}
+
+a.botones span {
+	display: none
+}
+
+.activo {
+	text-decoration: none;
+	background-position: bottom
+}
+
+a.bototex100 {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #036;
+	line-height: 20px;
+	background: url(../images/bg_bt100.png) left top no-repeat;
+	width: 100px;
+	height: 20px;
+	float: left;
+	border: none 0
+}
+
+a.bototex100:hover {
+	background-position: bottom
+}
+
+/* Identificadores de botones
+-------------------------------------------------- */
+
+#webmail {
+	background: url(../images/bt_wmail.png);
+	width: 180px;
+	height: 20px;
+	float: left
+}
+
+/* Personal
+------------------------- */
+
+#mispages {
+	background: url(../images/bt_mispa.png);
+	width: 132px;
+	height: 16px;
+	float: left;
+	margin: 4px 0
+}
+
+#accepag {
+	background: url(../images/bt_pagis.png);
+	width: 113px;
+	height: 16px;
+	float: left;
+	margin: 4px 0
+}
+
+/* Publicaciones
+------------------------- */
+
+#datospubli {
+	background: url(../images/bt_info.gif);
+	line-height: 14px;
+	width: 14px;
+	height: 14px;
+	float: left;
+	margin: 2px 0
+}
+
+#pdfpubli {
+	background: url(../images/bt_pdf.gif);
+	line-height: 14px;
+	width: 14px;
+	height: 14px;
+	float: left;
+	margin: 2px 0
+}
+
+#urlpubli {
+	background: url(../images/bt_url.gif);
+	line-height: 14px;
+	width: 14px;
+	height: 14px;
+	float: left;
+	margin: 2px 0
+}
+
+#docpubli {
+	background: url(../images/bt_doc.gif);
+	line-height: 14px;
+	width: 14px;
+	height: 14px;
+	float: left;
+	margin: 2px 0
+}
+
+/* Paginas
+-------------------------------------------------- */
+
+.paginado {
+	font-size: 0.9em;
+	font-weight: bold;
+	line-height: normal;
+	letter-spacing: 140%;
+	text-align: left;
+	width: 550px;
+	float: left;
+	clear: both;
+	margin: 5px 0
+}
+
+.paginado a,.paginado a:link,.paginado a:active {
+	color: #069;
+	text-decoration: none;
+	background-image: none;
+	background-color: #FFF;
+	display: inline-block;
+	padding: 2px 4px;
+	margin: 2px;
+	border: solid 1px #7FA0D3
+}
+
+.paginado a:hover,.paginado a:focus,.paginado a:active,.paginado a:visited:focus,.paginado a:visited:active {
+	color:#FFF;
+	background-color: #7FA0D3;
+	border: solid 1px #7FA0D3
+}
+
+.paginado a:visited {
+	color: #666;
+	text-decoration: none;
+}
+
+.paginado span.actual {
+	color: #FFF;
+	background-color: #7FA0D3;
+	display: inline-block;
+	padding: 2px 4px;
+	margin: 2px;
+	border: solid 1px #7FA0D3
+}
+
+.paginado span.extendido {
+	color: #666;
+	padding: 2px 4px
+}
+
+/* Recurrentes
+-------------------------------------------------- */
+
+.izq {
+	float: left
+}
+
+.der {
+	float: right
+}
+
+.disnone {
+	display: none
+}
+
+.limpizq {
+	clear: left
+}
+
+.reset {
+	clear: both
+}
+
+.oculto {
+	display: none
+}
+
+.nobg {
+	background: none
+}
+
+/*---------------------otros---------------*/
+div.centre#pfc form textarea.areas {
+	font-size: 1.1em;
+	background-color: #FFF;
+	width: 350px;
+	height: 90px;
+	float: left;
+	border: solid 1px #CCC
+}
+.error {
+	font-size: 1.1em;
+	color: #800000;
+font-weight: bold;
+}
+
+input#grande {
+	background-color: #FFF;
+	width: 530px;
+	height: 18px;
+	float: left;
+	border: solid 1px #CCC
+}
+
+
+div.centrepeque form {
+	background: url(../images/bg_forms.gif) center top no-repeat;
+	width: 260px;
+	float: left;
+	padding: 0 20px
+}

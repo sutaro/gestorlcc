@@ -1,0 +1,12 @@
+<div id="menu">
+   <p><span class="rotulo-menu"><%= link_to "Inicio" , '/anonimo/new' ,:style=>"color:black"%></span>
+      <%= image_tag("bg_separ_nav.gif") %> 
+   <p><span class="rotulo-menu">Cuadrantes horarios</span>
+
+     <br/>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to 'Periodo lectivo','/anonimo/general' %>
+     <br/>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to 'Ex&aacute;menes','/anonimo/labgeneral' %>
+     <br/><%= image_tag("bg_separ_nav.gif") %>
+   <p><span class="rotulo-menu"><%= link_to "Salir" , session_path, :method => 'delete',:style=>"color:black" %></span>
+     
+   </p>
+</div><!-- de menu -->

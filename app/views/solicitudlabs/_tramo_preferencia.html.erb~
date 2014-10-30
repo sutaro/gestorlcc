@@ -1,0 +1,7 @@
+<% p=tramo_preferencia.split("-") %>
+<tr valign="top">
+<% if p[2]!='in' %>
+  <td width=85 ><%= Laboratorio.find_by_nombre_lab(p[0]).ssoo %></td>  
+  <td width=40 ><%= p[2] %></td>
+<% end %> 
+</tr>

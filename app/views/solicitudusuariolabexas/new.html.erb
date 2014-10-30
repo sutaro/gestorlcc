@@ -1,0 +1,107 @@
+<div id="central" >
+     <p>GESTOR DE RECURSOS<br/>
+        <%= image_tag ("pointer.gif") %>Creando solicitud de laboratorio para ex&aacute;menes
+     </p>
+     <div id="recuadro">
+        <p><%= image_tag ("bg_separ.gif") %></p>
+        <% periodo=Periodo.find(:first,:conditions=>["tipo = ? and admision = ?","Examenes","t"]) %>
+        <% if !periodo.nil? %>  
+        <% @primerdia=formato_europeo(periodo.inicio) %> 
+        <div id="recuadro-azul" style="height:500px">
+          <% form_for @solicitudlabexa, :url => solicitudusuariolabexas_path, :action=>"create",
+                               :html=> {:name => "formulario"} do |f| %>
+          <dl>
+            <dt>Fecha solicitud</dt>
+            <dd><%= inicio=fecha_europea(Date.today) %></dd>
+            <dt>Titulaci&oacute;n *</dt>
+              <dd id="combo_titulacion"><%@titulaciones=Titulacion.find(:all,:order=>"id")%>
+                <%= select "titulacion", "titulacion_id", @titulaciones.map {|t| [t.nombre,t.id]} %></dd>
+            <dt>Curso *</dt>
+            <dd id="combo_nivel"><%= select_tag "nivel", options_for_select(Asignatura::CURSO)%></dd>
+	    <dt>Asignatura *</dt>    
+            <dd><SPAN id="combo_asignatura">
+                <% if (Asignatura::CURSO).first=="optativa" %>
+                   <% as='0' %>
+                <% else %>
+                   <% as=Asignatura::CURSO.first %>
+                <% end %>
+                <% @asignaturas=Asignatura.find(:all,:conditions=>['titulacion_id = ? and curso = ?',@titulaciones.first.id,as]) %>
+                <%= select "asignatura", "id", @asignaturas.map {|t| [t.nombre_asig,t.id]} %>
+                </span><dd>
+                <%= observe_field 'titulacion_titulacion_id', 
+                            :url =>{:controller => 'asignaturas', :action => 'combo_por_titulacion'}, 
+                            :update => 'combo_asignatura', 
+                            :with => 'combo_titulacion' %>
+                <%= observe_field 'nivel', 
+                            :url =>{:controller => 'asignaturas', :action => 'combo_por_nivel'}, 
+                            :update => 'combo_asignatura', 
+                            :with => 'combo_nivel' %>
+            </dd>
+            <dt>Puestos *</dt>
+            <dd><% @puestos=Laboratorio.find_by_sql(["select distinct(puestos) from laboratorios order by puestos"]).map{|l| l.puestos} %>             
+                <%= select_tag "npuestos", options_for_select((@puestos<<Laboratorio::DOS_LAB)+Laboratorio::PUESTOS_EXAMEN) %>
+            </dd>
+            
+            <dt>Fecha *</dt>
+            <dd>
+              <%= f.text_field :fecha, :size=>12, :name=>"fecha",  :id=>"DPC_fecha_DD-MM-YYYY", 
+                  :value=>@primerdia %></dd>
+            <dt>Soft. requerido</dt>
+            <dd><%= f.text_area :comentarios, :rows =>4, :cols=>40, :name=>"comentarios" %></dd>
+            <dt>Tipo de equipos</dt>
+            <dd>
+               <table id="preferencias"><tr style="font-size: 0.7em;font-weight: normal;text-align:center">
+                <tr>
+                 <th></th>
+                 <td style="text-align:center">Si</td>
+                 <td style="text-align:center">No</td>
+                 <td style="text-align:center">Indif.</td>
+                </tr>
+                <% @especiales=Laboratorio.find(:all,:conditions=>['especial=?',"t"]) %>
+                <% for especial in @especiales do %>
+                <tr style="font-size: 10px;font-weight: normal;text-align:center">
+                   <td class="cien"><%= especial.ssoo %>
+                                 <% nombre=especial.ssoo %></td>
+                   <td style="text-align:center" class="cincuenta"><%= radio_button_tag nombre.to_s, 'si' ,:disabled=> true %>   </td>
+                   <td style="text-align:center" class="cincuenta"><%= radio_button_tag nombre.to_s, 'no' ,:disabled=> true %>   </td>
+                   <td style="text-align:center" class="cincuenta"><%= radio_button_tag nombre.to_s, 'in' ,:enabled=> true %>  </td>
+                </tr>
+                <% end %>
+               </table><!-- para elegir preferencias sobre laboratorios especiales -->
+           </dd>
+           <dt>Tramo horario *</dt>
+           <dd><table>
+                       <tr style="font-size:1.1em;text-align:center">
+                          <td class="cien">Hora inicio </th>
+                          <td class="cien">Hora fin </th>
+                       </tr>
+                       <tr valign="top" style="text-align:center"> 
+                          <td class="cien"><% @horas=Horasexa.find(:all,:conditions=>['en_uso=?',"t"],:order=>"id") %>
+                                       <%= select "horaini", "comienzo", @horas.map {|h| [h.comienzo] }%></td>
+                          <td class="cien"><%= select "horafin", "fin", @horas.map {|h| [h.fin] }%></td>
+                       </tr>
+                </table><!-- de subformulario --></td>
+            </dd><!-- de tramos horarios -->
+        
+               <p><%= f.submit 'Crear' %></p>
+          </dl>  
+        </div><!-- de recuadro-azul -->
+        <div id="errores">
+             <%= f.error_messages :header_message => 'Se produjeron errores en la captura de datos', 
+                  :message => 'Imposible crear una nueva solicitud de laboratorio:'%>
+             <% if flash[:notice] %>
+                <div id="errorExplanation">
+                  <p>Imposible crear una nueva solicitud de laboratorio:</p>
+                  <ul><li><%=flash[:notice]%></li></ul>
+                </div>
+             <% end %>
+         </div>
+        <% end %><!-- de form_for -->
+   <% else %><!-- de periodo de admision -->
+        <div id="inactivo">
+            <p>No est&aacute; activa la admisi&oacute;n de solicitudes</p>
+            <p>Para cualquier consulta: tecnicos@lcc.uma.es</p>
+        </div>
+   <% end %>
+     </div><!-- de recuadro -->
+</div><!-- de central -->

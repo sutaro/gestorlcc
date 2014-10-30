@@ -1,0 +1,1 @@
+<tr><td>No hay tramos horarios<%= javascript_tag 'ocultardiv("solicitudrecurso_submit")'%></td><tr>

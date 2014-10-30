@@ -1,0 +1,5 @@
+Se comunica a los profesores que a partir de este momento queda clausurada la consulta de adjudicacion de laboratorios para el periodo 
+<%= Iconv.conv('ascii//translit', 'utf-8', @nombre) %>
+
+Para cualquier consulta o duda, pónganse en contacto con tecnicos@lcc.uma.es.
+

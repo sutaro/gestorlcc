@@ -1,0 +1,28 @@
+<div id="central" >
+   <p>GESTOR DE RECURSOS<br>
+   &gt;Par&aacute;metros del sistema: Agregando hora h&aacute;bil
+
+  <div id="recuadro">
+    <p><%= image_tag ("bg_separ.gif") %>
+    <div id="recuadro-azul" style="height:200px">
+
+      <% form_for(@horario) do |f| %>
+        <dl>
+          <dt>N&uacute;mero *</dt>
+          <dd><%= f.text_field :num, :size =>3 %></dd>
+          <dt>Comienzo *</dt>
+          <dd><%= f.text_field :comienzo, :size =>6 %></dd>
+	  <dt>Fin *</dt>
+          <dd><%= f.text_field :fin, :size =>6 %></dd>
+          <dt>En uso?</dt>
+          <dd><%= f.check_box :en_uso %></dd>
+          <p><%= f.submit 'Crear', :class=>"boton"%></p>
+        </dl>
+    </div>
+    <div id="errores">
+        <%= f.error_messages :header_message => 'Se produjeron errores en la captura de datos', 
+            :message => 'Imposible crear nueva hora debido a:'%>
+    </div>
+    <% end %>
+  </div>
+</div>

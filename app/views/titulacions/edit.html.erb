@@ -1,0 +1,25 @@
+<div id="central" >
+    <p>GESTOR DE RECURSOS<br/>
+       <%= image_tag ("pointer.gif") %>Gesti&oacute;n de archivos: Edit&aacute;ndo titulaci&oacute;n
+    </p>
+    <div id="recuadro">
+       <p><%= image_tag ("bg_separ.gif") %></p>
+       <div id="recuadro-azul" style="height:200px">
+       <% form_for(@titulacion) do |f| %>
+         <dl>
+          <dt>C&oacute;digo *</dt>
+          <dd><%= f.text_field :codigo, :size =>4 %></dd>
+          <dt>Nombre *</dt>
+          <dd><%= f.text_area :nombre, :rows=>2, :cols=>30 %></dd>
+          <dt>Abreviatura *</dt>
+          <dd><%= f.text_field :abrevia, :size =>6 %></dd>
+          <p><%= f.submit 'Guardar cambios', :class=>"boton" %></p>
+         </dl> 
+       </div>
+       <div id="errores">
+           <%= f.error_messages :header_message => 'Se produjeron errores en la captura de datos', 
+                :message => 'Imposible modificar la titulacion debido a:'%>
+       </div>
+       <% end %><!-- de form_for -->
+    </div><!-- de recuadro -->
+</div><!-- de central -->

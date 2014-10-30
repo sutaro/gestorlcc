@@ -1,0 +1,40 @@
+<div id="central" >
+   <p>GESTOR DE RECURSOS<br>
+     <%= image_tag ("pointer.gif") %>Gesti&oacute;n de archivos: Cre&aacute;ndo nueva asignatura
+   </p>
+   <div id="recuadro">
+    <p><%= image_tag ("bg_separ.gif") %></p>
+    
+    <div id="recuadro-azul" style="height:325px">
+
+    <% form_for(@asignatura) do |f| %>
+
+      <dl>
+          <dt>C&oacute;digo * </dt>
+          <dd><%= f.text_field :codigo_asig, :size =>5 %></dd>
+          <dt>Nombre *</dt>
+          <dd><%= f.text_area :nombre_asig, :rows=>2, :cols=>30 %></dd>
+          <dt>Acr&oacute;nimo *</dt>
+          <dd><%= f.text_field :abrevia_asig, :size=>20 %></dd>
+          <dt>Titulaci&oacute;n *</dt>
+          <dd><% @titulaciones=Titulacion.find(:all,:order=>"codigo") %>
+              <%= select "titulacion", "nombre", @titulaciones.map {|t| [t.nombre]} %></dd>
+          <dt>Curso *</dt>
+          <dd><%= select_tag "curso", options_for_select(Asignatura::CURSO)%></dd>
+          <dt>Coeficiente *</dt>
+          <dd><%= select_tag "coeficiente_exp", options_for_select(Asignatura::COEF)%></dd>
+          <dt>Tipo *</dt>
+          <dd><%= select_tag "caracter", options_for_select(Asignatura::TIPO)%></dd>
+          <dt>Semes./Cuatr. *</dt>
+          <dd><%= select_tag "cuatrimestre", options_for_select(["anual","1","2"])%></dd>
+          <p><%= f.submit 'Crear',:class=>"boton" %></p>     
+      </dl> 
+    </div><!-- del id="recuadro-azul" -->
+    <div id="errores">
+      <%= f.error_messages :header_message => 'Se produjeron errores en la captura de datos', 
+           :message => 'Imposible crear una nueva asignatura debido a:'%>
+    </div>
+    <% end %><!-- del form_for -->
+  </div><!-- del id="recuadro" -->
+</div><!-- del id="central" -->
+

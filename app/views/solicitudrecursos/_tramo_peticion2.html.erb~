@@ -1,0 +1,9 @@
+<tr valign="top">
+<td width=30><%= tramo_peticion2.id %></td> 
+<td width=80><%= tramo_peticion2.diasemana %></td>  
+<td width=30><%= tramo_peticion2.horaini %></td>
+<td width=10><%="-" %></td>
+<td width=30><%= tramo_peticion2.horafin %></td>   
+<td><%= link_to_remote image_tag("menos.jpg", :border=>0), 
+         :url => { :controller=>:solicitar, :action => 'eliminar_registro', :num=> muestra_tramo.id } %> </td>    
+</tr>

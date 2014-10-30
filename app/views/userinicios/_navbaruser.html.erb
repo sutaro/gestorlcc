@@ -1,0 +1,28 @@
+<div id="menu">
+   <p><span class="rotulo-menu"><%= link_to "Inicio" , new_userinicio_path ,:style=>"color:black" %></span>
+      <br/><%= image_tag("bg_separ_nav.gif") %>
+   </p>
+   <p><span class="rotulo-menu">Datos personales</span><br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Editar datos", edit_dato_path  %>
+      <br/><%= image_tag("bg_separ_nav.gif") %>
+   </p> 
+   <p><span class="rotulo-menu">Solicitudes</span><br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;<%= link_to 'Lab. periodo lectivo', solicitudusuariolabs_path %><br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;<%= link_to 'Lab. ex&aacute;menes', solicitudusuariolabexas_path %><br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;<%= link_to 'Otros recursos', solicitudrecursousuarios_path %><br/>
+      <%= image_tag("bg_separ_nav.gif") %>
+   </p>
+   <p><span class="rotulo-menu">Asignaciones labs clase</span><br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;<%= link_to 'Mis asignaciones', '/consultasasig/porusuario' %><br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;<%= link_to 'Horario general', '/consultasasig/general' %><br/>
+      <%= image_tag("bg_separ_nav.gif") %>
+   </p>
+   <p><span class="rotulo-menu">Asignaciones ex&aacute;menes</span><br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;<%= link_to 'Mis asignaciones','/consultasasig/labporusuario' %><br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;<%= link_to 'Horario general','/consultasasig/labgeneral' %><br/>
+      <%= image_tag("bg_separ_nav.gif") %>
+   </p>
+   
+   <p><span class="rotulo-menu"><%= link_to "Salir" , session_path, :method => 'delete',:style=>"color:black"  %></span>
+   </p>
+</div>

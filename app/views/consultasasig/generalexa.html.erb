@@ -1,0 +1,120 @@
+
+<div id="central" >
+  <p>GESTOR DE RECURSOS<br>
+     <%= image_tag ("pointer.gif") %>Asignaci&oacute;n general de laboratorios
+  </p>
+  <div id="recuadro">  
+    <p><%= image_tag ("bg_separ.gif") %></p>
+    <% periodos=Periodo.find(:all,:conditions=>['activo = ? and tipo = ?',"t","Examenes"]) %>
+    <% nasig=Asignacionlabexadef.all.size %>
+    <% if periodos.size>0 and nasig>0 %><!-- si se esta en un periodo de asignaciones activadas -->
+      <div id="nom_periodo"><%= periodos.first.nombre %></div>
+      <% @dias=Dia.all %><% @dias=@dias.select {|d| d.en_uso } %>
+      <a name="up"></a>
+      <div id="rotulodias">
+       <% for dia in @dias %>
+         <%= "<a href=#"+dia.nombre+">"+dia.nombre+"  "+"</a>" %>
+       <% end %>
+      </div>
+      <% for dia in @dias %><!-- por cada dia de la semana, un cuadrante -->
+   
+        <div id="rotulodia">
+          <%="<a name="+dia.nombre+">"+dia.nombre+"</a>&nbsp;&nbsp;" %>
+          <%= image_tag ("bg_separ.gif") %>&nbsp;&nbsp<a href="#up"><%= image_tag ("up.png") %></a>
+        </div>
+        <table id="asignacion">
+          <% @labs=Laboratorio.find(:all,:order=>"nombre_lab") %>
+          <tr>
+           <th></th>
+           <% for lab in @labs do %><!-- los laboratorios son las columnas -->
+           <th>
+             <%= "<a onmouseover=ShowContent('"+"flotante"+lab.id.to_s+"'); return true;
+   		      onmouseout=HideContent('"+"flotante"+lab.id.to_s+"'); return true;>" %>
+                      <%= "<div id="+"flotante"+lab.id.to_s+" 
+				style='display:none;position:absolute;
+      					border-style: solid;
+      					background-color: white;
+      					padding: 5px;';>" %>
+                         <%= "Denominacion: "+lab.ssoo %><br>
+                         <%= "Num. puestos: "+lab.puestos.to_s  %><br>
+                         <%= "Lab Especial?: "+((lab.especial)?"SI":"NO") %>
+                      </div>
+                <%= lab.nombre_lab %></a><!-- nombre_lab e info flotante -->
+           </th>
+           <% end %><!-- del for lab in @labs --> 
+         </tr>
+
+         <%@horas=Horario.all %>
+         <% for hora in @horas do %><!-- las horas son las filas -->
+         <tr>
+           <th><%=hora.comienzo+'-'+hora.fin %></th>
+           <% for lab in @labs do %>
+             <!-- buscamos cada asignacion de ese laboratorio ese dia a esa hora -->
+             <% as=@asignacions.select {|a| a.laboratorio_id==lab.id and a.horaini.to_s==hora.comienzo.to_s and dia.id==a.dia_id and a.solicitudlab.fechafin>=Date.today} %>
+             <!-- ordenamos las asignaciones por fechaini -->
+             <% as_ordenadas=as.sort_by{|a| a.solicitudlab.fechaini}.to_a %>
+             <% solapa=0 %><!-- contamos los solapamientos -->
+             <% for i in 0..as_ordenadas.size-2 %>
+               <% if as_ordenadas[i].solicitudlab.fechafin>as_ordenadas[i+1].solicitudlab.fechaini %>
+                <% solapa+=1 %>
+               <% end %>
+            <% end %>
+           <td><% if solapa>0 %><!-- si hay colisiones, las enmarcamos en rojo -->
+                  <div style="border-style:solid;border-color:#ff0000">
+                <% end %>
+                <% for a in as %><!-- por cada asignacion (deberia ser una en todo caso) -->
+                  <%= "<a onmouseover=ShowContent('"+"flotante"+dia.nombre.to_s+hora.id.to_s+lab.id.to_s+a.id.to_s+"'); return true;
+   		          onmouseout=HideContent('"+"flotante"+dia.nombre.to_s+hora.id.to_s+lab.id.to_s+a.id.to_s+"'); return true;>" %>
+                         <%= "<div id="+"flotante"+dia.nombre.to_s+hora.id.to_s+lab.id.to_s+a.id.to_s+" 
+				 style='display:none;position:absolute;
+      					border-style: solid;
+      					background-color: white;width:200px;
+					font-weight: bold;
+      					padding: 5px;';>" %>
+                                   <%= a.solicitudlab.asignatura.nombre_asig %><br>
+                                   <%= a.solicitudlab.asignatura.titulacion.abrevia %><br>
+				   <%= "Curso: "+a.solicitudlab.curso %><%=" Puestos: "+a.solicitudlab.npuestos.to_s %><br>
+                                   <%= "Profesor: "+a.solicitudlab.usuario.nombre+" "+a.solicitudlab.usuario.apellidos %><br>
+                                   <%= "Ocupacion: "%>
+                                   <% if a.solicitudlab.tipo=="T" %>
+                                         <%= "Todo el periodo" %>
+                                   <% else if a.solicitudlab.tipo=="I" %>
+                                         <%= "Del "+formato_europeo(a.solicitudlab.fechaini.to_s)+" al "+formato_europeo(a.solicitudlab.fechafin.to_s) %>
+                                   <% else if a.solicitudlab.tipo=="X" %>
+                                         <%= "Asignaci&oacute;n directa - Del "+formato_europeo(a.solicitudlab.fechaini.to_s)+" al "+formato_europeo(a.solicitudlab.fechafin.to_s) %>
+                                   <% else %>
+                                         <%= "Puntual" %>                                 
+                                   <% end %><% end %><% end %>
+			    </div>
+                            <% if a.solicitudlab.tipo=="T" %><!-- todo el periodo -->
+                              <div style="color:#ff8727">
+                             <% else if a.solicitudlab.tipo=="I" %><!-- un intervalo dentro del periodo -->
+                              <div style="color:#070d5b">
+                             <% else if a.solicitudlab.tipo=="X" %><!-- asignacion directa -->
+                              <div style="color:#9961c1">
+                             <% else %>
+			      <div style="color:#15611c"><!-- puntual -->
+                             <% end %>
+                            <% end %><% end %>
+                            <%= a.solicitudlab.asignatura.abrevia_asig %><!-- se muestra abrevia_asig e info flotante -->
+                          </div>
+                       </a>
+                <% end %><!-- del for a in as -->
+                <% if as.size>1 %>
+                  </div>
+                <% end %>
+              </td>
+             <% end %><!-- de for lab in @labs -->
+           </tr>
+     <% end %><!-- de for hora in @horas --> 
+   </table>
+   <% end %><!-- de for dia in @dias -->
+
+ 
+<% else %>
+  <div id="inactivo">  
+     <p>No hay asignaciones disponibles<p/>
+     <p>Para cualquier consulta, p&oacute;ngase en contacto con el administrador</p>
+  </div>
+<% end %>
+</div></div>

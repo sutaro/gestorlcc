@@ -1,0 +1,482 @@
+
+* {                   
+	padding: 0;
+	margin: 0
+}
+
+body {                       	font-size: 75%;
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+	color: #036;
+	background: #FFF;
+	text-align: center
+}
+
+/* login */
+
+#wrapper {
+	width: 100%
+}
+
+#conta_login {
+	background: url(../images/tr_lycc.gif) center top repeat-x;
+	width: 100%;
+	height: 140pt;
+	margin: 200pt auto
+}
+
+#log-in {
+	background: url(../images/bg_login.png) center top no-repeat;
+	width: 760pt;
+	height: 140pt;
+	margin: 0 auto
+}
+/* MIA VS. */
+a { 
+    color:#010080;
+    text-decoration: none;
+ 
+}
+
+#menu { font-size: 80%;}
+#menu a:visited {
+        
+        color:#010080;
+        }
+#menu a:hover {
+        background:#fbbb13;
+        color:#010080;
+        }
+
+img  {
+	border: none 0
+}
+
+p.edited {
+	float: left
+}
+
+
+/* Layout
+-------------------------------------------------- */
+
+#copyright {
+        font-size:0.8em;
+        width: 500pt;
+        position: absolute;
+        top: 400pt;
+        left: 10pt;
+}
+
+#wrapper {
+	width: 100%
+}
+
+#conta_header {
+	background: url(../images/tr_lycc.gif) left top repeat-x;
+	width: 100%;
+	height: 160pt;
+	float: left
+}
+
+#header {
+	background: url(../images/bg_cabec.png) center top no-repeat;
+	width: 960pt;
+	height: 160pt;
+	margin: 0 auto
+}
+
+#conta_main {
+	//background: url(../images/bg_modif.png) left top no-repeat;
+	width: 100%;
+	float: left
+}
+
+
+#conta-main #main #central {
+        padding: 0pt;
+        font-size: 100%;
+        //min-height:900pt;
+        //min-width: 1000pt;
+        left: 200pt;
+        top: 165pt;
+        position:absolute;
+    
+}
+
+
+#main { 
+        
+	width: 100%;
+	margin: 0 auto
+}
+
+#cubos {
+        position: absolute;
+        top: 645pt;
+        float: center;
+        padding: 25pt;
+        width: 100pt;
+	height: 80pt;
+}
+
+
+
+#nav {  background: url(../images/bg_modif.png) left top no-repeat;
+        padding-left:2pt;
+	width: 200pt;
+	min-height:600pt;
+}
+
+#nav #menu {
+        position :relative;
+        top: 45pt;//estaba a 60pt
+        height: 710pt;
+        
+}
+
+#nav #saludo {
+        position: absolute;
+        top: 150pt;
+        width: 170pt;
+        height:50pt;
+        font-size:120%;
+        padding: 1pt;
+        margin-left: 10pt;
+        font-weight: bold;
+        
+ }       
+
+#nav #saludo #admin {    
+        width: 150pt;
+        background:#fbbb13;
+        color:#ffffff;
+        
+}
+
+#nav #saludo #usuario {
+	width: 150pt;
+        background:#f0f0f0;
+        color:#010080;
+        
+}
+
+#nav p {
+        font-size:120%;
+        color:#000000;
+}
+
+#recuadro {
+        min-width: 1075pt;
+        position:absolute;
+        //min-height: 600pt;
+        //left: 185pt;
+}
+
+#recuadro-azul {
+        margin-top:5pt;
+        background:#dee1e9;
+        width: 600pt;
+	//width: 600pt; 	POR EL TEMA DE LOS MENSAJES DE ERROR
+        position:absolute;
+        //left: 190pt;
+	padding: 5pt;
+      
+}
+#busqueda {
+        background:#dee1e9;
+	width: 450pt; 
+	//margin: 0pt 0pt 0pt 190pt ; 
+        padding: 10pt;
+}
+#busqueda2 {
+        background:#dee1e9;
+	width: 590pt; 
+	//margin: 0pt 0pt 0pt 190pt ; 
+        padding: 10pt;
+}
+
+#copy { width: 75%;
+        height:100pt;
+        font-size:85%;
+        float: bottom;
+}
+
+#revisa * td {
+        text-align: left;
+        font-size:0.4cm;
+        padding: 15pt;
+        }
+
+#lista-gestion table {
+        border-collapse: collapse;
+        //min-width:900pt;
+}
+
+ table tr th {
+        color: #010080;
+        vertical-align: top;
+        overflow: auto;
+}
+
+.treinta {
+        min-width:30pt;
+        width:30pt;
+}
+
+.cincuenta {
+        min-width:50pt;
+        width:50pt;
+}
+.setenta {
+        min-width:70pt;
+        width:70pt;
+}
+.cien {
+        min-width:100pt;
+        width:100pt;
+}
+.cientocincuenta {
+        min-width:150pt;
+        width:150pt;
+}
+.cientoveinticinco {
+        min-width:125pt;
+        width:125pt;
+}
+.doscientos {
+        min-width:200pt;
+        width:200pt;
+}
+.doscincuenta {
+        min-width:250pt;
+        width:250pt;
+}
+
+.icono {
+        width:25pt;
+        background: white;
+}
+
+table.flotante {
+        width:300pt;
+        height: 150pt;
+        text-align: left;
+}
+
+table.flotante2 {
+        width:200pt;
+        height: 100pt;
+        text-align: left;
+        background-color:white;
+}
+
+#celda_libre {
+        background:#dee1e9;
+        font-weight:bold;
+}
+
+#celda_ocupada {
+        background:#facc50;
+        font-weight:bold;
+}
+
+#horario tr td {
+        border:1pt;
+        width:200pt;
+        height:45pt;
+       // background: #dee1e9;
+}
+
+#asignacion tr td {
+        border:1pt;
+        min-width:120pt;
+        height:50pt;
+        background: #dee1e9;
+}
+#asignacion tr td table tr td{
+        border:1pt;
+        min-width:350pt;
+        height:25pt;
+        background-color: white;
+}
+
+#confirma {
+        text-align: left;
+        width:215pt;
+        left:40pt;
+        padding:10pt;
+        background-color: #f6ecd5;
+        font-size:1.5em;
+}
+
+#nom_periodo {
+        text-align:left;
+        font-size:1.5em;
+        color:#fbbb13;
+        font-weight: bold;
+        padding-top: 10pt;
+        padding-bottom: 10pt;
+}
+
+#lista-gestion table tr td {
+        padding: 5pt;
+        vertical-align: top;
+        text-align: left;
+        overflow: auto;
+}
+
+#lista-gestion .list-actions {
+  font-size:    x-small;
+  text-align:   right;
+  padding-left: 1em;
+}
+
+#lista-gestion .linea-par {
+  background:   #dee1e9;
+}
+
+#lista-gestion .linea-impar {
+  background:   #f6ecd5;
+}
+
+#tramos {
+  vertical-align: top;
+  text-align:left; 
+  position: relative;
+  width: 220pt;
+  background: white;
+        }
+
+#subformulario, #preferencias {
+        width: 300pt;
+        background: #f6ecd5;
+        text-align: left;
+        position: relative;
+	font-size: 1.1em;
+	float: left;
+        }
+
+.boton {
+
+        //float: left;
+        margin: 10pt;
+        position: relative;
+       }
+
+.botonescondido {
+        
+        visibility:hidden;
+        float: left;
+        margin: 5pt;
+        position: relative;
+       }
+.botonindex {
+        
+        position:relative;
+        left: -450pt;
+       }
+.botonindexsearch {
+        
+        position:absolute;
+        left: 330pt;
+        top: 25pt;
+       }
+
+#recuadro-azul form dl {
+        
+	font-size: 1.1em;
+	width: 192pt;
+	float: left;
+	padding: 2pt 4pt;
+	margin: 2pt 0 0
+}
+
+
+
+#recuadro-azul form dl dd {
+        text-align: left;
+        position: relative;
+        left: 175pt;
+	font-size: 1.1em;
+	width: 585pt;
+	float: left;
+	padding: 2pt 4pt;
+	margin: -22pt 0 0
+
+}
+
+#recuadro-azul form dl dt {
+        text-align: left;
+	font-size: 1.1em;
+	background: url(../images/pt_dl.gif) repeat-x left bottom;
+	width: 160pt;
+	float: left;
+	clear: both;
+	padding: 2pt 4pt;
+	margin: 2pt 0 0
+}
+
+#recuadro-azul form dl dd p {
+	font-size: 1.0em;
+	text-transform: uppercase;
+	//margin: 2pt 0
+}
+
+#subformularioreserva {
+       position: relative;
+       left: 620pt;
+       top: -515pt;
+       background:#dee1e9;
+       padding: 10pt;
+}
+
+#rotulodia {
+       text-align: left;
+       font-size: 2.0em;
+       text-transform: uppercase;
+       color: red;
+       padding: 25pt;
+}
+
+#rotulodias {
+       text-align: left;
+       font-size: 1.5em;
+       color: blue;
+       margin: 25pt;
+             
+}
+
+
+
+#asignadirecta {
+       position: relative;
+       top: -30pt;
+       left: 520pt;
+       font-size: 1.5em;
+       border: 2pt solid #fbbb13;
+       width: 180pt;
+       padding:5pt;
+       background-color: white;
+}
+       
+
+.aviso, #inactivo {
+       text-align: center;
+       font-size: 0.4cm;
+       line-height: 1.5em;
+       color: blue;
+       width: 600pt;
+       margin: 15pt;
+       padding: 15pt;
+       border: 4pt solid #fbbb13;
+      
+}
+
+
+#conta-header, #header,#nav, #saludo, #cubos, .icono, .no-imprimir, #rotulodias, #asignadirecta {
+display: none !important;
+}
+.gris {
+  width:150pt;
+  background-color: silver;
+}

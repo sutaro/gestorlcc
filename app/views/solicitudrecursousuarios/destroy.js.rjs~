@@ -1,0 +1,1 @@
+page.replace_html("tramos", :partial => solicitudrcursos/tramo_peticiones, :collect => @tramos)

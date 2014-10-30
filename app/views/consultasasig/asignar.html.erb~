@@ -1,0 +1,114 @@
+<div id="central" >
+  <p id=titulo>GESTOR DE RECURSOS<br>
+      &gt;Orden de solicitudes y asignaci&oacute;n
+  </p>
+  <div id="recuadro">
+    <div id="lista-gestion">
+      <p><%= image_tag ("bg_separ.gif") %></p>
+
+      <% if @solicitudlabs %>
+     
+       <% if @cuenta!=0 %>
+
+       <table cellpadding="5" cellspacing="0">
+        <tr>
+         <th> </th>
+         <th class="cien">Fecha sol.</th>  
+         <th class="doscientos">Usuario</th>
+         <th class="doscientos">Asignatura</th>
+         <th class="treinta">Grp.</th>
+         <th class="treinta">Equ.</th>
+         <th class="cien">Fecha inicio</th>
+         <th class="cien">Fecha fin</th>
+         <th>Peticion</th>
+         <th>Tipo</th>
+         <th class="cientocincuenta">Eleccion equipos</th>      
+        </tr>
+        <tr>
+         <% if @solicitudlabs.empty? %>
+           <td><%= h "No hay solicitudes de laboratorios emitidas" %></td>
+         <% end %> 
+        </tr>
+        <% @solicitudlabs.each do |i| %>
+        <tr valign="top" class="<%=cycle('linea-impar','linea-par') %>">
+         <td class="icono"><%= link_to image_tag("Editar.png", :border=>0),  edit_solicitudlab_path(i) %></td>
+         <td><%=h i.fechasol.to_s.split('-')[2] %><%= "-" %>
+             <%=h i.fechasol.to_s.split('-')[1] %><%= "-" %>
+             <%=h i.fechasol.to_s.split('-')[0] %></td>  
+         <td><% usuario=Usuario.find(i.usuario_id) %><%=h usuario.nombre+" "+usuario.apellidos %></td>
+         <td><% asig=Asignatura.find(i.asignatura_id) %>
+             <%= "<a onmouseover=ShowContent('asignatura"+i.id.to_s+"'); return true;
+   		     onmouseout=HideContent('asignatura"+i.id.to_s+"'); return true;>" %>
+                      <%= "<div id=asignatura"+i.id.to_s %> 
+			      style='display:none;position:absolute;
+      				     border-style: solid;
+      				     background-color: white;width:200px;
+      				     padding: 5px;';>
+                                <%=h asig.nombre_asig %><!-- nombre completo de asig flotante -->
+			   </div>
+             <%=h asig.abrevia_asig %></td>
+         <td style="text-align:center"><%=h i.curso %></td>
+         <td style="text-align:center"><%=h i.npuestos %></td>
+         <td><%=h i.fechaini.to_s.split('-')[2] %><%= "-" %>
+             <%=h i.fechaini.to_s.split('-')[1] %><%= "-" %>
+             <%=h i.fechaini.to_s.split('-')[0] %></td>
+         <td><%=h i.fechafin.to_s.split('-')[2] %><%= "-" %>
+             <%=h i.fechafin.to_s.split('-')[1] %><%= "-" %>
+             <%=h i.fechafin.to_s.split('-')[0] %></td>
+         <td><% @tramos=i.peticionlab %>
+             <table>
+                <%=render(:partial => "/solicitudrecursos/tramo_peticion", :collection=> @tramos ) %>
+             </table>
+         </td>
+         <td><%=h i.tipo %></td>
+         <td><% @preferencias=i.preferencias.split(";") unless i.preferencias.nil? %>  
+             <table>
+              <%=render(:partial => "/solicitudlabs/tramo_preferencia", :collection=> @preferencias ) %>
+             </table></td>    
+         <td class="icono"><%= link_to image_tag("borrar.png", :border=>0), i, 
+                              :confirm => 'Esta seguro de eliminarla?', :method => :delete %></td> 
+        </tr>
+        <% end %><!-- de @solicitudlabs.each -->
+       </table>
+     <% end %><!-- de if @cuenta!=0 -->    
+   <% end %><!-- de if @solicitudlabs -->
+
+   <%= @asignacions.size %>
+   <table>
+    <tr>
+     <th class="cientocincuenta">Solicitud laboratorio</th>
+     <th class="cientocincuenta">Petici&oacute;n</th>
+     <th class="cientocincuenta">Laboratorio</th>
+     <th class="cien">Dia</th>
+     <th class="cien">Hora inicio</th>
+     <th class="cien">Hora fin</th>
+    </tr>
+
+    <% for asignacion in @asignacions %>
+    <tr valign="top" class="<%=cycle('linea-impar','linea-par') %>">
+     <td><%=h asignacion.solicitudlab_id %></td>
+     <td><%=h asignacion.peticionlab_id %></td>
+     <td><% if !asignacion.laboratorio_id.nil? %>
+               <%= asignacion.laboratorio_id %>
+         <% else %>
+               <%= "vacio" %>
+         <% end %></td>
+     <td><%=h asignacion.peticionlab.diasemana %></td>
+     <td><%=h asignacion.horaini %></td>
+     <td><%=h asignacion.horafin %></td>  
+    </tr>
+    <% end %><!-- de for asignacion in @asignaciones -->
+   </table>
+
+  </div><!-- de id="listagestion --> 
+
+  <% for lab in @todoslab %>
+     <%= lab.id.to_s+' '+lab.nombre_lab+' '+lab.puestos.to_s+'<br/>' %>
+  <% end %>
+
+  <% for d in @distintospuestos %>
+     <%= d.puestos.to_s+'<br/>' %>
+  <% end %>
+ </div><!-- de d="recuadro" -->
+</div><!-- de id="central" -->
+

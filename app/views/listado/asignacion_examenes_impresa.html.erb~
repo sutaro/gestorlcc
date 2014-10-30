@@ -1,0 +1,72 @@
+<table>
+ <tr>
+   <td>
+     <p style="font-size:1em;margin-left:50px;">ASIGNACI&Oacute;N GENERAL DE LABORATORIOS</p>
+     <% activo=Periodo.find(:first,:conditions=>['activo = ? and tipo= ?',"t","Examenes"]) %>
+     <% if activo.nil? %>
+        <% activo=Periodo.find(:first,:conditions=>['tipo= ? and inicio>= ?',"Examenes",Date.today],:order=>"inicio") %>
+     <% end %>
+     <div id="nom_periodo" style="margin-left:50px;">
+        <%= activo.nombre %>
+     </div></td>
+   <td class="cientocincuenta"></td>
+   <td>
+     <%= image_tag("logo_lcc.png", :border=>0,:width=>"195", :height=>"100", :id=>"logotipo") %> </td>
+  </tr>
+</table>
+ <p style="margin-left:50px;"><%= image_tag ("bg_separ.gif") %></p>
+<div id="recuadro">
+ <div id="lista-gestion">
+
+  <table style="margin-left:50px;margin-top:50px;">
+   <tr>
+    <th class="cien">Fecha</th>
+    <th class="doscincuenta">Profesor</th>
+    <th class="cientocincuenta">Asignatura</th>
+    <th class="cincuenta">Titulaci&oacute;n</th>
+    <th class="cien">Curso</th>
+    <th class="cincuenta">Puestos</th>
+    
+    <th class="cientocuenta">Horario</th>
+    <th class="cientocincuenta">Laboratorios</th>
+    
+   </tr>
+   <% aant_id=0 %><% diaant="1000-1-1" %>
+   <% @asignacionexas.each do |a| %>
+  
+  <% if aant_id!=a.solicitudlabexa_id %>
+   <% if diaant != a.dia %>
+   <tr><td colspan=8 ></td></tr>
+  <% end %>
+  
+   <tr valign="top" class="<%=cycle('linea-impar','linea-par') %>">
+    <td style="text-align:center"><% if diaant != a.dia %>
+                                    <%=h formato_europeo(a.dia) %>
+                                  <% end %><% diaant=a.dia %></td>
+    <td><%=h a.solicitudlabexa.usuario.nombre+" "+a.solicitudlabexa.usuario.apellidos %></td>
+    <td><%=h a.solicitudlabexa.asignatura.abrevia_asig %></td>
+    <td><%=h a.solicitudlabexa.asignatura.titulacion.abrevia %></td>
+    <td style="text-align:center"><%=h a.solicitudlabexa.curso=="sin curso"? "-" : a.solicitudlabexa.curso %></td>
+    <td style="text-align:center"><%=h a.solicitudlabexa.npuestos %></td> 
+    <td><% todasas=@asignacionexas.select{|as| as.solicitudlabexa==a.solicitudlabexa } %>
+        <%=h a.horaini+"-"+todasas.last.horafin %></td>
+    <td style="text-align:center"><% labs=todasas.map{|as| as.laboratorio.nombre_lab }.sort %>
+        <% antlab=" " %>
+        <% labs.each do |l|  %>
+          <% if antlab!=l %>
+            <% if antlab!=" " %>
+               <%= " - " %>
+            <% end %>
+            <%=h l %>
+          <% end %>
+          <% antlab= l %>
+        <% end %></td>
+   
+   </tr>
+     <% aant_id=a.solicitudlabexa_id %>
+    <% end %><!-- de if ant -->
+   <% end %><!-- de @asignacionexas -->
+
+  </table>
+ </div>
+</div>

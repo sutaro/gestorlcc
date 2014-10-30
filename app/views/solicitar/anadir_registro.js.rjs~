@@ -1,0 +1,1 @@
+page.replace_html(:"tramos", :partial => "/solicitudrecursos/tramo_peticion2", :collection => session[:tramos_horarios])

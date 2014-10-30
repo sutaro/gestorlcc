@@ -1,0 +1,47 @@
+class InsertarUsuarios5 < ActiveRecord::Migration
+  def self.up
+    usuario=Usuario.new(:identificador=>"bertoa",
+                      :password=> "82c95d2bde21099bb921b17ecaad07fe",
+                      :password_confirmation=> "82c95d2bde21099bb921b17ecaad07fe",
+                      :nombre=>"Manuel",
+                      :apellidos=>"Fernández Bertoa",
+                      :email=>"bertoa@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.16",
+                      :telefono=>"7232" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"afdez",
+                      :password=>"dda8358f41c091ab55560a12cc3a19cf" ,
+                      :password_confirmation=>"dda8358f41c091ab55560a12cc3a19cf" ,
+                      :nombre=>"Antonio José",
+                      :apellidos=>"Fernández Leiva",
+                      :email=>"afdez@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.50",
+                      :telefono=>"3315" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"lfranco",
+                      :password=>"ec8f44022ee0292f160fc55c0807c496",
+                      :password_confirmation=>"ec8f44022ee0292f160fc55c0807c496",
+                      :nombre=>"Leonardo",
+                      :apellidos=>"Franco",
+                      :email=>"lfranco@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.29",
+                      :telefono=>"3304" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"lff",
+                      :password=>"c5fd0b2dd03f485df3711a7a357cbf30",
+                      :password_confirmation=>"c5fd0b2dd03f485df3711a7a357cbf30",
+                      :nombre=>"Lidia",
+                      :apellidos=>"Fuentes Fernández",
+                      :email=>"lff@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.2",
+                      :telefono=>"2810" )
+    usuario.save!
+  end
+
+  def self.down
+  end
+end

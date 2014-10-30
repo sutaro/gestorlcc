@@ -1,0 +1,88 @@
+# limpiar??????????
+
+
+class PeticionlabsController < ApplicationController
+  # GET /peticionlabs
+  # GET /peticionlabs.xml
+  def index
+    @peticionlabs = Peticionlab.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @peticionlabs }
+    end
+  end
+
+  # GET /peticionlabs/1
+  # GET /peticionlabs/1.xml
+  #def show
+  #  @peticionlab = Peticionlab.find(params[:id])
+
+  #  respond_to do |format|
+  #    format.html # show.html.erb
+  #    format.xml  { render :xml => @peticionlab }
+  #  end
+  #end
+
+  # GET /peticionlabs/new
+  # GET /peticionlabs/new.xml
+  def new
+    @peticionlab = Peticionlab.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @peticionlab }
+    end
+  end
+
+  # GET /peticionlabs/1/edit
+  def edit
+    @peticionlab = Peticionlab.find(params[:id])
+  end
+
+  # POST /peticionlabs
+  # POST /peticionlabs.xml
+  def create
+    @peticionlab = Peticionlab.new(params[:peticionlab])
+
+    respond_to do |format|
+      if @peticionlab.save
+        #flash[:notice] = 'Peticionlab was successfully created.'
+        format.html { redirect_to(@peticionlab) }
+        format.xml  { render :xml => @peticionlab, :status => :created, :location => @peticionlab }
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @peticionlab.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /peticionlabs/1
+  # PUT /peticionlabs/1.xml
+  def update
+    @peticionlab = Peticionlab.find(params[:id])
+
+    respond_to do |format|
+      if @peticionlab.update_attributes(params[:peticionlab])
+        #flash[:notice] = 'Peticionlab was successfully updated.'
+        format.html { redirect_to(@peticionlab) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @peticionlab.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /peticionlabs/1
+  # DELETE /peticionlabs/1.xml
+  def destroy
+    @peticionlab = Peticionlab.find(params[:id])
+    @peticionlab.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(peticionlabs_url) }
+      format.xml  { head :ok }
+    end
+  end
+end

@@ -1,0 +1,87 @@
+class InsertarUsuarios12 < ActiveRecord::Migration
+  def self.up
+    usuario=Usuario.new(:identificador=>"salaun",
+                      :password=>  "38b0c03ec893deb27dad2c815e0593e9",
+                      :password_confirmation=>  "38b0c03ec893deb27dad2c815e0593e9",
+                      :nombre=>"Gwen",
+                      :apellidos=>"Salaun",
+                      :email=>"salaun@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.3.12",
+                      :telefono=>"3346" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"dsanto",
+                      :password=>  "f2097b2ed71c9985140faaa281db4c44",
+                      :password_confirmation=> "f2097b2ed71c9985140faaa281db4c44",
+                      :nombre=>"David",
+                      :apellidos=>"Santo Orcero",
+                      :email=>"dsanto@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.3.12",
+                      :telefono=>"3372" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"esc",
+                      :password=>  "3f0e951cdec5a39685cb08fa6edc6094",
+                      :password_confirmation=>   "3f0e951cdec5a39685cb08fa6edc6094",
+                      :nombre=>"Enrique",
+                      :apellidos=>"Soler Castillo",
+                      :email=>"esc@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.44",
+                      :telefono=>"7157" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"trella",
+                      :password=> "f1a739133ae627da57380b74a42d5c5e",
+                      :password_confirmation=> "f1a739133ae627da57380b74a42d5c5e",
+                      :nombre=>"Mónica",
+                      :apellidos=>"Trella López",
+                      :email=>"trella@ctima.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.34",
+                      :telefono=>"7152" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"triguero",
+                      :password=>  "302e44d506eef4b362ca0676dcd7f74d",
+                      :password_confirmation=>  "302e44d506eef4b362ca0676dcd7f74d",
+                      :nombre=>"Francisco A.",
+                      :apellidos=>"Triguero Ruiz",
+                      :email=>"triguero@ctima.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.23",
+                      :telefono=>"1438" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"trivino",
+                      :password=> "046f24315fd6319d2c1029805da1db62",
+                      :password_confirmation=> "046f24315fd6319d2c1029805da1db62",
+                      :nombre=>"José Luis",
+                      :apellidos=>"Triviño Rodríguez",
+                      :email=>"trivino@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.20",
+                      :telefono=>"7145" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"gracian",
+                      :password=>  "9a6e442dd64832b0c244a112af133148",
+                      :password_confirmation=>  "9a6e442dd64832b0c244a112af133148",
+                      :nombre=>"Gracián",
+                      :apellidos=>"Triviño Salas",
+                      :email=>"gracian@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.3.12",
+                      :telefono=>"3345" )
+    usuario.save!
+    usuario=Usuario.new(:identificador=>"troya",
+                      :password=> "50b173f467a75446ef9682a00effeb3b",
+                      :password_confirmation=> "50b173f467a75446ef9682a00effeb3b",
+                      :nombre=>"José Mª",
+                      :apellidos=>"Troya Linero",
+                      :email=>"troya@lcc.uma.es",
+                      :admin=>"false",
+                      :despacho=>"3.2.14",
+                      :telefono=>"1398 / 4161" )
+    usuario.save!
+  end
+
+  def self.down
+  end
+end

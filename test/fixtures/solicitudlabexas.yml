@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  fechasol: 2010-11-29
+  usuario_id: 1
+  asignatura_id: 1
+  fecha: 2010-11-29
+  curso: MyText
+  npuestos: 1
+  comentarios: MyText
+  preferencias: MyText
+  horaini: MyText
+  horafin: MyText
+
+two:
+  fechasol: 2010-11-29
+  usuario_id: 1
+  asignatura_id: 1
+  fecha: 2010-11-29
+  curso: MyText
+  npuestos: 1
+  comentarios: MyText
+  preferencias: MyText
+  horaini: MyText
+  horafin: MyText

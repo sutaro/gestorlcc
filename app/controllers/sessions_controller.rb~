@@ -1,0 +1,64 @@
+class SessionsController < ApplicationController
+
+require 'net/ldap'
+
+# por defecto, el path de session invita a crear una nueva sesion
+
+  def index
+    render :action=> 'new'
+  end
+
+  def create
+ 
+###### prueba ldap  
+   ldap = Net::LDAP.new 
+   ldap.host = '150.214.108.158' 
+   ldap.port = 389 
+
+ 
+   @usuario_actual=Usuario.find_by_identificador(params[:login])
+    
+   
+      ldap.auth "uid=#{params[:login]},ou=People,dc=lcc,dc=uma,dc=es",params[:password]
+      if ldap.bind and @usuario_actual
+       session[:mensaje]='Se ha autentificado a :'+params[:login]   
+       session[:user_id]=@usuario_actual.id
+     
+       if @usuario_actual.admin 
+        # si el usuario es administrador
+        if File.exist? '/tmp/sesionadmin.txt'
+        # y no tiene sesion abierta
+         flash[:notice]='Ya hay abierta <br/> sesion para admin'
+         redirect_to new_session_path
+        else
+         FileUtils.touch '/tmp/sesionadmin.txt'
+         redirect_to new_inicio_path
+        end # caso admin
+       else 
+         # si el usuario es particular
+         redirect_to new_userinicio_path
+       end
+     else
+      if params[:login]=="anonimo" 
+         session[:user_id]=@usuario_actual.id
+         redirect_to '/anonimo/new'
+      else
+        # si el usuario no es conocido
+        flash[:notice]='Identificador o <br> password erroneo '
+        redirect_to new_session_path
+      end
+    end
+  end
+
+# al salir de una session, se borra el id del usuario actual
+# y se redirije a la creación de una nueva sesion
+
+  def destroy
+    if Usuario.find(session[:user_id]).admin?
+      FileUtils.rm '/tmp/sesionadmin.txt'
+    end
+    session[:user_id]=nil 
+    redirect_to new_session_path
+  end
+
+end

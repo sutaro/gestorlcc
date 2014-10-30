@@ -1,0 +1,24 @@
+<div id="titulo" >
+GESTION DE RECURSOS<br><br>
+&gt;Gestion de archivos: Mostrando laboratorio
+</div>
+<div id="recuadro">
+<table>
+  <tr>
+    <th>Nombre </th>
+    <th>Puestos </th>
+    <th>SSOO </th>
+    <th>Descripción HW </th>
+    <th>Descripción SW </th>
+    <th>Comentarios </th>
+  </tr>
+<tr valign="top" class="<%=cycle('linea-impar','linea-par') %>">
+    <td><%=h @laboratorio.nombre_lab %></td>
+    <td><%=h @laboratorio.puestos %></td>
+    <td><%=h @laboratorio.ssoo %></td>
+    <td><%=h @laboratorio.descr_HW %></td>
+    <td><%=h @laboratorio.descr_SW %></td>
+    <td><%=h @laboratorio.comentarios %></td>
+</tr>
+
+</div>

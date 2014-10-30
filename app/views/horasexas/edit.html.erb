@@ -1,0 +1,33 @@
+<div id="central" >
+   <p>GESTOR DE RECURSOS<br>
+      <%= image_tag ("pointer.gif") %>Par&aacute;metros del sistema: Edit&aacute;ndo horas h&aacute;biles
+   </p>
+
+   <div id="recuadro">
+     <p><%= image_tag ("bg_separ.gif") %></p>
+
+     <div id="recuadro-azul" style="height:200px">
+      <% form_for(@horasexa) do |f| %>
+
+       <dl>
+          <dt>N&uacute;mero *</dt>
+          <dd><%= f.text_field :num, :size =>3 %></dd>
+          <dt>Comienzo *</dt>
+          <dd><%= f.text_field :comienzo, :size =>6 %></dd>
+	  <dt>Fin *</dt>
+          <dd><%= f.text_field :fin, :size =>6 %></dd>
+          <dt>En uso?</dt>
+          <dd><%= f.check_box :en_uso %></dd>
+          <p><%= f.submit 'Guardar cambios', :class=>"boton", :confirm=>"Podria afectar a algunas solicitudes o asignaciones en curso. Esta seguro?" %>
+       </dl>
+
+     </div><!-- de recuadro-azul -->
+
+     <div id="errores">
+        <%= f.error_messages :header_message => 'Se produjeron errores en la captura de datos', 
+            :message => 'Imposible modificar la  hora debido a:'%>
+     </div>
+      <% end %><!-- de form_for -->
+
+   </div><!-- de recuadro -->
+</div><!-- de central -->

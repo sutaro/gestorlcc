@@ -1,0 +1,8 @@
+
+  page.replace_html(:'tramos', 
+                  :partial=>"/solicitudrecursos/muestra_tramo", 
+                  :collection=>session[:tramos_horarios].solicitudes)
+
+  page[:actual].visual_effect :highlight,
+                            :startcolor => "#010080" ,
+                            :endcolor => "#f6ecd5"

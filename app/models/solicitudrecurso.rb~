@@ -1,0 +1,13 @@
+class Solicitudrecurso < ActiveRecord::Base
+has_many :peticions
+belongs_to :usuario
+
+# restricciones sobre los datos
+  
+
+  validates_presence_of :usuario, :tipo,
+                        :message => ': No puede estar en blanco'
+  validates_presence_of :fechaini, :fechafin,
+                        :message => ': Esta en blanco o es erronea'
+  
+end

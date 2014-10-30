@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  fechaini: 2009-11-18
+  fechafin: 2009-11-18
+  horaini: 1
+  horafin: 1
+  diasemana: 1
+  fechasol: 2009-11-18
+  motivos: MyText
+
+two:
+  fechaini: 2009-11-18
+  fechafin: 2009-11-18
+  horaini: 1
+  horafin: 1
+  diasemana: 1
+  fechasol: 2009-11-18
+  motivos: MyText

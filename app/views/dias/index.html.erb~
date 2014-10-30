@@ -1,0 +1,53 @@
+<% nsol=Solicitudlab.all.size %>
+<% nsolexa=Solicitudlabexa.all.size %>
+<% nasig=Asignacion.all.size %>
+<% nasigdef=Asignaciondef.all.size %>
+<% nasignacionexa=Asignacionlabexa.all.size %>
+<% nasignacionexadef=Asignacionlabexadef.all.size %>
+<% total=nsol+nsolexa+nasig+nasigdef+nasignacionexa+nasignacionexadef %>
+
+
+
+
+<div id="central" >
+    <p>GESTOR DE RECURSOS<br>
+       <%= image_tag ("pointer.gif") %>Par&aacute;metros del sistema: D&iacute;as h&aacute;biles
+    </p>
+    <div id="recuadro">
+
+      <div id="lista-gestion">
+        <p><%= image_tag ("bg_separ.gif") %>
+        <table>
+         <tr>
+          <th> </th>
+          <th class="cincuenta">N&uacute;m.</th>
+          <th class="cien">Nombre</th>
+          <th class="cincuenta">En uso?</th>
+         </tr>
+
+         <% for dia in @dias %>
+         <tr valign="top" class="<%=cycle('linea-impar','linea-par') %>">
+          <td class="icono">
+            <% if total==0 %>
+               <%= link_to image_tag("Editar.png", :border=>0), edit_dia_path(dia) %>
+            <% end %></td> 
+          <td class="cincuenta" style="text-align:center"><%=h dia.num %></td>
+          <td class="cien"><%=h dia.nombre %></td>
+          <td class="cincuenta" style="text-align:center"><%= "SI" unless !dia.en_uso? %></td>
+          <td class="icono">
+            <% if total==0 %>
+             <%= link_to image_tag("borrar.png", :border=>0), dia, 
+             :confirm => 'Seguro que desea eliminar el '+dia.nombre+'?', 
+             :method => :delete %>
+          <% end %></td> 
+         </tr>
+         <% end %><!-- del for dia in @dias -->
+        </table>
+        <br/>
+      </div><!-- de lista-gestion -->
+      <% form_tag new_dia_path, :method=>:get do -%>
+         <%= submit_tag "Agregar dia", :class=>"botonindex" %>
+      <% end -%>
+    <!-- de recuadro -->
+</div><!-- de central -->
+

@@ -1,0 +1,9 @@
+class RemovePeticionToSolicitudrecursos < ActiveRecord::Migration
+  def self.up
+    remove_column :solicitudrecursos, :peticion
+  end
+
+  def self.down
+    add_column :solicitudrecursos, :peticion, :string
+  end
+end

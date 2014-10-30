@@ -1,0 +1,51 @@
+<% nsol=Solicitudlab.all.size %>
+<% nsolexa=Solicitudlabexa.all.size %>
+<% nasig=Asignacion.all.size %>
+<% nasigdef=Asignaciondef.all.size %>
+<% nasignacionexa=Asignacionlabexa.all.size %>
+<% nasignacionexadef=Asignacionlabexadef.all.size %>
+<% total=nsol+nsolexa+nasig+nasigdef+nasignacionexa+nasignacionexadef %>
+
+
+
+
+<% form_tag new_usuario_path, :method=>:get do -%>
+    <%= submit_tag "Nuevo usuario", :class=>"botonindexsearch" %>
+<% end -%>
+
+<% if @usuarios %>
+    <p>Usuarios : <%=@cuenta %></p>
+    <p><%= image_tag ("bg_separ.gif") %></p>
+    <% if @cuenta!=0 %>
+       <table>
+        <tr>
+          <th> </th>
+          <th class="cien">Identificador</th>
+          <th class="cien">Nombre</th>
+          <th class="cientocincuenta">Apellidos</th>
+          <th class="cientocincuenta">email</th>
+          <th class="cientocincuenta" >Despacho</th>
+          <th class="cien" >Tel&eacute;fono</th>
+          <th class="cincuenta">Admin.</th>
+        </tr>
+        <% @usuarios.each do |i| %>
+        <tr valign="top" class="<%=cycle('linea-impar','linea-par') %>">
+          <td class="icono"><%= link_to image_tag("Editar.png", :border=>0), edit_usuario_path(i.id) %></td> 
+          <td><%=h i.identificador %></td>
+          <td><%=h i.nombre %></td>
+          <td><%=h i.apellidos %></td>
+          <td><%=h i.email %></td>
+          <td style="text-align:center"><%=h i.despacho %></td>
+          <td style="text-align:center"><%=h i.telefono %></td>
+          <td style="text-align:center"><b><%=h "SI" unless !i.admin  %></b></td>
+          
+          <td class="icono">
+           
+            <%= link_to image_tag("borrar.png", :border=>0), i, 
+            :confirm => 'Seguro que desea eliminar a '+i.nombre+' '+i.apellidos+'?', :method => :delete  unless i.admin? %>
+           </td> 
+        </tr>
+        <% end %><!-- de @usuarios.each -->
+       </table>
+     <% end %><!-- de if @cuenta!=0 --> 
+<% end %><!-- de @usuarios -->

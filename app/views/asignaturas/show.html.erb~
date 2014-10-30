@@ -1,0 +1,29 @@
+<div id="titulo" >
+GESTION DE RECURSOS<br><br>
+&gt;Gestion de archivos: Editando asignatura
+</div>
+<div id="recuadro">
+
+<table>
+  <tr>
+    <th>Cód.</th>
+    <th>Nombre</th>
+    <th>Titulación</th>
+    <th>Curso</th>
+    <th>Coef.</th>
+    <th>Tipo</th>
+    <th>Cuatr.</th>
+  </tr>
+
+
+ <tr valign="top">
+    <td><%=h @asignatura.codigo_asig %></td>
+    <td><%=h @asignatura.nombre_asig %></td>
+    <td><%=h @asignatura.codigo_tit %></td>
+    <td><%=h @asignatura.curso %></td>
+    <td><%=h @asignatura.coeficiente_exp %></td> 
+    <td><%=h @asignatura.caracter %></td>
+    <td><%=h @asignatura.cuatrimestre %></td>
+  </tr>
+</table>
+</div>

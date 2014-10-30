@@ -1,0 +1,28 @@
+<div id="central" >
+    <p>GESTOR DE RECURSOS<br/>
+       <%= image_tag ("pointer.gif") %>Creando reserva de recurso
+    </p>
+    <div id="recuadro">
+       <p><%= image_tag ("bg_separ.gif") %></p>
+       <% @recursos=Recurso.find(:all,:order=>"identificador") %>
+       <% @recursos=@recursos.select {|x| x.disponible.to_s=="true"} %>
+       <% form_for @solicitudrecurso, :html=> {:name => "formulario"} do |s| %>
+       <table id="busqueda2">
+         <tr>
+          <td>Tipo de recurso *</td>
+          <td id="combo_descripcion"><%= select "tipo", "descripcion", @recursos.map {|r| [r.descripcion]}.uniq %></td>
+          <td>Fecha *</td>
+              <% hoy=Date.today.strftime("%d-%m-%Y") %>
+          <td><%= s.text_field :fechareserva, :size=>12,:value=>hoy ,:name=>"fecha", 
+                   :id=>"DPC_fechareserva_DD-MM-YYYY"%></td>
+          <td><%= link_to_remote(image_tag("boton2.png",:border=>0),
+                    :submit   => "busqueda2",
+                    :url      => { :controller=>'solicitudrecursousuarios',:action => 'buscar' })%></td>
+         </tr>
+       </table>
+       <p></p><p></p>
+       <div id="reservas">
+       </div> <!-- de reservas -->
+       <% end %>
+    </div><!-- de recuadro -->
+</div><!-- de central -->

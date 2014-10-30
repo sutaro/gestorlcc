@@ -1,0 +1,8 @@
+class RenameDiaAsignaexa < ActiveRecord::Migration
+  def self.up
+   rename_column :asignaexas, :dia_id, :dia
+  end
+
+  def self.down
+  end
+end

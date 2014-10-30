@@ -1,0 +1,92 @@
+<div id="central" >
+  <p>GESTOR DE RECURSOS<br/>
+     <%= image_tag ("pointer.gif") %>Par&aacute;metros del sistema: Edit&aacute;ndo Periodos
+  </p>
+
+  <div id="recuadro">
+   <p><%= image_tag ("bg_separ.gif") %></p>
+
+   <div id="recuadro-azul" style="height:275px">
+      <% form_for(@periodo) do |f| %>
+      <% session[:periodo]=@periodo.id %>
+       <dl>
+          <dt>Nombre *</dt>
+          <dd><%= f.text_field :nombre, :size =>25 %></dd>
+              <% inicio=fecha_europea(@periodo.inicio) %>
+              <% fin=fecha_europea(@periodo.fin) %>
+              <% iniperiodoact=@periodo.iniciosol.to_s.split('-') %>
+              <% finperiodoact=@periodo.finsol.to_s.split('-') %>
+              <% if @periodo.iniciosol.nil? %>
+                   <% iniciosol="" %>
+              <% else %>
+                   <% iniciosol=fecha_europea(@periodo.iniciosol) %>
+              <% end %>
+              <% if @periodo.finsol.nil? %>
+                   <% finsol="" %>
+              <% else %>
+                   <% finsol=fecha_europea(@periodo.finsol) %>
+              <% end %>
+          <dt>Inicio *</dt>
+          <dd><%= f.text_field :inicio, :size=>12, :name=>"inicio",  
+                  :id=>"DPC_inicio_DD-MM-YYYY", :value=>inicio %></dd>
+	  <dt>Fin *</dt>
+          <dd><%= f.text_field :fin, :size=>12, :name=>"fin",  
+                  :id=>"DPC_fin_DD-MM-YYYY", :value=>fin %></dd>
+          <dt>Tipo *</dt><% @tipoact=@periodo.tipo %>
+          <dd><%= select_tag "tipo", options_for_select(["Lectivo","Examenes","Festivo"],@tipoact) %></dd>
+              <%= observe_field "tipo",
+                  :frecuency => 1,
+                  :function =>"if (value!='Festivo') document.getElementById('opcional').style.visibility='visible'
+                              else if (value=='Festivo') document.getElementById('opcional').style.visibility='hidden'" %>
+              <% if @tipoact=="Festivo" %><!-- si festivo, lo siguiente no procede -->
+                <div style="visibility:hidden">
+              <% end %>
+               <div id="opcional" > 
+                 <dt>F.Inic. Solicitudes</dt>
+                 <dd><%= f.text_field :iniciosol, :size=>12, :name=>"iniciosol",  
+                     :id=>"DPC_iniciosol_DD-MM-YYYY", :value=>iniciosol %></dd>
+                 <dt>F.Final. Solicitudes</dt>
+                 <dd><%= f.text_field :finsol, :size=>12, :name=>"finsol",  
+                      :id=>"DPC_finsol_DD-MM-YYYY", :value=>finsol %></dd>
+                 <dt>Admisi&oacute;n</dt>
+                 <dd><%= f.check_box :admision,:size=>1 %>
+                     <%= observe_field 'periodo_admision', 
+                            :frequency => 1,
+                            :url =>{:controller => 'periodos', :action => 'cambia_admision'},
+                            :with => 'periodo_admision' %> 
+                            
+                            </dd>
+                 <dt>Asignado</dt>
+                 <dd><%= f.check_box :activo,:size=>1 %>
+                     <%= observe_field 'periodo_activo', 
+                            :frequency => 1,
+                            :url =>{:controller => 'periodos', :action => 'cambia_activo'},
+                            :with =>'periodo_activo' %> </dd>
+               </div>
+              <% if @tipoact=="Festivo" %>
+                </div>
+              <% end %>
+          <p><%= f.submit 'Guardar cambios', :class=>"boton" %></p>
+        </dl>
+      </div><!-- de recuadro-azul -->
+      <div id="admision">
+        
+      </div>
+      <div id="activo">
+  
+      </div>
+      <div id="errores">
+         <%= f.error_messages :header_message => 'Se produjeron errores en la captura de datos', 
+             :message => 'Imposible modificar el periodo debido a:'%>
+         <% if flash[:notice] %>
+                <div id="errorExplanation">
+                  <p>Imposible modificar periodo:</p>
+                  <ul><li><%=flash[:notice]%></li></ul>
+                </div>
+         <% end %>
+      </div>
+ 
+     <% end %><!-- de form_for -->
+
+  </div><!-- de recuadro -->
+</div><!-- de central -->

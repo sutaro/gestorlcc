@@ -1,0 +1,1 @@
+page.replace_html(:'reservas', :partial=>"/solicitudrecursos/recurso_reservado", :object=>@recs)

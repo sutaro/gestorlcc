@@ -1,0 +1,5 @@
+<% form_tag new_solicitudrecurso_path, :method=>:get do -%>
+     <%= submit_tag "Consulta/Reserva", :class=>"botonindexsearch" %>
+<% end -%>
+
+<span class="aviso" style="position:absolute;left:50px;top:100px;font-size:1.4em"><%=  "Todos los registros de reservas de recursos borrados,  total : "+@total.to_s %></span>

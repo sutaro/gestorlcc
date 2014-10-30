@@ -1,0 +1,72 @@
+
+<div id="titulo" >
+GESTI&Oacute;N DE RECURSOS<br><br>
+&gt;Editando solicitudes de recursos
+</div>
+<div id="recuadro">
+
+<table>
+  <tr>
+    <th>Tipo</th>
+    <th>Fecha inicio</th>
+    <th>Fecha fin</th>
+    <th>Titulación</th>
+    <th>Hora ini.</th>
+    <th>Hora fin</th>
+    <th>Dia semana</th>
+    <th>Fecha sol.</th>
+    <th>Motivos</th>
+  </tr>
+
+
+ <tr valign="top">
+    <td><%=h @solicitudrecursousuario.tipo %></td>
+    <td><%=h @solicitudrecursousuario.fechaini %></td>
+    <td><%=h @solicitudrecursousuario.fechafin %></td>
+    <td><%=h @solicitudrecursousuario.horaini %></td>
+    <td><%=h @solicitudrecursousuario.horafin %></td>
+    <td><%=h @solicitudrecursousuario.diasemana %></td> 
+    <td><%=h @solicitudrecursousuario.fechasol %></td>
+    <td><%=h @solicitudrecursousuario.motivos %></td>
+  </tr>
+</table>
+</div>
+
+
+
+<p>
+  <b>Fechaini:</b>
+  <%=h @solicitudrecursousuario.fechaini %>
+</p>
+
+<p>
+  <b>Fechafin:</b>
+  <%=h @solicitudrecursousuario.fechafin %>
+</p>
+
+<p>
+  <b>Horaini:</b>
+  <%=h @solicitudrecursousuario.horaini %>
+</p>
+
+<p>
+  <b>Horafin:</b>
+  <%=h @solicitudrecursousuario.horafin %>
+</p>
+
+<p>
+  <b>Diasemana:</b>
+  <%=h @solicitudrecursousuario.diasemana %>
+</p>
+
+<p>
+  <b>Fechasol:</b>
+  <%=h @solicitudrecursousuario.fechasol %>
+</p>
+
+<p>
+  <b>Motivos:</b>
+  <%=h @solicitudrecursousuario.motivos %>
+</p>
+
+

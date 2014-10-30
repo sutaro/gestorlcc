@@ -1,0 +1,9 @@
+class RemoveFechafinToSolicitudrecursos < ActiveRecord::Migration
+  def self.up
+     remove_column :solicitudrecursos, :fechafin
+  end
+
+  def self.down
+     add_column :solicitudrecursos, :fechafin, :date
+  end
+end

@@ -1,0 +1,42 @@
+<% form_tag new_solicitudrecursousuario_path, :method=>:get do -%>
+        <%= submit_tag "Consulta/reserva", :class=>"botonindexsearch" %>
+<% end -%>
+
+<% if @solicitudrecursos %>
+   <p>Reservas : <%=@cuenta %></p>
+   <p><%= image_tag ("bg_separ.gif") %></p>
+   <% if @cuenta>0 %>
+    <table>
+     <tr>
+       <th> </th>
+       <th class="cien">Fecha reserva</th>  
+       <th class="doscientoscincuenta">Recurso</th>
+       <th class="cien">Dia reservado</th>
+       <th class="cientocincuenta">Tramo horario</th>
+       <th class="doscientos">Motivos</th>
+       <th class="doscientoscincuenta">Aviso</th>
+     </tr>
+     <% @solicitudrecursos.each do |i| %>
+     <tr valign="top" class="<%=cycle('linea-impar','linea-par') %>">
+       <td class="icono">
+           <% if i.fechareserva>=Date.today %>
+                <%= link_to image_tag("Editar.png", :border=>0),  edit_solicitudrecursousuario_path(i) %>
+           <% end %></td> 
+       <td><%= i.fechasol.strftime("%d-%m-%Y")  %></td>  
+       <td><% familia=Recurso.find_by_identificador(i.tipo) %>
+           <%=h familia.descripcion+" : "+i.tipo %></td>
+       <td><%= i.fechareserva.strftime("%d-%m-%Y")  %></td>
+       <td style="text-align:center"><%= i.horaini+"-"+i.horafin %></td>
+       <td><%=h i.motivos %></td>
+       <td><%=h familia.aviso %></td>
+       <td class="icono">
+           <% if i.fechareserva>=Date.today %>
+                <%= link_to image_tag("borrar.png", :border=>0), solicitudrecursousuario_path(i), 
+                             :confirm => 'Seguro que desea eliminar la reserva?', :method => :delete %>
+           <% end %></td> 
+     </tr>
+     <% end %><!-- de @solicitudrecursos.each -->
+    </table>
+   <% end %><!-- de if @cuenta!=0 --> 
+<% end %><!-- de @solicitudrecursos -->
+

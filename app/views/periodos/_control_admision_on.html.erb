@@ -1,0 +1,12 @@
+<p>Si activa el periodo de admisi&oacute;n se recomienda:</p>
+<table class="aviso" style="text-align:left">
+  
+  <tr>
+    <td class="doscientoscincuenta" style="font-size:0.5cm">Enviar correo de apertura a usuarios</td>
+    <td><%= link_to_remote image_tag("boton2.png", :border=>0,:align=>"left"), 
+                                :url=>{ :controller=>'periodos',:action => 'enviar_correo_lectivo_on' },
+                                :confirm  => "Se enviara un correo a todos los usuarios de la base, en el que se anunciara la apertura del periodo de admision de solicitudes"%></td>
+  </tr>
+</table>
+<p style="font-size:2em;"><%=  @mensaje %></p>
+  

@@ -1,0 +1,216 @@
+class SolicitudrecursosController < ApplicationController
+  # GET /solicitudrecursos
+  # GET /solicitudrecursos.xml
+  protect_from_forgery :only=>[:create,:update,:destroy]
+
+  before_filter :login_requerido, :admin?
+
+
+  def index
+    @solicitudrecursos = Solicitudrecurso.all
+    @cuenta = @solicitudrecursos.size
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @solicitudrecursos }
+    end
+  end
+
+  # GET /solicitudrecursos/new
+  # GET /solicitudrecursos/new.xml
+
+  def new  # modificacion para transacciones
+    @solicitudrecurso = Solicitudrecurso.new  
+
+    #cargo los usuarios y los diferentes recursos
+    @usuarios=Usuario.find(:all,:order=>"apellidos").reject{|u| u.identificador=="anonimo"} 
+    
+    
+    #identifico los tipos distintos de recurso
+    @tipos = Recurso.find(:all).map{ |i| i.descripcion }.uniq
+    
+    # cargo los dias y horas posibles para los select
+    @dias=Dia.find(:all,:conditions=>['en_uso = ?',"t"])
+    @horas=Horario.find(:all,:conditions=>['en_uso = ?',"t"])
+
+    #obtengo y formateo la fecha actual 
+    @dia=@solicitudrecurso.fechareserva=formato_europeo(Date.today)
+
+    # esto es para crear un carro no persistente  
+    session[:tramos_horarios]=Solicitudhoraria.new
+    # y una identificacion de tramos horarios para poder borrarlos individualmente. Se ira decrementando
+    session[:codigo_tramo]=0
+    
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @solicitudrecurso }
+    end
+  end
+
+  # GET /solicitudrecursos/1/edit
+  def edit
+    @solicitudrecurso = Solicitudrecurso.find(params[:id])
+    @usuarios=Usuario.find(:all,:order=>"apellidos").reject{|u| u.identificador=="anonimo"}
+    usuario=Usuario.find(@solicitudrecurso.usuario_id)
+    @usuarioselec=usuario.apellidos+", "+usuario.nombre 
+    @dia=Date.today.strftime("%d-%m-%Y")   
+    @nfechareserva=@solicitudrecurso.fechareserva.strftime("%d-%m-%Y")
+ 
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @solicitudrecurso }
+    end
+    
+  end
+
+  # POST /solicitudrecursos
+  # POST /solicitudrecursos.xml
+
+
+  def create
+    @solicitudrecurso = Solicitudrecurso.new
+    @solicitudrecurso.tipo=params[:tipo]
+    @solicitudrecurso.fechasol=Date.today
+    @solicitudrecurso.horaini=params[:horai]
+    @solicitudrecurso.horafin=params[:horaf]
+    @solicitudrecurso.fechareserva=session[:fechares]
+    @solicitudrecurso.usuario_id=session[:user_id]
+    @solicitudrecurso.motivos=params[:motivos]
+    nombrecomp = params[:usuario][:identificador].to_s.split(', ')
+    @solicitudrecurso.usuario_id = Usuario.find(:first, :conditions => 
+     ["nombre = :nombre and apellidos = :apellidos", {:nombre => nombrecomp[1], :apellidos => nombrecomp[0]}]).id
+    
+       
+      if @solicitudrecurso.save
+        familia=Recurso.find_by_identificador(@solicitudrecurso.tipo).descripcion
+        @recs=Recurso.find(:all, :conditions => ['descripcion = ? and disponible = ?',familia,"t"])
+        @ids=@recs.map {|r| r.identificador}
+        #session[:fechares]=params[:fecha]
+        dia=formato_europeo(session[:fechares])
+        #alreves=session[:fechares].to_s.split('-')
+        #dia=alreves[2]+"-"+alreves[1]+"-"+alreves[0]
+        @reservas = Solicitudrecurso.find(:all, :conditions => ['tipo in (?) and fechareserva = ?', @ids,dia])
+
+        render :update do |page|
+          page.replace_html(:'reservas', :partial=>"/solicitudrecursos/recurso_reservado", :object=>@reservas)
+        end
+      end
+    
+
+  end
+
+
+  # PUT /solicitudrecursos/1
+  # PUT /solicitudrecursos/1.xml
+  def update
+    @solicitudrecurso = Solicitudrecurso.find(params[:id])
+    
+
+    respond_to do |format|
+
+# UN DRYYY!!!!!
+    if params[:fechareserva]=~ /[0-3]?[0-9]\-[0-1]?[0-9]\-[0-9]{4}/
+      nfechareserva=formato_europeo(params[:fechareserva])
+      #fecha=params[:fechareserva].to_s.split('-')
+      #nfechareserva=fecha[2]+"-"+fecha[1]+"-"+fecha[0]
+    end
+    
+    
+      nombrecomp = params[:usuario][:identificador].to_s.split(', ')
+      if @solicitudrecurso.update_attributes(
+                                             :usuario_id => Usuario.find(:first, :conditions => 
+     ["nombre = :nombre and apellidos = :apellidos", {:nombre => nombrecomp[1], :apellidos => nombrecomp[0]}]).id,
+                                             :motivos => params[:motivos])
+               
+        @solicitudrecursos = Solicitudrecurso.all
+        format.html { redirect_to :action => "index" }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @solicitudrecurso.errors, :status => :unprocessable_entity }
+      end
+    
+    end
+  end
+
+  # DELETE /solicitudrecursos/1
+  # DELETE /solicitudrecursos/1.xml
+  def destroy
+    @solicitudrecurso = Solicitudrecurso.find(params[:id])
+    @solicitudrecurso.destroy
+    @tramos=Peticion.find_all_by_solicitudrecurso_id(@solicitudrecurso.id) # busco todos los tramos que tenian el id
+    @tramos.each {|tramo| tramo.destroy} # los elimino en cascada
+
+    respond_to do |format|
+      format.html { redirect_to(solicitudrecursos_url) }
+      format.xml  { head :ok }
+    end
+  end
+
+  def borrar_reservas
+    solicitudes=Solicitudrecurso.all
+    @total=0
+    solicitudes.each{|s| s.destroy
+                         @total+=1}
+    render :update do |page|
+          page.replace_html(:'tabla', :partial=>"reservas_borradas", :object=>@total)
+  end
+  end
+
+  def borra
+    @solicitudrecurso = Solicitudrecurso.find(params[:reserva])
+    @solicitudrecurso.destroy
+    familia=Recurso.find_by_identificador(@solicitudrecurso.tipo).descripcion
+    @recs=Recurso.find(:all, :conditions => ['descripcion = ? and disponible = ?',familia,"t"])
+    @ids=@recs.map {|r| r.identificador}
+    dia=formato_europeo(session[:fechares])
+    @reservas = Solicitudrecurso.find(:all, :conditions => ['tipo in (?) and fechareserva = ?', @ids,dia])
+
+    render :update do |page|
+      page.replace_html(:'reservas', :partial=>"/solicitudrecursos/recurso_reservado", :object=>@reservas)
+    end
+  end
+
+  def listar
+    cadena=params[:query]
+    if cadena=~/\d{2}\-\d{2}\-(\d{4})/
+        cadena=cadena.split('-')[2]+'-'+cadena.split('-')[1]+'-'+cadena.split('-')[0]
+    else
+        if cadena=~/\d{2}\-\d{2}/ || cadena=~/\d{2}\-\d{4}/
+           cadena=cadena.split('-')[1]+'-'+cadena.split('-')[0]
+        else
+           if cadena=~/\d{2}\-/
+               cadena='-'+cadena.split('-')[0]
+           end
+        end
+    end
+
+    cadena=(cadena.nil?)? "%" : "%#{cadena}%"
+
+    @recs=Recurso.find(:all,:conditions=> ["descripcion || identificador LIKE ?", cadena])
+    recs=@recs.map {|r| r.identificador}
+    @usuarios=Usuario.find(:all,:conditions=> ["nombre || apellidos LIKE ?",cadena])
+    codigos_u=@usuarios.map { |t| t.id}
+    @tramos=Peticion.find(:all,:conditions=> ["diasemana || horaini || horafin LIKE ?",cadena])
+    codigos_t=@tramos.map { |t| t.solicitudrecurso_id}
+    @solicitudrecursos=Solicitudrecurso.find(:all,:conditions=> ["fechareserva ||  fechasol LIKE ? or usuario_id in (?) or id in (?) or tipo in (?)",cadena,codigos_u,codigos_t,recs])
+    @cuenta=@solicitudrecursos.size
+    #respond_to {|format| format.js }
+  end
+
+  def buscar
+    dia=params[:fecha].to_date
+    if dia.wday!=0 and dia>=Date.today # no comprueba si el dia es posterior a hoy o no es domingo
+     @recs=Recurso.find(:all, :conditions => ['descripcion = ? and disponible = ?',params[:tipo][:descripcion],"t"])
+     @ids=@recs.map {|r| r.identificador}
+     session[:fechares]=params[:fecha]
+     dia=formato_europeo(params[:fecha])
+     #alreves=params[:fecha].to_s.split('-')
+     #dia=alreves[2]+"-"+alreves[1]+"-"+alreves[0]
+     @reservas = Solicitudrecurso.find(:all, :conditions => ['tipo in (?) and fechareserva = ?', @ids,dia])
+    else
+     @festivo=1
+    end
+  end
+end

@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  diasemana: MyText
+  horaini: MyText
+  horafin: MyText
+
+two:
+  diasemana: MyText
+  horaini: MyText
+  horafin: MyText

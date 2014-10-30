@@ -1,0 +1,17 @@
+class InsertarAnonimo < ActiveRecord::Migration
+  def self.up
+    usuario=Usuario.new(:identificador=>"anonimo",
+                      :password=>"ac037c61854d527f164f8e9d23df1918",
+                      :password_confirmation=>"ac037c61854d527f164f8e9d23df1918",
+                      :nombre=>"anónimo",
+                      :apellidos=>"anónimo",
+                      :email=>"anonimo@anonimo.es",
+                      :admin=>"false",
+                      :despacho=>"",
+                      :telefono=>"" )
+    usuario.save!
+  end
+
+  def self.down
+  end
+end

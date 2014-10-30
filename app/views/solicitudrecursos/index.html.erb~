@@ -1,0 +1,34 @@
+<div id="central" >
+    <p>GESTOR DE RECURSOS<br/>
+       <%= image_tag ("pointer.gif") %>Gesti&oacute;n de archivos: Reservas de recursos
+    </p>
+    <div id="recuadro">
+       <div id="lista-gestion">
+          <p><%= image_tag ("bg_separ.gif") %></p>
+          <div id="busqueda">
+            <table>
+             <tr>
+               <td><%= image_tag("search.png") %></td> 
+               <td>Buscar  : 
+               <td><%= text_field_tag "query" %>           
+                   <%= observe_field 'query',  
+                           :frequency => 1,         
+                           :with => 'query',
+                           :url => {:controller => 'solicitudrecursos',:action => 'listar'} %>      
+              </tr>
+            </table>
+         </div>
+    <% if @cuenta>0 %>
+        <table style="margin-left:600px">
+          <tr>
+            <td style="font-size:1.2em;color:blue;">Limpiar<br/> reservas</td>
+            <td><%= link_to_remote(image_tag("limpiar.jpeg",:border=>0,:width=>32,:height=>32),
+                         :url      => { :controller=>'solicitudrecursos',:action => 'borrar_reservas' },
+                         :confirm  => "Esto eliminara todo el registro de reservas. Esta seguro?")%></td>
+          </tr>
+        </table>
+    <% end %>    
+          <div id="tabla"><%= render :partial => "items_lista" %></div> 
+        </div><!-- de lista-gestion -->
+     </div><!-- de recuadro -->
+</div><!-- de central -->

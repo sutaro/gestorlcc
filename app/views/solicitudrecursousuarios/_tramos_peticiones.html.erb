@@ -1,0 +1,39 @@
+
+<!-- OBTENGO LOS TRAMOS QUE HAY QUE VISUALIZAR , 0 EN PRINCIPIO-->
+
+<% @tramos=session[:tramos_horarios].solicitudes %> 
+<table id="tramos">
+  <% if @tramos.empty? %>
+    <tr><td><%= h "No hay tramos horarios" %></td></tr>
+  <% else %>
+    <%=render(:partial => "/solicitudrecursos/muestra_tramo", :collection=> @tramos) %> <!-- MUESTRO TRAMOS SI LOS HAY -->
+  <% end %>
+</table>
+
+<!-- INCLUYO FALSO FORMULARIO DE CAPTACION PARA UN NUEVO TRAMO Y LO MANDO A LA ACCION DE ANADIR A CARRO -->
+
+<div id="subformulario">
+
+ 
+<table>
+  <tr>
+    <th>Dia semana</th>
+    <th>Hora inicio </th>
+    <th>Hora fin </th>
+  </tr>
+
+
+ <tr valign="top" >
+  
+    <td><%= select_tag "diasemana", options_for_select(["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"]) %>
+    <td><%= select_tag "horaini", options_for_select(["8:45","9:45","10:45","11:45","12:45","13:45","14:45","15:15","16:15","17:15","18:15","19:15","20:15"]) %></td>
+    <td><%= select_tag "horafin", options_for_select(["9:45","10:45","11:45","12:45","13:45","14:45","15:15","16:15","17:15","18:15","19:15","20:15","21:45"]) %></td>
+
+<!-- PARECE QUE DA PROBLEMA EL LINK_TO_REMOTE PARECE QUE SE QUEDA EN EL CONTROLLER DE SOLICITUDRECURSO-->
+<td>
+<%= link_to_remote(image_tag("mas.jpg",:border=>0),
+	
+       :submit   => "subformulario",
+       :url      => { :controller=>:solicitar,:action => 'anadir' }) %>
+
+</td></tr></table>
